@@ -1,0 +1,89 @@
+Nella teoria musicale, i GRADI della scala indicano la posizione delle note rispetto alla fondamentale (la tonica).
+Cioè il 1° Grado da cui parte la scala, in numeri romani I.
+
+In una scala di 7 note, i gradi si contano con i numeri romani e prendono nomi specifici che ne definiscono il ruolo:
+
+I Grado: TONICA – Dà il NOME alla scala e alla tonalità. È il centro di gravità, la nota di riposo.
+	II Grado: SopraTONICA – Si trova 1 Tono sopra la tonica.
+III Grado: Mediante (o MODALE) – Determina il MODO della scala, stabilendo se è Maggiore o minore.
+	IV Grado: SottoDOMINANTE – Si trova immediatamente sotto la dominante.
+V Grado: DOMINANTE – È il grado più importante dopo la tonica; crea tensione e attira la risoluzione.
+	VI Grado: SopraDOMINANTE – Si trova un gradino sopra la dominante.
+	VII Grado: Sensibile (o SottoTONICA)
+ 
+Armonizzazzione della scala di Do maggiore (e relativa La minore)
+I  II   III   IV  V    VI    VII
+C  Dm  Em   F  G   Am   Bdim
+
+Armonizzazzione della relativa scala minore ARMONICA di Do maggiore (La minore)
+I  II   III   IV  V    VI    VII
+Am Bdim Caug  Dm   E  F   G#aug
+
+Armonizzazzione della relativa scala minore MELODICA Ascendente di Do maggiore (La minore)
+I  II   III   IV  V    VI    VII
+Am Bm  Caug  D   E  F#dim   G#dim
+
+
+Giro Armonico classico   I - VI - II - V     (I= TONICA; VI= SopraDOMINANTE; II= SopraTONICA; V= DOMINANTE.)
+                         C  Am  Dm  G
+                         Am  F  Dm  E
+
+                         con 4 suoni (tetracordo)
+                         Cmaj7 Am7   Dm7  G7
+                         Am7   Fmaj7 Dm7  E7
+                         
+Variante Pop             I - VI - IV - V   sostituendo la II con la IV  - (I= TONICA; VI= SopraDOMINANTE; IV= SottoDOMINANTE; V= DOMINANTE.)      
+                         C  Am   F  G
+                         A   F  Bdim  E
+                         con 4 suoni (tetracordo)
+                         Am7   Fmaj7  Bdim7  E7
+
+Giro Armonico per gradi CONGIUNTI ASCENDENTI
+                         I  - V      I - IV      V - IV      V - I
+                         C   G/D    C/E  F    G   F/A    G/B   C
+                         Am  Em/B   Am/C  Dm  Em7  Dm7/F  E7/G#  Am
+                              E/B              E7  D7/F#
+
+Giro Armonico per gradi CONGIUNTI DISCENDENTI
+                         I  - V       VI - I       IV - I      V - I
+                         C   G/B    Am  C/G    F  C/E    G/D   C
+                         Am Em7/G   Fmaj7  Cmaj7/E  Dm7  Am7/C   E7/B  Am
+
+Giro Armonico per Salti di QUARTA
+                         I  - IV     VII - III    VI - II      V - I
+                         C    F    Bdim  Em    Am  Dm    G   C
+                         Am   Dm    G    C     F  Bdim   E  Am
+
+Giro Armonico per Salti di QUARTA con SETTIME
+                         I  - IV            VII - III         VI - II        V - I
+                         Cmaj7  Fmaj7    Bdim7  Em7    Am7  Dm7    G7   C
+                         Am7   Dm7    G7    Cmaj7     Fmaj7  Bdim7   E7  Am
+
+Giro Armonico per Salti di QUINTA e SECONDA
+                         I  - V     VI - III     IV - I    II -  V
+                         C  G      Am  Em      F  C    Dm   G
+                         Am Em     F    C    Dm  Am   Bdim  E
+
+Giro Armonico per Salti di QUINTA e SECONDA con SETTIME
+                         I  - V     VI - III     IV - I    II -  V
+                         Cmaj7  G7      Am7  Em7      Fmaj7  Cmaj7    Dm7   G7
+                         Am7   Em7     Fmaj7  Cmaj7    Dm7    Am7    Bdim7  E7
+
+
+Giro Armonico per grado CONGIUNTO DISCENDENTE, creando CADENZE Perfette
+                         I  - III            VI - I         IV - VI          II - V
+                         Cmaj7   E7/B    Am  C7/G    Fmaj7  A7/E    Dm    G7
+                         Am7     C7/G   Fmaj7  A7/E   Dm    Am/C    E7/B  Am
+
+
+Armonizzazzione della scala di Do maggiore CROMATICA ASCENDENTE
+I           II             III   IV             V             VI             VII  - I
+C  A7/C#  Dm   B7/D#  Em  Fmaj7 D7/F#  G7  E7/G#  Am  Bbmaj7  G7/B   C
+Am  Bbmaj7  E7/B  Am/C   A7/C#  Dm  B7/D#  Em   Fmaj7 D7/F#   G   E7/G#   Am
+                                           E
+
+Armonizzazzione della scala di Do maggiore CROMATICA DISCENDENTE
+I   VII               VI                V               IV    III              II           - I
+C   G/B  Edim7/Bb  A7  Ddim7/Ab  C/G   D7/F#  Fmaj7 C/E  Adim/Eb   D7   Dbmaj7  C
+Am  E7/G#  Cmaj7/G  D7/F#   Dm7/F    Cmaj7/E  B7/D#  E7/D   A/C# Am/C   E7/B  Bbmaj7   Am
+              C7/G        Ddim7/F                                              Bb7
