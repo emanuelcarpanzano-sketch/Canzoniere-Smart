@@ -14,7 +14,286 @@ Modifichiamo l'HTML principale per includere:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canzoniere Smart</title>
-    <link rel="stylesheet" href="CanzoniereSmart.css">
+ <!--    <link rel="stylesheet" href="CanzoniereSmart.css">    se non funziona il link -->
+ <style>
+/* =========================================================================
+   STILE GENERALE E BASE
+   ========================================================================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+}
+
+/* =========================================================================
+   SCHERMATA INIZIALE: CONTENITORE RICERCA ULTRASNELLO
+   ========================================================================= */
+.menu-container {
+    max-width: 600px;
+    margin: 60px auto;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    position: relative;
+}
+
+.menu-container h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #007bff;
+    font-size: 32px;
+}
+
+.menu-group {
+    margin-bottom: 10px;
+    text-align: left;
+    position: relative;
+}
+
+.menu-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 18px;
+}
+
+/* La Casella di Inserimento Testo */
+.search-box-container input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    outline: none;
+    transition: box-shadow 0.2s ease;
+}
+
+.search-box-container input[type="text"]:focus {
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* =========================================================================
+   LISTA RISULTATI DELLA RICERCA RAPIDA (A SCOMPARSA)
+   ========================================================================= */
+.search-results-list {
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1050;
+}
+
+/* Elemento singolo trovato */
+.search-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 18px;
+    transition: background-color 0.15s ease;
+}
+
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item:hover {
+    background-color: #f1f1f1;
+    color: #007bff;
+}
+
+.search-item small {
+    color: #666;
+    margin-left: 8px;
+    font-weight: normal;
+}
+
+.search-no-result {
+    padding: 15px;
+    color: #999;
+    font-style: italic;
+    font-size: 16px;
+}
+
+/* =========================================================================
+   SCHERMATA VISUALIZZAZIONE CANZONE E PANNELLO COMANDI
+   ========================================================================= */
+.controls {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    z-index: 1000;
+    width: 160px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 12px;
+    margin: 3px 0;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #f8f9fa;
+    width: 100%;
+    font-size: 14px;
+}
+
+button:active {
+    background: #e2e6ea;
+}
+
+.btn-menu {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-bottom: 5px;
+}
+
+.btn-menu:hover {
+    background-color: #0056b3;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 10px 0;
+}
+
+.controls label {
+    display: inline-block;
+    margin: 5px 8px 5px 0;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* Indicatore dei semitoni trasposti */
+#info-tonalita {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+/* =========================================================================
+   AREA DEL BRANO (VERSIONE COMFORT - ALTA LEGGIBILITÀ)
+   ========================================================================= */
+#song-title-container {
+    font-size: 34px; /* Un po' più grande */
+    color: #1a4f8a; /* Un blu notte più scuro e leggibile rispetto al blu elettrico */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #dcd6cd; /* Linea di divisione più morbida */
+    padding-bottom: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    max-width: calc(100% - 180px);
+}
+
+#song-title {
+    font-weight: bold; /* Titolo ben marcato */
+}
+
+#song-author {
+    font-size: 22px;
+    font-weight: normal;
+    font-style: italic;
+    color: #5d564d; /* Grigio seppia caldo */
+}
+
+/* Il foglio di testo (Sfondo Pergamena/Avorio rilassante) */
+/* Il foglio di testo (Versione Compatta per stringhe lunghe) */
+pre {
+    /* Usa font monospazio moderni e più stretti di default (es. Monaco, Consolas o il font di sistema) */
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 21px; 
+    font-weight: 600; 
+    
+    /* Interlinea calibrata: abbastanza spaziosa ma compatta per evitare dispersioni */
+    line-height: 1.5; 
+    
+    /* TRUCCO TRIDIMENSIONALE: Stringe i caratteri in larghezza del 5%, guadagnando spazio prezioso sulle righe lunghe */
+    letter-spacing: -0.5px; 
+    
+    background-color: #f7f2ea; 
+    color: #2b261f; 
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.04);
+    white-space: pre-wrap;
+    margin-top: 20px;
+    max-width: calc(100% - 180px);
+    box-sizing: border-box;
+}
+
+/* Gli accordi evidenziati ad alto contrasto */
+.chord {
+    color: #b71c1c; /* Un rosso cremisi/scuro molto profondo, spicca di più sull'avorio rispetto al rosso acceso */
+    font-weight: bold;
+    text-shadow: 0.3px 0 0 #b71c1c; /* Un piccolissimo trucco d'ombra per raddoppiare l'effetto stampato dell'accordo */
+}
+
+/* =========================================================================
+   ZONA DI SELEZIONE FILE IN MODALITÀ OFFLINE
+   ========================================================================= */
+.offline-picker {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-width: calc(100% - 180px);
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.offline-picker input[type="file"] {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Stili per il pannello di auto-scorrimento */
+.scroll-speed-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.scroll-speed-controls button {
+    flex: 1; /* Divide lo spazio in parti uguali per i due tasti */
+    padding: 6px;
+    font-size: 12px;
+    background: #e9ecef;
+}
+
+#info-velocita {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #666;
+    margin-top: 6px;
+}
+</style>
 </head>
 <body>
 
