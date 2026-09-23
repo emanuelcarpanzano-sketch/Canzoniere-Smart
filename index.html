@@ -1,0 +1,76 @@
+<!-- è possibile risalire alla cronologia di safari di più di 15 giorni? -->
+
+<!-- 
+Il file HTML Aggiornato: CanzoniereSmart.html
+Modifichiamo l'HTML principale per includere:
+1. La schermata iniziale del Menu (che si può mostrare/nascondere).
+2. Il collegamento al file del catalogo.
+3. Un pulsante "Torna al Menu" nella barra degli strumenti. 
+-->
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canzoniere Smart</title>
+    <link rel="stylesheet" href="CanzoniereSmart.css">
+</head>
+<body>
+
+    <!-- ================= SCHERMATA INIZIALE: SOLO RICERCA ================= -->
+    <div id="menu-screen" class="menu-container">
+        <h1>Canzoniere Smart</h1>
+        <h2>di Emanuele Carpanzano</h2>
+        
+        <div class="menu-group search-box-container">
+            <label for="search-input">🔍 Cerca Canzone o Autore:</label>
+            <input type="text" id="search-input" placeholder="Digita il titolo o l'autore..." oninput="ricercaRapida()">
+            <div id="search-results" class="search-results-list" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- ================= SCHERMATA VISUALIZZAZIONE CANZONE ================= -->
+    <div id="song-screen" style="display: none;">
+	    <div class="controls">
+	        <button onclick="tornaAlMenu()" class="btn-menu">⬅ Torna al Menu</button>
+	        <hr>
+	        <button onclick="transpose(-1)">-1 Semitono</button>
+	        <button onclick="transpose(1)">+1 Semitono</button>
+	        <br><br>
+	        <label><input type="radio" name="notation" id="radio-it" value="IT" checked onclick="changeNotation('IT')"> ITA</label>
+	        <label><input type="radio" name="notation" value="EN" id="radio-en" onclick="changeNotation('EN')"> ENG</label>
+	        <div id="info-tonalita">Tonalità: Originale</div>
+        
+	        <!-- NUOVO: SEZIONE CONTROLLO SCORRIMENTO AUTOMATICO -->
+	        <div id="scroll-panel">
+	            <hr>
+	            <button id="btn-scroll" onclick="toggleScroll()">▶ Auto-Scroll</button>
+	            <div class="scroll-speed-controls">
+	                <button onclick="changeScrollSpeed(-5)" title="Più lento">Slower</button>
+	                <button onclick="changeScrollSpeed(5)" title="Più veloce">Faster</button>
+	            </div>
+	            <div id="info-velocita">Velocità: 1x</div>
+ 	       </div>
+    	</div>
+
+
+        <div id="offline-zone" class="offline-picker">
+            <strong>Modalità Offline locale:</strong><br>
+            Seleziona il file <span id="target-filename" style="color:#d32f2f; font-weight:bold;"></span> dentro la cartella CatalogoTxT:<br><br>
+            <input type="file" id="file-selector" accept=".txt">
+        </div>
+
+        <h2 id="song-title-container">
+            <span id="song-title"></span>
+            <span id="song-author"></span>
+        </h2>
+
+        <pre id="song-content">Caricamento in corso...</pre>
+    </div>
+
+    <script src="CanzoniereCatalogo.js"></script>
+    <script src="transposer.js"></script>
+    <script src="CanzoniereSmart.js"></script>
+</body>
+</html>
