@@ -286,10 +286,12 @@ function changeScrollSpeed(delta) {
     }
 }
 
-// INTEGRAZIONE DI SICUREZZA: Reset dello scorrimento se si torna al menu
-// Cerca la tua vecchia funzione tornaAlMenu() in CanzoniereSmart.js e aggiungi queste righe dentro:
-const vecchiaFunzioneTornaAlMenu = tornaAlMenu;
-tornaAlMenu = function() {
+/**
+ * Nasconde il foglio della canzone e riproietta l'utente sul motore di ricerca iniziale
+ * ORA INTEGRA ANCHE IL RESET DELLO SCORRIMENTO AUTOMATICO
+ */
+function tornaAlMenu() {
+    // NUOVO: Ferma lo scorrimento automatico se era in corso
     if (isScrolling) {
         toggleScroll(); // Disattiva lo scorrimento prima di uscire
     }
@@ -298,5 +300,12 @@ tornaAlMenu = function() {
     const infoVel = document.getElementById('info-velocita');
     if (infoVel) infoVel.innerText = "Velocità: 1x";
     
-    vecchiaFunzioneTornaAlMenu(); // Lancia il vecchio comportamento di ritorno
-};
+    // Ripristina la visualizzazione del menu
+    document.getElementById('song-screen').style.display = "none";
+    document.getElementById('menu-screen').style.display = "block";
+    const input = document.getElementById('search-input');
+    if(input) {
+        input.value = "";
+        input.focus();
+    }
+}
