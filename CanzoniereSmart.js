@@ -1,7 +1,6 @@
 /**
  * CANZONIERE SMART - FILE DI GESTIONE INTERFACCIA E LOGICA DI NAVIGAZIONE
  * 
- *
  * Filosofia: "Divide et Impera". Questo file si occupa esclusivamente di:
  * 1. Gestire la barra di ricerca rapida testuale e i suoi risultati.
  * 2. Mostrare/Nascondere le schermate del leggio digitale.
@@ -105,6 +104,19 @@ function apriCanzone(titolo, autore) {
     
     // Avvia la richiesta di caricamento file (Il titolo coincide con il nomefile.txt)
     loadSong(`${titolo}.txt`);
+}
+
+/**
+ * Nasconde il foglio della canzone e riproietta l'utente sul motore di ricerca iniziale
+ */
+function tornaAlMenu() {
+    document.getElementById('song-screen').style.display = "none";
+    document.getElementById('menu-screen').style.display = "block";
+    const input = document.getElementById('search-input');
+    if(input) {
+        input.value = "";
+        input.focus(); // Riattiva il cursore sulla barra per una nuova digitazione rapida
+    }
 }
 
 // =========================================================================
@@ -218,18 +230,22 @@ function toggleScroll() {
     if (!btn) return;
 
     if (isScrolling) {
+        // Se sta scorrendo, ferma il timer
         clearInterval(scrollInterval);
         scrollInterval = null;
         isScrolling = false;
         btn.innerText = "▶ Auto-Scroll";
-        btn.classList.remove('active');
+        btn.style.backgroundColor = ""; // Ripristina colore default
+        btn.style.color = "";
     } else {
+        // Se è fermo, avvia lo scorrimento continuo della finestra
         isScrolling = true;
         btn.innerText = "⏸ Pausa";
-        btn.classList.add('active');
-
+        btn.style.backgroundColor = "#28a745"; // Diventa verde per indicare che è attivo
+        btn.style.color = "white";
+        
         scrollInterval = setInterval(() => {
-            window.scrollBy(0, 1);
+            window.scrollBy(0, 1); // Sposta la finestra in basso di 1 pixel ad ogni intervallo
         }, scrollIntervalTime);
     }
 }
@@ -270,12 +286,10 @@ function changeScrollSpeed(delta) {
     }
 }
 
-/**
- * Nasconde il foglio della canzone e riproietta l'utente sul motore di ricerca iniziale
- * ORA INTEGRA ANCHE IL RESET DELLO SCORRIMENTO AUTOMATICO
- */
-function tornaAlMenu() {
-    // NUOVO: Ferma lo scorrimento automatico se era in corso
+// INTEGRAZIONE DI SICUREZZA: Reset dello scorrimento se si torna al menu
+// Cerca la tua vecchia funzione tornaAlMenu() in CanzoniereSmart.js e aggiungi queste righe dentro:
+const vecchiaFunzioneTornaAlMenu = tornaAlMenu;
+tornaAlMenu = function() {
     if (isScrolling) {
         toggleScroll(); // Disattiva lo scorrimento prima di uscire
     }
@@ -284,12 +298,5 @@ function tornaAlMenu() {
     const infoVel = document.getElementById('info-velocita');
     if (infoVel) infoVel.innerText = "Velocità: 1x";
     
-    // Ripristina la visualizzazione del menu
-    document.getElementById('song-screen').style.display = "none";
-    document.getElementById('menu-screen').style.display = "block";
-    const input = document.getElementById('search-input');
-    if(input) {
-        input.value = "";
-        input.focus();
-    }
-}
+    vecchiaFunzioneTornaAlMenu(); // Lancia il vecchio comportamento di ritorno
+};
