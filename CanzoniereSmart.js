@@ -1,6 +1,7 @@
 /**
  * CANZONIERE SMART - FILE DI GESTIONE INTERFACCIA E LOGICA DI NAVIGAZIONE
  * 
+ *
  * Filosofia: "Divide et Impera". Questo file si occupa esclusivamente di:
  * 1. Gestire la barra di ricerca rapida testuale e i suoi risultati.
  * 2. Mostrare/Nascondere le schermate del leggio digitale.
