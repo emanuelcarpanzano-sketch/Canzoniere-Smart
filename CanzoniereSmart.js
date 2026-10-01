@@ -218,22 +218,18 @@ function toggleScroll() {
     if (!btn) return;
 
     if (isScrolling) {
-        // Se sta scorrendo, ferma il timer
         clearInterval(scrollInterval);
         scrollInterval = null;
         isScrolling = false;
         btn.innerText = "▶ Auto-Scroll";
-        btn.style.backgroundColor = ""; // Ripristina colore default
-        btn.style.color = "";
+        btn.classList.remove('active');
     } else {
-        // Se è fermo, avvia lo scorrimento continuo della finestra
         isScrolling = true;
         btn.innerText = "⏸ Pausa";
-        btn.style.backgroundColor = "#28a745"; // Diventa verde per indicare che è attivo
-        btn.style.color = "white";
-        
+        btn.classList.add('active');
+
         scrollInterval = setInterval(() => {
-            window.scrollBy(0, 1); // Sposta la finestra in basso di 1 pixel ad ogni intervallo
+            window.scrollBy(0, 1);
         }, scrollIntervalTime);
     }
 }
