@@ -106,19 +106,6 @@ function apriCanzone(titolo, autore) {
     loadSong(`${titolo}.txt`);
 }
 
-/**
- * Nasconde il foglio della canzone e riproietta l'utente sul motore di ricerca iniziale
- */
-function tornaAlMenu() {
-    document.getElementById('song-screen').style.display = "none";
-    document.getElementById('menu-screen').style.display = "block";
-    const input = document.getElementById('search-input');
-    if(input) {
-        input.value = "";
-        input.focus(); // Riattiva il cursore sulla barra per una nuova digitazione rapida
-    }
-}
-
 // =========================================================================
 // 3. SISTEMA DI CARICAMENTO DEI FILE ESTERNI (.TXT)
 // =========================================================================
