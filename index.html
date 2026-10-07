@@ -10,57 +10,62 @@ modifiche di notatione Italiana o Internazionale
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-	<base href="/Canzoniere-Smart/">
-	
-	<title>Canzoniere Smart</title>
-    <!--<link rel="stylesheet" href="./CanzoniereSmart.css">   così non funziona!
-    <link rel="stylesheet" href="/Canzoniere-Smart/CanzoniereSmart.css">così non funziona nemmeno -->
-	<link rel="stylesheet" href="CanzoniereSmart.css">
+    <title>Canzoniere Smart</title>
+    <link rel="stylesheet" href="CanzoniereSmart.css">
 </head>
-	
 <body>
 
-    <!-- ================= SCHERMATA INIZIALE: SOLO RICERCA ================= -->
-    <div id="menu-screen" class="menu-container">
-        <h1>Canzoniere Smart</h1>
+    <!-- ================= 1. SCHERMATA SPLASH (HOME) ================= -->
+    <div id="splash-screen" class="splash-container">
+        <img src="Canzoniere.png" alt="Copertina Canzoniere" class="splash-img">
+       <span>😊</span> <h1 style="display: inline;">Ciaooooo!</h1> <span>😊</span>
+        <img src = "pianista.gif" alt = "Pianista" />    <!--  Inserisco l'immagine (animata)  -->
+        <h2>Clicca sul catalogo (🎸 o ⛪) </h2>
+        <div class="splash-buttons">
+            <button id="btn-load-pop" class="btn-choice">🎸 Canzoniere Pop / Rock <img src = "chitarrista.gif" alt = "chitarrista" /></button>
+            <button id="btn-load-chiesa" class="btn-choice">⛪ Canzoniere Liturgico <img src = "eucaristia.gif" alt = "eucaristia" /></button>
+        </div>
+    </div>
+
+    <!-- ================= 2. SCHERMATA DI RICERCA ================= -->
+    <div id="menu-screen" class="menu-container" style="display: none;">
+        <button id="btn-home-splash" class="btn-back-splash">Torna a 🏠 per la SCELTA</button>
+        <h1 id="menu-main-title">Canzoniere Smart</h1>
         <h2>di Emanuele Carpanzano</h2>
         
         <div class="menu-group search-box-container">
             <label for="search-input">🔍 Cerca Canzone o Autore:</label>
-            <input type="text" id="search-input" placeholder="Digita il titolo o l'autore..." oninput="ricercaRapida()">
+            <input type="text" id="search-input" placeholder="Digita il titolo o l'autore...">
             <div id="search-results" class="search-results-list" style="display:none;"></div>
         </div>
     </div>
 
-    <!-- ================= SCHERMATA VISUALIZZAZIONE CANZONE ================= -->
+    <!-- ================= 3. SCHERMATA VISUALIZZAZIONE SPARTITO ================= -->
     <div id="song-screen" style="display: none;">
-	    <div class="controls">
-	        <button onclick="tornaAlMenu()" class="btn-menu">⬅ Torna al Menu</button>
-	        <hr>
-	        <button onclick="transpose(-1)">-1 Semitono</button>
-	        <button onclick="transpose(1)">+1 Semitono</button>
-	        <br><br>
-	        <label><input type="radio" name="notation" id="radio-it" value="IT" checked onclick="changeNotation('IT')"> ITA</label>
-	        <label><input type="radio" name="notation" value="EN" id="radio-en" onclick="changeNotation('EN')"> ENG</label>
-	        <div id="info-tonalita">Tonalità: Originale</div>
-        
-	        <!-- NUOVO: SEZIONE CONTROLLO SCORRIMENTO AUTOMATICO -->
-	        <div id="scroll-panel">
-	            <hr>
-	            <button id="btn-scroll" onclick="toggleScroll()">▶ Auto-Scroll</button>
-	            <div class="scroll-speed-controls">
-	                <button onclick="changeScrollSpeed(-5)" title="Più lento">Slower</button>
-	                <button onclick="changeScrollSpeed(5)" title="Più veloce">Faster</button>
-	            </div>
-	            <div id="info-velocita">Velocità: 1x</div>
- 	       </div>
-    	</div>
-
+        <div class="controls">
+            <button id="btn-elenco-brani" class="btn-menu">⬅ Elenco Brani</button>
+            <hr>
+            <button id="btn-transpose-meno">-1 Semitono</button>
+            <button id="btn-transpose-piu">+1 Semitono</button>
+            <br><br>
+            <label><input type="radio" name="notation" id="radio-it" value="IT" checked> ITA</label>
+            <label><input type="radio" name="notation" id="radio-en" value="EN"> ENG</label>
+            <div id="info-tonalita">Tonalità: Originale</div>
+            
+            <div id="scroll-panel">
+                <hr>
+                <button id="btn-scroll">▶ Auto-Scroll</button>
+                <div class="scroll-speed-controls">
+                    <button id="btn-scroll-slower">Slower</button>
+                    <button id="btn-scroll-faster">Faster</button>
+                </div>
+                <div id="info-velocita">Velocità: 1x</div>
+            </div>
+        </div>
 
         <div id="offline-zone" class="offline-picker">
             <strong>Modalità Offline locale:</strong><br>
-            Seleziona il file <span id="target-filename" style="color:#d32f2f; font-weight:bold;"></span> dentro la cartella CatalogoTxT:<br><br>
+            Seleziona il file <span id="target-filename" style="color:#d32f2f; font-weight:bold;"></span> dentro la cartella configurata:<br><br>
             <input type="file" id="file-selector" accept=".txt">
         </div>
 
@@ -72,7 +77,7 @@ modifiche di notatione Italiana o Internazionale
         <pre id="song-content">Caricamento in corso...</pre>
     </div>
 
-    <script src="CanzoniereCatalogo.js"></script>
+    <!-- Caricamento degli Script Modulari -->
     <script src="transposer.js"></script>
     <script src="CanzoniereSmart.js"></script>
 </body>
