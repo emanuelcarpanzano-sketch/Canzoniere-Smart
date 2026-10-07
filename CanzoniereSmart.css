@@ -15,7 +15,63 @@ body {
 }
 
 /* =========================================================================
-   SCHERMATA INIZIALE: CONTENITORE RICERCA ULTRASNELLO
+   LOGICA GRAFICA SPLASH SCREEN (HOME) 
+   ========================================================================= */
+
+.splash-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+.splash-img {
+    max-width: 75%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.splash-container h2 {
+    color: #444;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.splash-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-choice {
+    padding: 16px;
+    font-size: 18px;
+    background-color: #f8f9fa;
+    color: #333;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.15s ease;
+    width: 100%;
+}
+
+.btn-choice:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    transform: translateY(-1px);
+}
+
+
+
+/* =========================================================================
+   LOGICA DI NAVIGAZIONE E RICERCA
    ========================================================================= */
 .menu-container {
     max-width: 600px;
@@ -25,7 +81,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     text-align: center;
-    position: relative;
+    position: relative; /* <--- AGGIUNGI QUESTA RIGA FONDAMENTALE */
 }
 
 .menu-container h1 {
@@ -35,10 +91,23 @@ body {
     font-size: 32px;
 }
 
+.btn-back-splash {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    float: left;
+    margin-bottom: 20px;
+}
+.btn-back-splash:hover { background: #5a6268; }
+
 .menu-group {
     margin-bottom: 10px;
     text-align: left;
-    position: relative;
+    clear: both;
 }
 
 .menu-group label {
@@ -72,7 +141,7 @@ body {
     background: white;
     border: 1px solid #ccc;
     border-top: none;
-    max-height: 300px;
+    max-height: 350px; /* Leggermente più alto per mostrare più brani su tablet */
     overflow-y: auto;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.12);
@@ -82,14 +151,15 @@ body {
     z-index: 1050;
 }
 
-/* Elemento singolo trovato */
+/* Contenitore del singolo brano nella lista */
 .search-item {
-    padding: 14px 18px;
+    padding: 16px 20px; /* Più spazio per il tocco su tablet */
     cursor: pointer;
     border-bottom: 1px solid #eee;
     text-align: left;
-    font-size: 18px;
+    font-size: 20px; /* Font più grande rispetto allo standard */
     transition: background-color 0.15s ease;
+    color: #333;
 }
 
 .search-item:last-child {
@@ -101,10 +171,20 @@ body {
     color: #007bff;
 }
 
+/* Il Titolo dentro l'elemento di ricerca */
+.search-item strong {
+    font-weight: 800; /* Neretto molto marcato */
+    color: #111;
+}
+
+/* L'Autore dentro l'elemento di ricerca */
 .search-item small {
-    color: #666;
-    margin-left: 8px;
-    font-weight: normal;
+    color: #888; /* Grigetto chiaro */
+    font-weight: 300; /* Più sottile */
+    font-size: 16px; /* Più piccolo rispetto al titolo */
+    margin-left: 12px; /* Spazio dal titolo */
+    font-style: italic; /* Corsivo elegante */
+    display: inline-block;
 }
 
 .search-no-result {
