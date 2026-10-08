@@ -160,9 +160,8 @@ function selezionaCanzone(brano) {
     document.getElementById("song-title").innerText = brano.titolo;
     document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
     
-    // STRATEGIA: Se manca la proprietà file, usiamo il titolo aggiungendo ".txt"
-    // Es: "Yesterday" diventa "Yesterday.txt"
-    const nomeFileReale = brano.file || brano.nomeFile || brano.url || `${brano.titolo}.txt`;
+    // Generiamo il nome del file partendo dal titolo (es. "Yesterday" -> "Yesterday.txt")
+    const nomeFileReale = `${brano.titolo}.txt`;
     
     document.getElementById("target-filename").innerText = nomeFileReale;
     
@@ -175,14 +174,16 @@ function selezionaCanzone(brano) {
     const percorsoFile = cartellaAttiva + nomeFileReale;
     const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
     
+    // Richiesta HTTP asincrona verso lo spazio web di GitHub
     fetch(urlAntiCache)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`File non trovato sul server GitHub (Codice: ${response.status})`);
+                throw new Error(`Risposta del server NON valida (Codice HTTP: ${response.status})`);
             }
             return response.text();
         })
         .then(testoOttenuto => {
+            // Successo: Nascondiamo l'offline e mostriamo il testo della canzone
             document.getElementById("offline-zone").style.display = "none";
             originalText = testoOttenuto;
             
@@ -196,19 +197,22 @@ function selezionaCanzone(brano) {
         })
         .catch(error => {
             console.error("Errore riscontrato nella Fetch:", error);
+            
+            // Fallback diagnostico in caso di errore (es. file non presente o discrepanza maiuscole/minuscole)
             originalText = `⚠️ ERRORE DOWNLOAD AUTOMATICO\n` +
                            `----------------------------------------\n` +
                            `Percorso cercato: ${percorsoFile}\n` +
                            `Dettaglio Errore: ${error.message}\n` +
                            `----------------------------------------\n` +
-                           `⚠️ IMPORTANTE: Verifica che nella cartella '${cartellaAttiva}' su GitHub \n` +
-                           `ci sia un file chiamato esattamente '${nomeFileReale}' (rispetta maiuscole e minuscole).\n\n` +
-                           `Puoi comunque caricare il file manualmente da qui sotto:`;
+                           `Verifica che nella cartella '${cartellaAttiva}' su GitHub ci sia un file\n` +
+                           `chiamato esattamente '${nomeFileReale}' (controlla MAIUSCOLE/minuscole).\n\n` +
+                           `Se necessario, puoi selezionare il file manualmente da qui sotto:`;
                            
             document.getElementById("song-content").innerText = originalText;
             document.getElementById("offline-zone").style.display = "block";
         });
 }
+
 /**
  * Gestione Auto-Scroll unificato
  */
