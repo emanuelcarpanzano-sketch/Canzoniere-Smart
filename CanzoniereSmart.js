@@ -124,69 +124,6 @@ function tornaAllaHomeSplash() {
     }
 }
 /**
- * Selezione del brano dal catalogo con generazione automatica del nome file dal titolo
- */
-function selezionaCanzone(brano) {
-    document.getElementById("menu-screen").style.display = "none";
-    document.getElementById("song-screen").style.display = "block";
-    
-    document.getElementById("song-title").innerText = brano.titolo;
-    document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
-    
-    // Generiamo il nome del file partendo dal titolo (es. "Yesterday" -> "Yesterday.txt")
-    const nomeFileReale = `${brano.titolo}.txt`;
-    
-    document.getElementById("target-filename").innerText = nomeFileReale;
-    
-    currentSemitoneShift = 0;
-    if (typeof aggiornaInfoTonalita === 'function') aggiornaInfoTonalita();
-    
-    document.getElementById("song-content").innerText = "Caricamento brano dal server...";
-    
-    // Costruiamo il percorso completo (es: CatalogoTxT/Yesterday.txt)
-    const percorsoFile = cartellaAttiva + nomeFileReale;
-    const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
-    
-    // Richiesta HTTP asincrona verso lo spazio web di GitHub
-    fetch(urlAntiCache)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Risposta del server NON valida (Codice HTTP: ${response.status})`);
-            }
-            return response.text();
-        })
-        .then(testoOttenuto => {
-            // Successo: Nascondiamo l'offline e mostriamo il testo della canzone
-            document.getElementById("offline-zone").style.display = "none";
-            originalText = testoOttenuto;
-            
-            if (typeof stampaASelezionato === 'function') {
-                stampaASelezionato();
-            } else if (typeof renderChords === 'function') {
-                renderChords();
-            } else {
-                document.getElementById("song-content").innerText = originalText;
-            }
-        })
-        .catch(error => {
-            console.error("Errore riscontrato nella Fetch:", error);
-            
-            // Fallback diagnostico in caso di errore (es. file non presente o discrepanza maiuscole/minuscole)
-            originalText = `⚠️ ERRORE DOWNLOAD AUTOMATICO\n` +
-                           `----------------------------------------\n` +
-                           `Percorso cercato: ${percorsoFile}\n` +
-                           `Dettaglio Errore: ${error.message}\n` +
-                           `----------------------------------------\n` +
-                           `Verifica che nella cartella '${cartellaAttiva}' su GitHub ci sia un file\n` +
-                           `chiamato esattamente '${nomeFileReale}' (controlla MAIUSCOLE/minuscole).\n\n` +
-                           `Se necessario, puoi selezionare il file manualmente da qui sotto:`;
-                           
-            document.getElementById("song-content").innerText = originalText;
-            document.getElementById("offline-zone").style.display = "block";
-        });
-}
-
-/**
  * Gestione Auto-Scroll unificato
  */
 function toggleScroll() {
