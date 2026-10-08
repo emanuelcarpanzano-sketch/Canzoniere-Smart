@@ -19,8 +19,8 @@ let isScrolling = false;
 // Inizializzazione degli eventi HTML al caricamento del DOM
 window.addEventListener('DOMContentLoaded', () => {
     // Gestori della schermata Splash
-    document.getElementById('btn-load-pop').addEventListener('click', () => avviaCanzonere('pop'));
-    document.getElementById('btn-load-chiesa').addEventListener('click', () => avviaCanzonere('chiesa'));
+    document.getElementById('btn-load-pop').addEventListener('click', () => avviaCanzoniere('pop'));
+    document.getElementById('btn-load-chiesa').addEventListener('click', () => avviaCanzoniere('chiesa'));
     document.getElementById('btn-home-splash').addEventListener('click', tornaAllaHomeSplash);
     
     // Gestori della barra di ricerca e navigazione
@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
 /**
  * Carica dinamicamente il file del catalogo corretto con logica anti-cache attiva
  */
-function avviaCanzonere(tipo) {
+function avviaCanzoniere(tipo) {
     // 1. Rimuoviamo in modo sicuro lo script precedente se esistente nel DOM
     if (scriptConfigurato) {
         scriptConfigurato.remove();
