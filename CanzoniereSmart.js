@@ -151,75 +151,28 @@ function ricercaRapida() {
 }
 
 /**
- * Selezione del brano dal catalogo con rilevamento automatico del nome file
+ * Selezione del brano dal catalogo con ispezione forzata dell'oggetto
  */
 function selezionaCanzone(brano) {
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("song-screen").style.display = "block";
     
-    document.getElementById("song-title").innerText = brano.titolo;
+    document.getElementById("song-title").innerText = brano.titolo || "Titolo Mancante";
     document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
     
-    // Cerca automaticamente la proprietà corretta nell'oggetto brano
-    // Verifica se hai usato .file, .nomeFile, .url, .path o .branoFile
-    const nomeFileReale = brano.file || brano.nomeFile || brano.url || brano.path || brano.txt;
+    // Stampiamo l'intero oggetto brano convertito in testo per vedere le chiavi reali
+    const strutturaOggetto = JSON.stringify(brano, null, 2);
     
-    // Mostriamo il nome del file puntato per debug rapido
-    document.getElementById("target-filename").innerText = nomeFileReale || "Proprietà file non trovata!";
-    
-    currentSemitoneShift = 0;
-    if (typeof aggiornaInfoTonalita === 'function') aggiornaInfoTonalita();
-    
-    // Se non troviamo nessuna proprietà valida, stampiamo un errore chiaro sull'oggetto
-    if (!nomeFileReale) {
-        originalText = `⚠️ ERRORE STRUTTURA CATALOGO\n` +
-                       `----------------------------------------\n` +
-                       `L'oggetto della canzone non contiene una proprietà per il file.\n` +
-                       `Struttura rilevata nell'oggetto brano:\n` +
-                       JSON.stringify(brano, null, 2) + `\n` +
-                       `----------------------------------------\n` +
-                       `Controlla i nomi dei campi dentro CanzoniereCatalogo.js`;
-        document.getElementById("song-content").innerText = originalText;
-        document.getElementById("offline-zone").style.display = "block";
-        return;
-    }
-    
-    document.getElementById("song-content").innerText = "Caricamento brano dal server...";
-    
-    const percorsoFile = cartellaAttiva + nomeFileReale;
-    const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
-    
-    fetch(urlAntiCache)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Risposta del server NON valida (Codice Stato HTTP: ${response.status})`);
-            }
-            return response.text();
-        })
-        .then(testoOttenuto => {
-            document.getElementById("offline-zone").style.display = "none";
-            originalText = testoOttenuto;
-            
-            if (typeof stampaASelezionato === 'function') {
-                stampaASelezionato();
-            } else if (typeof renderChords === 'function') {
-                renderChords();
-            } else {
-                document.getElementById("song-content").innerText = originalText;
-            }
-        })
-        .catch(error => {
-            console.error("Errore riscontrato nella Fetch:", error);
-            originalText = `⚠️ ERRORE DOWNLOAD AUTOMATICO\n` +
-                           `----------------------------------------\n` +
-                           `Percorso cercato: ${percorsoFile}\n` +
-                           `Dettaglio Errore: ${error.message}\n` +
-                           `----------------------------------------\n` +
-                           `Verifica le maiuscole/minuscole del file o della cartella su GitHub.`;
-                           
-            document.getElementById("song-content").innerText = originalText;
-            document.getElementById("offline-zone").style.display = "block";
-        });
+    // Mostriamo un errore bloccante per analizzare la struttura delle proprietà
+    originalText = `🔍 ISPEZIONE STRUTTURA CANZONE\n` +
+                   `----------------------------------------\n` +
+                   `Ecco come è strutturato il brano nel tuo catalogo:\n\n` +
+                   strutturaOggetto + `\n\n` +
+                   `----------------------------------------\n` +
+                   `Guarda l'elenco sopra: quale parola c'è scritta prima del nome del file .txt?`;
+                   
+    document.getElementById("song-content").innerText = originalText;
+    document.getElementById("offline-zone").style.display = "block";
 }
 
 /**
