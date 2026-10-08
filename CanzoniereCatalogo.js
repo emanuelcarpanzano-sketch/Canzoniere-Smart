@@ -1,5 +1,5 @@
 // Il Catalogo centralizzato delle canzoni con gli autori
-const catalogoCanzoni = [
+window.catalogoPopRock = [
     { titolo: "4 Marzo 43", autore: "Lucio Dalla - Sanremo 1971" },
     { titolo: "29 Settembre", autore: "Lucio Battisti" },
 
