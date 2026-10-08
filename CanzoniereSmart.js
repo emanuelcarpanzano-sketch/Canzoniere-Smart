@@ -189,11 +189,14 @@ function selezionaCanzone(brano) {
             stampaASelezionato();
         })
         .catch(error => {
-            // Fallimento (Offline o 404): Attiviamo il lettore locale come ruota di scorta
-            console.warn(error.message);
-            originalText = "Impossibile scaricare il brano automaticamente. Seleziona il file manualmente.";
+            console.error("Errore Fetch:", error);
+            // Ti mostra a schermo l'URL esatto cercato e il motivo del fallimento
+            originalText = `Errore di caricamento automatico.\n` +
+                           `URL cercato: "${window.location.origin + window.location.pathname + percorsoFile}"\n` +
+                           `Dettaglio: ${error.message}\n\n` +
+                           `Seleziona il file manualmente.`;
             document.getElementById("song-content").innerText = originalText;
-            document.getElementById("offline-zone").style.style.display = "block";
+            document.getElementById("offline-zone").style.display = "block";
         });
 }
 
