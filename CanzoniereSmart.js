@@ -56,23 +56,42 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Carica dinamicamente il file del catalogo corretto
+ * Carica dinamicamente il file del catalogo corretto con logica anti-cache attiva
  */
 function avviaCanzonere(tipo) {
-    if (scriptConfigurato) scriptConfigurato.remove();
+    // 1. Rimuoviamo in modo sicuro lo script precedente se esistente nel DOM
+    if (scriptConfigurato) {
+        scriptConfigurato.remove();
+        scriptConfigurato = null;
+    }
     
-    scriptConfigurato = document.createElement("script");
+    // 2. Pulizia preventiva dello stato della ricerca precedente
+    if (typeof catalogoCanzoni !== 'undefined') {
+        catalogoCanzoni = [];
+    }
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = "";
+        resultsContainer.style.display = "none";
+    }
     
+    // 3. Configurazione dinamica dei percorsi
+    let sorgenteScript = "";
     if (tipo === 'pop') {
-        scriptConfigurato.src = "CanzoniereCatalogo.js"; // Nome file corretto
+        sorgenteScript = "CanzoniereCatalogo.js";
         cartellaAttiva = "CatalogoTxT/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Pop / Rock";
     } else {
-        scriptConfigurato.src = "CanzoniereCatalogoChiesa.js"; // Nome file corretto
+        sorgenteScript = "CanzoniereCatalogoChiesa.js";
         cartellaAttiva = "CatalogoTxTChiesa/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
     }
     
+    // 4. Generazione del tag script con stringa dinamica anti-cache (?_=timestamp)
+    scriptConfigurato = document.createElement("script");
+    scriptConfigurato.src = sorgenteScript + "?_=" + new Date().getTime();
+    
+    // 5. Callback ad iniezione completata ed eseguita in memoria
     scriptConfigurato.onload = function() {
         document.getElementById("splash-screen").style.display = "none";
         document.getElementById("menu-screen").style.display = "block";
@@ -87,11 +106,22 @@ function tornaAllaHomeSplash() {
     resetScorrimentoSicuro(); 
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("splash-screen").style.display = "block";
+    
+    // Rimozione dello script e pulizia della memoria globale per forzare il ricaricamento futuro
     if (scriptConfigurato) {
         scriptConfigurato.remove();
         scriptConfigurato = null;
     }
-    if (typeof catalogoCanzoni !== 'undefined') catalogoCanzoni = [];
+    if (typeof catalogoCanzoni !== 'undefined') {
+        catalogoCanzoni = [];
+    }
+    
+    // Pulizia visiva dei vecchi risultati di ricerca rimasti appesi nel DOM
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = "";
+        resultsContainer.style.display = "none";
+    }
 }
 
 function tornaAlMenuRicerca() {
