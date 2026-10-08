@@ -151,10 +151,7 @@ function ricercaRapida() {
 }
 
 /**
- * Selezione del brano dal catalogo
- */
-/**
- * Selezione del brano dal catalogo
+ * Selezione del brano dal catalogo con scaricamento automatico (Anti-Cache e Diagnostico)
  */
 function selezionaCanzone(brano) {
     document.getElementById("menu-screen").style.display = "none";
@@ -162,39 +159,53 @@ function selezionaCanzone(brano) {
     
     document.getElementById("song-title").innerText = brano.titolo;
     document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
-    
-    // Mostriamo il nome del file puntato per debug rapido
     document.getElementById("target-filename").innerText = brano.file;
     
     currentSemitoneShift = 0;
-    aggiornaInfoTonalita();
+    if (typeof aggiornaInfoTonalita === 'function') aggiornaInfoTonalita();
     
-    document.getElementById("song-content").innerText = "Caricamento brano in corso...";
+    document.getElementById("song-content").innerText = "Caricamento brano dal server...";
     
-    // Costruiamo il percorso corretto unendo la cartella attiva al nome del file
+    // Costruiamo il percorso relativo pulito
     const percorsoFile = cartellaAttiva + brano.file;
     
-    // Tentativo di scaricamento automatico dal server GitHub
-    fetch(percorsoFile)
+    // L'aggiunta di ?_=(new Date().getTime()) distrugge la cache del browser e di GitHub
+    const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
+    
+    console.log("Tentativo di fetch su URL:", percorsoFile);
+
+    fetch(urlAntiCache)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`File non trovato sul server (Errore ${response.status})`);
+                throw new Error(`Risposta del server NON valida (Codice Stato HTTP: ${response.status})`);
             }
             return response.text();
         })
         .then(testoOttenuto => {
-            // Successo: Nascondiamo la zona offline e stampiamo la canzone
+            // Successo totale: nascondiamo l'offline e mostriamo il testo
             document.getElementById("offline-zone").style.display = "none";
             originalText = testoOttenuto;
-            stampaASelezionato();
+            
+            if (typeof stampaASelezionato === 'function') {
+                stampaASelezionato();
+            } else if (typeof renderChords === 'function') {
+                renderChords();
+            } else {
+                document.getElementById("song-content").innerText = originalText;
+            }
         })
         .catch(error => {
-            console.error("Errore Fetch:", error);
-            // Ti mostra a schermo l'URL esatto cercato e il motivo del fallimento
-            originalText = `Errore di caricamento automatico.\n` +
-                           `URL cercato: "${window.location.origin + window.location.pathname + percorsoFile}"\n` +
-                           `Dettaglio: ${error.message}\n\n` +
-                           `Seleziona il file manualmente.`;
+            console.error("Errore riscontrato nella Fetch:", error);
+            
+            // Questo blocco DEVE apparire a schermo se la fetch fallisce
+            originalText = `⚠️ ERRORE DOWNLOAD AUTOMATICO\n` +
+                           `----------------------------------------\n` +
+                           `Percorso cercato: ${percorsoFile}\n` +
+                           `Dettaglio Errore: ${error.message}\n` +
+                           `----------------------------------------\n` +
+                           `Verifica le maiuscole/minuscole del file o della cartella su GitHub.\n` +
+                           `Usa il pulsante sotto per caricare il file manualmente.`;
+                           
             document.getElementById("song-content").innerText = originalText;
             document.getElementById("offline-zone").style.display = "block";
         });
@@ -212,6 +223,7 @@ function stampaASelezionato() {
         document.getElementById("song-content").innerText = originalText;
     }
 }
+
 /**
  * Gestione Auto-Scroll unificato
  */
