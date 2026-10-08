@@ -151,43 +151,64 @@ function ricercaRapida() {
 }
 
 /**
- * Selezione del brano dal catalogo con ispezione forzata dell'oggetto
+ * Selezione del brano dal catalogo con generazione automatica del nome file dal titolo
  */
 function selezionaCanzone(brano) {
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("song-screen").style.display = "block";
     
-    document.getElementById("song-title").innerText = brano.titolo || "Titolo Mancante";
+    document.getElementById("song-title").innerText = brano.titolo;
     document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
     
-    // Stampiamo l'intero oggetto brano convertito in testo per vedere le chiavi reali
-    const strutturaOggetto = JSON.stringify(brano, null, 2);
+    // STRATEGIA: Se manca la proprietà file, usiamo il titolo aggiungendo ".txt"
+    // Es: "Yesterday" diventa "Yesterday.txt"
+    const nomeFileReale = brano.file || brano.nomeFile || brano.url || `${brano.titolo}.txt`;
     
-    // Mostriamo un errore bloccante per analizzare la struttura delle proprietà
-    originalText = `🔍 ISPEZIONE STRUTTURA CANZONE\n` +
-                   `----------------------------------------\n` +
-                   `Ecco come è strutturato il brano nel tuo catalogo:\n\n` +
-                   strutturaOggetto + `\n\n` +
-                   `----------------------------------------\n` +
-                   `Guarda l'elenco sopra: quale parola c'è scritta prima del nome del file .txt?`;
-                   
-    document.getElementById("song-content").innerText = originalText;
-    document.getElementById("offline-zone").style.display = "block";
+    document.getElementById("target-filename").innerText = nomeFileReale;
+    
+    currentSemitoneShift = 0;
+    if (typeof aggiornaInfoTonalita === 'function') aggiornaInfoTonalita();
+    
+    document.getElementById("song-content").innerText = "Caricamento brano dal server...";
+    
+    // Costruiamo il percorso completo (es: CatalogoTxT/Yesterday.txt)
+    const percorsoFile = cartellaAttiva + nomeFileReale;
+    const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
+    
+    fetch(urlAntiCache)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`File non trovato sul server GitHub (Codice: ${response.status})`);
+            }
+            return response.text();
+        })
+        .then(testoOttenuto => {
+            document.getElementById("offline-zone").style.display = "none";
+            originalText = testoOttenuto;
+            
+            if (typeof stampaASelezionato === 'function') {
+                stampaASelezionato();
+            } else if (typeof renderChords === 'function') {
+                renderChords();
+            } else {
+                document.getElementById("song-content").innerText = originalText;
+            }
+        })
+        .catch(error => {
+            console.error("Errore riscontrato nella Fetch:", error);
+            originalText = `⚠️ ERRORE DOWNLOAD AUTOMATICO\n` +
+                           `----------------------------------------\n` +
+                           `Percorso cercato: ${percorsoFile}\n` +
+                           `Dettaglio Errore: ${error.message}\n` +
+                           `----------------------------------------\n` +
+                           `⚠️ IMPORTANTE: Verifica che nella cartella '${cartellaAttiva}' su GitHub \n` +
+                           `ci sia un file chiamato esattamente '${nomeFileReale}' (rispetta maiuscole e minuscole).\n\n` +
+                           `Puoi comunque caricare il file manualmente da qui sotto:`;
+                           
+            document.getElementById("song-content").innerText = originalText;
+            document.getElementById("offline-zone").style.display = "block";
+        });
 }
-
-/**
- * Funzione di supporto per renderizzare il testo e applicare il transposer
- */
-function stampaASelezionato() {
-    // Questa funzione renderizza il testo a schermo integrandosi con transposer.js
-    // Se hai già una logica specifica dentro transposer.js, assicurati che sia sincronizzata.
-    if (typeof renderChords === 'function') {
-        renderChords(); 
-    } else {
-        document.getElementById("song-content").innerText = originalText;
-    }
-}
-
 /**
  * Gestione Auto-Scroll unificato
  */
