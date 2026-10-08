@@ -123,63 +123,6 @@ function tornaAllaHomeSplash() {
         resultsContainer.style.display = "none";
     }
 }
-
-function tornaAlMenuRicerca() {
-    resetScorrimentoSicuro();
-    document.getElementById("song-screen").style.display = "none";
-    document.getElementById("menu-screen").style.display = "block";
-    const resultsContainer = document.getElementById('search-results');
-    if (resultsContainer) {
-        resultsContainer.innerHTML = "";
-        resultsContainer.style.display = "none";
-    }
-    const input = document.getElementById('search-input');
-    if (input) { input.value = ""; input.focus(); }
-}
-
-/**
- * Gestione Barra di Ricerca
- */
-function ricercaRapida() {
-    const input = document.getElementById('search-input');
-    const resultsContainer = document.getElementById('search-results');
-    if (!input || !resultsContainer || typeof catalogoCanzoni === 'undefined') return;
-    
-    const query = input.value.trim().toLowerCase();
-    if (query.length < 1) {
-        resultsContainer.innerHTML = "";
-        resultsContainer.style.display = "none";
-        return;
-    }
-    
-    let risultati = catalogoCanzoni.filter(c => 
-        (c.titolo && c.titolo.toLowerCase().includes(query)) || 
-        (c.autore && c.autore.toLowerCase().includes(query))
-    );
-    
-    risultati.sort((a, b) => a.titolo.localeCompare(b.titolo));
-    
-    resultsContainer.innerHTML = "";
-    
-    if (risultati.length === 0) {
-        resultsContainer.innerHTML = "<div class='search-no-result'>Nessun brano trovato</div>";
-    } else {
-        risultati.forEach(brano => {
-            const div = document.createElement('div');
-            // Usiamo la classe allineata al CSS
-            div.className = 'search-item'; 
-            
-            // Definiamo la struttura con il titolo e l'autore isolato nel tag <small>
-            const autoreTesto = brano.autore ? ` <small>${brano.autore}</small>` : "";
-            div.innerHTML = `<strong>${brano.titolo}</strong>${autoreTesto}`;
-            
-            div.addEventListener('click', () => selezionaCanzone(brano));
-            resultsContainer.appendChild(div);
-        });
-    }
-    resultsContainer.style.display = "block";
-}
-
 /**
  * Selezione del brano dal catalogo con generazione automatica del nome file dal titolo
  */
