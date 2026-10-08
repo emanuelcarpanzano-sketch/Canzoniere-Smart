@@ -1,5 +1,6 @@
 /**
  * CANZONIERE SMART - LOGICA APPLICATIVA E DI CONTROLLO CENTRALIZZATA
+ * PARTE 1: STATI GENERALI, EVENTI DOM E CARICAMENTO REPERTORI
  */
 
 // Stati globali condivisi con transposer.js
@@ -10,6 +11,7 @@ let currentSemitoneShift = 0;
 // Variabili di configurazione dei cataloghi dinamici
 let cartellaAttiva = "";     
 let scriptConfigurato = null; 
+let catalogoAttivoRiferimento = null; // Riferimento sicuro per la ricerca senza crash di cache
 
 // Stati dell'Auto-Scroll
 let scrollInterval = null;
@@ -66,9 +68,6 @@ function avviaCanzoniere(tipo) {
     }
     
     // 2. Pulizia preventiva dello stato della ricerca precedente
-    if (typeof catalogoCanzoni !== 'undefined') {
-        catalogoCanzoni = [];
-    }
     const resultsContainer = document.getElementById('search-results');
     if (resultsContainer) {
         resultsContainer.innerHTML = "";
@@ -93,6 +92,11 @@ function avviaCanzoniere(tipo) {
     
     // 5. Callback ad iniezione completata ed eseguita in memoria
     scriptConfigurato.onload = function() {
+        // Intercettiamo l'array globale appena caricato assegnandolo al riferimento sicuro
+        if (typeof catalogoCanzoni !== 'undefined') {
+            catalogoAttivoRiferimento = catalogoCanzoni;
+        }
+
         document.getElementById("splash-screen").style.display = "none";
         document.getElementById("menu-screen").style.display = "block";
         const input = document.getElementById('search-input');
@@ -107,14 +111,12 @@ function tornaAllaHomeSplash() {
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("splash-screen").style.display = "block";
     
-    // Rimozione dello script e pulizia della memoria globale per forzare il ricaricamento futuro
+    // Rimozione dello script e svuotamento del riferimento di ricerca
     if (scriptConfigurato) {
         scriptConfigurato.remove();
         scriptConfigurato = null;
     }
-    if (typeof catalogoCanzoni !== 'undefined') {
-        catalogoCanzoni = [];
-    }
+    catalogoAttivoRiferimento = null;
     
     // Pulizia visiva dei vecchi risultati di ricerca rimasti appesi nel DOM
     const resultsContainer = document.getElementById('search-results');
@@ -123,6 +125,111 @@ function tornaAllaHomeSplash() {
         resultsContainer.style.display = "none";
     }
 }
+
+function tornaAlMenuRicerca() {
+    resetScorrimentoSicuro();
+    document.getElementById("song-screen").style.display = "none";
+    document.getElementById("menu-screen").style.display = "block";
+    const resultsContainer = document.getElementById('search-results');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = "";
+        resultsContainer.style.display = "none";
+    }
+    const input = document.getElementById('search-input');
+    if (input) { input.value = ""; input.focus(); }
+}
+
+/**
+ * CANZONIERE SMART - LOGICA APPLICATIVA E DI CONTROLLO CENTRALIZZATA
+ * PARTE 2: MOTORE DI RICERCA, GESTIONE BRANI E CONTROLLO AUTO-SCROLL
+ */
+
+/**
+ * Gestione Barra di Ricerca Centralizzata
+ */
+function ricercaRapida() {
+    const input = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
+    if (!input || !resultsContainer || !catalogoAttivoRiferimento) return;
+    
+    const query = input.value.trim().toLowerCase();
+    if (query.length < 1) {
+        resultsContainer.innerHTML = "";
+        resultsContainer.style.display = "none";
+        return;
+    }
+    
+    let risultati = catalogoAttivoRiferimento.filter(c => 
+        (c.titolo && c.titolo.toLowerCase().includes(query)) || 
+        (c.autore && c.autore.toLowerCase().includes(query))
+    );
+    
+    risultati.sort((a, b) => a.titolo.localeCompare(b.titolo));
+    
+    resultsContainer.innerHTML = "";
+    
+    if (risultati.length === 0) {
+        resultsContainer.innerHTML = "<div class='search-no-result'>Nessun brano trovato</div>";
+    } else {
+        risultati.forEach(brano => {
+            const div = document.createElement('div');
+            div.className = 'search-item'; 
+            
+            const autoreTesto = brano.autore ? ` <small>${brano.autore}</small>` : "";
+            div.innerHTML = `<strong>${brano.titolo}</strong>${autoreTesto}`;
+            
+            div.addEventListener('click', () => selezionaCanzone(brano));
+            resultsContainer.appendChild(div);
+        });
+    }
+    resultsContainer.style.display = "block";
+}
+
+/**
+ * Selezione del brano dal catalogo con generazione automatica del nome file dal titolo
+ */
+function selezionaCanzone(brano) {
+    document.getElementById("menu-screen").style.display = "none";
+    document.getElementById("song-screen").style.display = "block";
+    
+    document.getElementById("song-title").innerText = brano.titolo;
+    document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
+    
+    const nomeFileReale = `${brano.titolo}.txt`;
+    document.getElementById("target-filename").innerText = nomeFileReale;
+    
+    currentSemitoneShift = 0;
+    if (typeof aggiornaInfoTonalita === 'function') aggiornaInfoTonalita();
+    
+    document.getElementById("song-content").innerText = "Caricamento brano dal server...";
+    
+    const percorsoFile = cartellaAttiva + nomeFileReale;
+    const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
+    
+    fetch(urlAntiCache)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Risposta del server NON valida (Codice HTTP: ${response.status})`);
+            }
+            return response.text();
+        })
+        .then(testoOttenuto => {
+            document.getElementById("offline-zone").style.display = "none";
+            originalText = testoOttenuto;
+            
+            if (typeof stampaASelezionato === 'function') {
+                stampaASelezionato();
+            } else {
+                document.getElementById("song-content").innerText = originalText;
+            }
+        })
+        .catch(error => {
+            console.error("Errore riscontrato nella Fetch:", error);
+            document.getElementById("song-content").innerText = "Errore di caricamento. Usa il selettore offline.";
+            document.getElementById("offline-zone").style.display = "block";
+        });
+}
+
 /**
  * Gestione Auto-Scroll unificato
  */
@@ -192,8 +299,12 @@ function changeNotation(notation) {
     stampaASelezionato();
 }
 
+/**
+ * Aggiorna l'etichetta visiva della tonalità corrente sul DOM
+ */
 function aggiornaInfoTonalita() {
     const info = document.getElementById('info-tonalita');
+    if (!info) return;
     if (currentSemitoneShift === 0) {
         info.innerText = "Tonalità: Originale";
     } else {
@@ -201,9 +312,10 @@ function aggiornaInfoTonalita() {
     }
 }
 
-// Chiama la funzione render() globale situata in transposer.js
 function stampaASelezionato() {
     if (typeof render === "function") {
         render();
     }
 }
+
+
