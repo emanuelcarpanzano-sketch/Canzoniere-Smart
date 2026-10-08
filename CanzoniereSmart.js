@@ -74,14 +74,18 @@ function avviaCanzoniere(tipo) {
         resultsContainer.style.display = "none";
     }
     
-    // 3. Configurazione dinamica dei percorsi
+    // 3. Configurazione dinamica dei percorsi e delle chiavi inserite su window
     let sorgenteScript = "";
+    let chiaveFinestra = "";
+    
     if (tipo === 'pop') {
         sorgenteScript = "CanzoniereCatalogo.js";
+        chiaveFinestra = "catalogoPopRock"; // Corrisponde a window.catalogoPopRock
         cartellaAttiva = "CatalogoTxT/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Pop / Rock";
     } else {
         sorgenteScript = "CanzoniereCatalogoChiesa.js";
+        chiaveFinestra = "catalogoChiesa";   // Corrisponde a window.catalogoChiesa
         cartellaAttiva = "CatalogoTxTChiesa/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
     }
@@ -92,9 +96,11 @@ function avviaCanzoniere(tipo) {
     
     // 5. Callback ad iniezione completata ed eseguita in memoria
     scriptConfigurato.onload = function() {
-        // Intercettiamo l'array globale appena caricato assegnandolo al riferimento sicuro
-        if (typeof catalogoCanzoni !== 'undefined') {
-            catalogoAttivoRiferimento = catalogoCanzoni;
+        // Leggiamo la proprietà dinamica da window assegnandola al riferimento sicuro
+        if (window[chiaveFinestra]) {
+            catalogoAttivoRiferimento = window[chiaveFinestra];
+        } else {
+            console.error("Errore: Impossibile trovare la chiave " + chiaveFinestra + " su window.");
         }
 
         document.getElementById("splash-screen").style.display = "none";
@@ -105,7 +111,6 @@ function avviaCanzoniere(tipo) {
     
     document.head.appendChild(scriptConfigurato);
 }
-
 function tornaAllaHomeSplash() {
     resetScorrimentoSicuro(); 
     document.getElementById("menu-screen").style.display = "none";
