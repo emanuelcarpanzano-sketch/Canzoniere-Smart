@@ -153,6 +153,9 @@ function ricercaRapida() {
 /**
  * Selezione del brano dal catalogo
  */
+/**
+ * Selezione del brano dal catalogo
+ */
 function selezionaCanzone(brano) {
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("song-screen").style.display = "block";
@@ -160,16 +163,52 @@ function selezionaCanzone(brano) {
     document.getElementById("song-title").innerText = brano.titolo;
     document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
     
+    // Mostriamo il nome del file puntato per debug rapido
     document.getElementById("target-filename").innerText = brano.file;
-    document.getElementById("offline-zone").style.display = "block";
     
     currentSemitoneShift = 0;
     aggiornaInfoTonalita();
     
-    originalText = "In attesa del file locale...";
-    document.getElementById("song-content").innerText = originalText;
+    document.getElementById("song-content").innerText = "Caricamento brano in corso...";
+    
+    // Costruiamo il percorso corretto unendo la cartella attiva al nome del file
+    const percorsoFile = cartellaAttiva + brano.file;
+    
+    // Tentativo di scaricamento automatico dal server GitHub
+    fetch(percorsoFile)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`File non trovato sul server (Errore ${response.status})`);
+            }
+            return response.text();
+        })
+        .then(testoOttenuto => {
+            // Successo: Nascondiamo la zona offline e stampiamo la canzone
+            document.getElementById("offline-zone").style.display = "none";
+            originalText = testoOttenuto;
+            stampaASelezionato();
+        })
+        .catch(error => {
+            // Fallimento (Offline o 404): Attiviamo il lettore locale come ruota di scorta
+            console.warn(error.message);
+            originalText = "Impossibile scaricare il brano automaticamente. Seleziona il file manualmente.";
+            document.getElementById("song-content").innerText = originalText;
+            document.getElementById("offline-zone").style.style.display = "block";
+        });
 }
 
+/**
+ * Funzione di supporto per renderizzare il testo e applicare il transposer
+ */
+function stampaASelezionato() {
+    // Questa funzione renderizza il testo a schermo integrandosi con transposer.js
+    // Se hai già una logica specifica dentro transposer.js, assicurati che sia sincronizzata.
+    if (typeof renderChords === 'function') {
+        renderChords(); 
+    } else {
+        document.getElementById("song-content").innerText = originalText;
+    }
+}
 /**
  * Gestione Auto-Scroll unificato
  */
