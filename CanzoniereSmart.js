@@ -151,7 +151,7 @@ function ricercaRapida() {
 }
 
 /**
- * Selezione del brano dal catalogo con scaricamento automatico (Anti-Cache e Diagnostico)
+ * Selezione del brano dal catalogo con rilevamento automatico del nome file
  */
 function selezionaCanzone(brano) {
     document.getElementById("menu-screen").style.display = "none";
@@ -159,21 +159,36 @@ function selezionaCanzone(brano) {
     
     document.getElementById("song-title").innerText = brano.titolo;
     document.getElementById("song-author").innerText = brano.autore ? ` (${brano.autore})` : "";
-    document.getElementById("target-filename").innerText = brano.file;
+    
+    // Cerca automaticamente la proprietà corretta nell'oggetto brano
+    // Verifica se hai usato .file, .nomeFile, .url, .path o .branoFile
+    const nomeFileReale = brano.file || brano.nomeFile || brano.url || brano.path || brano.txt;
+    
+    // Mostriamo il nome del file puntato per debug rapido
+    document.getElementById("target-filename").innerText = nomeFileReale || "Proprietà file non trovata!";
     
     currentSemitoneShift = 0;
     if (typeof aggiornaInfoTonalita === 'function') aggiornaInfoTonalita();
     
+    // Se non troviamo nessuna proprietà valida, stampiamo un errore chiaro sull'oggetto
+    if (!nomeFileReale) {
+        originalText = `⚠️ ERRORE STRUTTURA CATALOGO\n` +
+                       `----------------------------------------\n` +
+                       `L'oggetto della canzone non contiene una proprietà per il file.\n` +
+                       `Struttura rilevata nell'oggetto brano:\n` +
+                       JSON.stringify(brano, null, 2) + `\n` +
+                       `----------------------------------------\n` +
+                       `Controlla i nomi dei campi dentro CanzoniereCatalogo.js`;
+        document.getElementById("song-content").innerText = originalText;
+        document.getElementById("offline-zone").style.display = "block";
+        return;
+    }
+    
     document.getElementById("song-content").innerText = "Caricamento brano dal server...";
     
-    // Costruiamo il percorso relativo pulito
-    const percorsoFile = cartellaAttiva + brano.file;
-    
-    // L'aggiunta di ?_=(new Date().getTime()) distrugge la cache del browser e di GitHub
+    const percorsoFile = cartellaAttiva + nomeFileReale;
     const urlAntiCache = percorsoFile + "?_=" + new Date().getTime();
     
-    console.log("Tentativo di fetch su URL:", percorsoFile);
-
     fetch(urlAntiCache)
         .then(response => {
             if (!response.ok) {
@@ -182,7 +197,6 @@ function selezionaCanzone(brano) {
             return response.text();
         })
         .then(testoOttenuto => {
-            // Successo totale: nascondiamo l'offline e mostriamo il testo
             document.getElementById("offline-zone").style.display = "none";
             originalText = testoOttenuto;
             
@@ -196,15 +210,12 @@ function selezionaCanzone(brano) {
         })
         .catch(error => {
             console.error("Errore riscontrato nella Fetch:", error);
-            
-            // Questo blocco DEVE apparire a schermo se la fetch fallisce
             originalText = `⚠️ ERRORE DOWNLOAD AUTOMATICO\n` +
                            `----------------------------------------\n` +
                            `Percorso cercato: ${percorsoFile}\n` +
                            `Dettaglio Errore: ${error.message}\n` +
                            `----------------------------------------\n` +
-                           `Verifica le maiuscole/minuscole del file o della cartella su GitHub.\n` +
-                           `Usa il pulsante sotto per caricare il file manualmente.`;
+                           `Verifica le maiuscole/minuscole del file o della cartella su GitHub.`;
                            
             document.getElementById("song-content").innerText = originalText;
             document.getElementById("offline-zone").style.display = "block";
