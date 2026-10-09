@@ -360,3 +360,10 @@ pre {
     color: #666;
     margin-top: 6px;
 }
+
+/* Aggiunta la classe per visuslizzare l'accessibilità della compattazione WCAG 80 cratteri per riga */
+.attivo-accessibile {
+    background-color: #2ecc71 !important; /* Colore verde accessibilità o quello che preferisci */
+    color: #fff !important;
+    border-color: #27ae60 !important;
+}
