@@ -35,6 +35,21 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('radio-it').addEventListener('click', () => changeNotation('IT'));
     document.getElementById('radio-en').addEventListener('click', () => changeNotation('EN'));
 
+    // --- AGGIUNTO QUESTO EVENTO PER IL BOTTONE WCAG ---
+    const btnWcag = document.getElementById('btn-wcag-toggle');
+    if (btnWcag) {
+        btnWcag.addEventListener('click', function() {
+            // Inverte lo stato booleano (definito in transposer.js)
+            wcagCompattatoAttivo = !wcagCompattatoAttivo;
+            
+            // Aggiunge o rimuove una classe CSS per colorare il bottone quando attivo
+            this.classList.toggle("attivo-accessibile", wcagCompattatoAttivo);
+            
+            // Sfrutta il motore esistente per ripulire e stampare nuovamente lo spartito
+            render();
+        });
+    }
+    
     // Gestori per i controlli dell'Auto-Scroll
     document.getElementById('btn-scroll').addEventListener('click', toggleScroll);
     document.getElementById('btn-scroll-slower').addEventListener('click', () => changeScrollSpeed(5)); // +ms = più lento
