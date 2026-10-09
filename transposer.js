@@ -19,6 +19,83 @@ const mappaNormalizzazione = {
 // REGEX AGGIORNATA: Inserito il supporto per gli accordi con la sesta (es. D6, Do6, Am6, C6/9)
 const regexAccordo = /\b(Do#|Re#|Fa#|Sol#|La#|Do|Re|Mi|Fa|Sol|La|Si|C#|D#|F#|G#|A#|C|D|E|F|G|A|B)(b)?(m|min|maj|M|dim|aug|sus)?(7|9|4|2|6|6\/9|maj7|min7|sus4)?(\/(Do#|Re#|Fa#|Sol#|La#|Do|Re|Mi|Fa|Sol|La|Si|C#|D#|F#|G#|A#|C|D|E|F|G|A|B)(b)?)?(?=\s|$)/g;
 
+// Stato globale per l'accessibilità WCAG 80 caratteri
+let wcagCompattatoAttivo = false;
+
+/**
+ * Funzione interna che compatta il testo originale a max 80 caratteri 
+ * prima di applicare la formattazione dei tag span degli accordi.
+ */
+function compattaTestoWCAG80(testoGrezzo) {
+    const RIGHE_MAX = 80;
+    const righe = testoGrezzo.split(/\r?\n/);
+    let risultato = [];
+
+    // Helper per capire se una riga contiene prevalentemente accordi usando la tua regex esistente
+    function eRigaAccordi(riga) {
+        if (!riga.trim()) return false;
+        // Rimuove gli spazi e i trattini per vedere se i token rimasti sono tutti accordi validi
+        const token = riga.trim().split(/\s+/);
+        return token.every(t => {
+            if (t === "" || t === "-") return true;
+            // Verifica se il token è un accordo pulito (resettando l'indice della regex globale)
+            regexAccordo.lastIndex = 0;
+            const match = t.match(regexAccordo);
+            return match && match[0] === t;
+        });
+    }
+
+    for (let i = 0; i < righe.length; i++) {
+        let rigaCorrente = righe[i];
+
+        if (rigaCorrente.length <= RIGHE_MAX) {
+            risultato.push(rigaCorrente);
+            continue;
+        }
+
+        let rigaSuccessiva = righe[i + 1] || "";
+
+        // Se abbiamo un blocco accoppiato: Riga Accordi + Riga Testo sottostante
+        if (eRigaAccordi(rigaCorrente) && !eRigaAccordi(rigaSuccessiva) && rigaSuccessiva.trim() !== "") {
+            let accordiRestanti = rigaCorrente;
+            let testoRestante = rigaSuccessiva;
+
+            while (testoRestante.length > RIGHE_MAX || accordiRestanti.length > RIGHE_MAX) {
+                // Trova l'ultimo spazio utile entro gli 80 caratteri nel testo
+                let puntoSpezzo = testoRestante.lastIndexOf(' ', RIGHE_MAX);
+                if (puntoSpezzo <= 0) puntoSpezzo = RIGHE_MAX; 
+
+                let testoTroncato = testoRestante.substring(0, puntoSpezzo);
+                testoRestante = testoRestante.substring(puntoSpezzo).trimStart();
+
+                // Taglia gli accordi in esatta corrispondenza speculare del testo troncato
+                let accordiTroncati = accordiRestanti.substring(0, puntoSpezzo);
+                accordiRestanti = accordiRestanti.substring(puntoSpezzo);
+
+                risultato.push(accordiTroncati.trimEnd());
+                risultato.push(testoTroncato);
+            }
+
+            if (accordiRestanti.trim() || testoRestante.trim()) {
+                risultato.push(accordiRestanti.trimEnd());
+                risultato.push(testoRestante);
+            }
+            i++; // Salta la riga del testo perché già elaborata nel blocco
+        } else {
+            // Riga singola lunga (es: testo senza accordi sopra o riga di commento)
+            let testoRestante = rigaCorrente;
+            while (testoRestante.length > RIGHE_MAX) {
+                let puntoSpezzo = testoRestante.lastIndexOf(' ', RIGHE_MAX);
+                if (puntoSpezzo <= 0) puntoSpezzo = RIGHE_MAX;
+                risultato.push(testoRestante.substring(0, puntoSpezzo));
+                testoRestante = testoRestante.substring(puntoSpezzo).trimStart();
+            }
+            if (testoRestante) risultato.push(testoRestante);
+        }
+    }
+    return risultato.join('\n');
+}
+
 
 
 // Questa funzione viene chiamata da CanzoniereSmart.js per elaborare il testo
@@ -28,18 +105,17 @@ function render() {
 
     const scalaRiferimento = currentNotation === "IT" ? noteItaliane : noteInglesi;
 
-    // Divide la canzone in singole righe
-    let righe = originalText.split("\n");
+    // --- NUOVA LOGICA WCAG INTERCETTATA QUI ---
+    // Se l'opzione è attiva, lavoriamo sulla versione compattata a 80 caratteri di originalText
+    let testoDaElaborare = wcagCompattatoAttivo ? compattaTestoWCAG80(originalText) : originalText;
+
+    // Divide la canzone in singole righe (usando testoDaElaborare invece di originalText)
+    let righe = testoDaElaborare.split("\n");
     
     let righeElaborate = righe.map(riga => {
-        // REGOLA DI SICUREZZA: Se la riga contiene parole più lunghe di 4 caratteri 
-        // che NON sono estensioni note, è una riga di testo. Non toccarla.
-        // Cerca parole comuni come "cantina", "dove", "buia", "giorni"
+        // ... (TUTTO IL RESTO DELLA TUA FUNZIONE RENDER RIMANE IDENTICO E INVARIATO) ...
         let paroleLunge = riga.match(/\b[a-zA-Zàèìòù]{4,}\b/g);
-        
-        // Se ci sono parole lunghe nel testo, restituisce la riga intatta senza cercare accordi
         if (paroleLunge && paroleLunge.length > 0) {
-            // Unica eccezione: verifica se la parola lunga non sia un'estensione come "maj7" o "min7" isolata
             let contieneSoloEstensioni = paroleLunge.every(p => /^(min7|maj7|sus4|diminuto)$/i.test(p));
             if (!contieneSoloEstensioni) {
                 return riga; 
