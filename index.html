@@ -48,54 +48,57 @@ modifiche di notatione Italiana o Internazionale
         </div>
     </div>
 
-    <!-- ================= 3. SCHERMATA VISUALIZZAZIONE SPARTITO ================= -->
+   <!-- ================= 3. SCHERMATA VISUALIZZAZIONE SPARTITO ================= -->
     <div id="song-screen" style="display: none;">
-        <div class="controls">
-            <button id="btn-elenco-brani" class="btn-menu">⬅ Elenco Brani</button>
-            <hr>
-            <button id="btn-transpose-meno">-1 Semitono</button>
-            <button id="btn-transpose-piu">+1 Semitono</button>
-            <br><br>
-            <label><input type="radio" name="notation" id="radio-it" value="IT" checked> ITA</label>
-            <label><input type="radio" name="notation" id="radio-en" value="EN"> ENG</label>
-            <div id="info-tonalita">Tonalità: Originale</div>
-            
-            <button id="btn-wcag-toggle" class="btn-player" title="Compatta spartito a max 80 caratteri (Standard WCAG)">
-              ↔️ Compatta WCAG
-            </button>   
-            
-            <div id="scroll-panel">
+        
+        <!-- NUOVO CONTENITORE: Raggruppa tutto lo spartito a sinistra -->
+        <div class="song-main-area" style="flex: 1; display: flex; flex-direction: column;">
+            <div class="controls">
+                <button id="btn-elenco-brani" class="btn-menu">⬅ Elenco Brani</button>
                 <hr>
-                <button id="btn-scroll">▶ Auto-Scroll</button>
-                <div class="scroll-speed-controls">
-                    <button id="btn-scroll-slower">Slower</button>
-                    <button id="btn-scroll-faster">Faster</button>
+                <button id="btn-transpose-meno">-1 Semitono</button>
+                <button id="btn-transpose-piu">+1 Semitono</button>
+                <br><br>
+                <label><input type="radio" name="notation" id="radio-it" value="IT" checked> ITA</label>
+                <label><input type="radio" name="notation" id="radio-en" value="EN"> ENG</label>
+                <div id="info-tonalita">Tonalità: Originale</div>
+                
+                <button id="btn-wcag-toggle" class="btn-player" title="Compatta spartito a max 80 caratteri (Standard WCAG)">
+                  ↔️ Compatta WCAG
+                </button>   
+                
+                <div id="scroll-panel">
+                    <hr>
+                    <button id="btn-scroll">▶ Auto-Scroll</button>
+                    <div class="scroll-speed-controls">
+                        <button id="btn-scroll-slower">Slower</button>
+                        <button id="btn-scroll-faster">Faster</button>
+                    </div>
+                    <div id="info-velocita">Velocità: 1x</div>
                 </div>
-                <div id="info-velocita">Velocità: 1x</div>
             </div>
+
+            <div id="offline-zone" class="offline-picker">
+                <strong>Modalità Offline locale:</strong><br>
+                Seleziona il file <span id="target-filename" style="color:#d32f2f; font-weight:bold;"></span> dentro la cartella configurata:<br><br>
+                <input type="file" id="file-selector" accept=".txt">
+            </div>
+
+            <h2 id="song-title-container">
+                <span id="song-title"></span>
+                <span id="song-author"></span>
+            </h2>
+
+            <pre id="song-content">Caricamento in corso...</pre>
         </div>
 
-       <!-- ================= NUOVO: PANNELLO SCALETTA LITURGICA ================= -->
+        <!-- LA SIDEBAR DELLA SCALETTA RIMANE FUORI, AFFIANCATA SULLA DESTRA -->
         <div id="scaletta-panel" class="scaletta-sidebar" style="display: none;">
             <h3>📋 Scaletta Attiva</h3>
             <h4 id="scaletta-nome-titolo">Nessuna scaletta</h4>
-            <div id="scaletta-bottoni-container" class="scaletta-list">
-                <!-- I pulsanti (1. Ingresso, 2. Gloria...) verranno generati dinamicamente da JS -->
-            </div>
-        </div>
-        
-        <div id="offline-zone" class="offline-picker">
-            <strong>Modalità Offline locale:</strong><br>
-            Seleziona il file <span id="target-filename" style="color:#d32f2f; font-weight:bold;"></span> dentro la cartella configurata:<br><br>
-            <input type="file" id="file-selector" accept=".txt">
+            <div id="scaletta-bottoni-container" class="scaletta-list"></div>
         </div>
 
-        <h2 id="song-title-container">
-            <span id="song-title"></span>
-            <span id="song-author"></span>
-        </h2>
-
-        <pre id="song-content">Caricamento in corso...</pre>
     </div>
 
     <!-- Caricamento degli Script Modulari -->
