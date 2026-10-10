@@ -228,6 +228,10 @@ function attivaScalettaLiturgica(jsonScaletta) {
     });
 }
 
+// ===================================================================
+// NUOVO MODULO: GESTIONE SCALETTA LITURGICA AUTOMATICA
+// ===================================================================
+
 /**
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
@@ -239,6 +243,7 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     
     const titoloPulito = titoloDaCercare.trim().toLowerCase();
     
+    // Ricerca il brano all'interno del catalogo attivo caricato in memoria
     const branoTrovato = catalogoAttivoRiferimento.find(brano => 
         brano.titolo.trim().toLowerCase() === titoloPulito
     );
@@ -254,21 +259,25 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
         }
         
         currentSemitoneShift = 0;
-        document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
+        if (document.getElementById("info-tonalita")) {
+            document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
+        }
         
         const percorsoCompletoFile = cartellaAttiva + nomeFileTxt;
         document.getElementById("song-content").textContent = "Caricamento file .txt in corso...";
 
-        // Caricamento automatico del file di testo
+        // Esegue il fetch automatico del file .txt dal server/cartella locale
         fetch(percorsoCompletoFile)
             .then(res => {
                 if (!res.ok) throw new Error("File non accessibile direttamente");
                 return res.text();
             })
             .then(testoEstratto => {
-                originalText = testoEstratto; // Popola la variabile globale per il transposer
+                originalText = testoEstratto; // Popola la variabile letta dal Transposer
                 document.getElementById('offline-zone').style.display = "none";
-                render(); // Esegue il disegno dello spartito con accordi e WCAG attivo
+                
+                // ESEGUE IL RENDERING USANDO IL TUO MOTORE DI DISEGNO ORIGINALE
+                render(); 
             })
             .catch(err => {
                 console.log("Auto-fetch non riuscito, attivo modalità manuale:", err.message);
@@ -278,17 +287,26 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
             });
 
     } else {
-        alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere Liturgico.`);
+        alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere.`);
     }
 }
 
+/**
+ * Gestore per tornare alla schermata Home / Splash pulendo gli stati di scorrimento
+ */
 function tornaAllaHomeSplash() {
-    resetScorrimentoSicuro(); 
+    // Chiama la funzione di reset dello scorrimento se definita nel tuo codice
+    if (typeof resetScorrimentoSicuro === "function") {
+        resetScorrimentoSicuro();
+    } else if (scrollInterval) {
+        clearInterval(scrollInterval);
+        isScrolling = false;
+    }
+    
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("song-screen").style.display = "none";
     document.getElementById("splash-screen").style.display = "block";
 }
-
 function tornaAlMenuRicerca() {
     resetScorrimentoSicuro();
     document.getElementById("song-screen").style.display = "none";
