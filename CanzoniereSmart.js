@@ -131,6 +131,26 @@ window.addEventListener('DOMContentLoaded', () => {
             reader.readAsText(files[0]);
         });
     }
+
+    // --- GESTORI DI VISUALIZZAZIONE DEI PANNELLI LATERALI (TOGGLE) ---
+    document.getElementById('btn-toggle-controls').addEventListener('click', () => {
+        const ctrlPanel = document.getElementById('controls-panel');
+        if (ctrlPanel.style.display === 'none') {
+            ctrlPanel.style.display = 'block';
+        } else {
+            ctrlPanel.style.display = 'none';
+        }
+    });
+
+    document.getElementById('btn-toggle-scaletta').addEventListener('click', () => {
+        const scalettaPanel = document.getElementById('scaletta-panel');
+        if (scalettaPanel.style.display === 'none') {
+            scalettaPanel.style.display = 'block';
+        } else {
+            scalettaPanel.style.display = 'none';
+        }
+    });
+    
 }); // Fine di DOMContentLoaded
 
 /**
