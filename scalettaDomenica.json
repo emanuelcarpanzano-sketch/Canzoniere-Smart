@@ -1,14 +1,14 @@
 {
-  "nomeScaletta": "Domenica Tempo Ordinario",
+  "nomeScaletta": "Domenica XXVIII Tempo Ordinario",
   "brani": {
     "1) Ingresso": "Ecco Lo Sposo",
-    "2) Gloria": "Gloria a Dio Serapiglia",
+    "2) Gloria": "Gloria San Francesco",
     "2 Bis) Salmo": "Salmo 79",
-    "3) Alleluja": "Alleluja Serapiglia",
-    "4) Offertorio": "Benedici il Signore",
-    "5) Santo": "Santo Bonfitto",
-    "6) Comunione": "Pane di vita nuova",
-    "7) Ringraziamento": "Anima Christi",
-    "8) Congedo": "Ti ringraziamo"
+    "3) Alleluja": "Alleluja San Francesco",
+    "4) Offertorio": "FruttoDellaNostraTerra",
+    "5) Santo": "Santo San Francesco",
+    "6) Comunione": "Chiamati per nome",
+    "7) Ringraziamento": "Mio rifugio sei Tu",
+    "8) Congedo": "O Maria Santissima"
   }
 }
