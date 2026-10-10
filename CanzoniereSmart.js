@@ -131,7 +131,7 @@ window.addEventListener('DOMContentLoaded', () => {
             reader.readAsText(files[0]);
         });
     }
-});
+}); // Fine di DOMContentLoaded
 
 
 /**
