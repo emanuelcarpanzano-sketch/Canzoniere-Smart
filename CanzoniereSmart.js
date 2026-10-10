@@ -344,14 +344,21 @@ function transpose(semitoni) {
 
 function changeNotation(notazione) {
     currentNotation = notazione;
-    render();
+    if (typeof render === "function") render();
 }
 
 // ================= GESTIONE AUTO-SCROLL INTERFACCIA =================
 function toggleScroll() {
     const btn = document.getElementById("btn-scroll");
+    if (!btn) return;
+    
     if (isScrolling) {
-        resetScorrimentoSicuro();
+        if (typeof resetScorrimentoSicuro === "function") {
+            resetScorrimentoSicuro();
+        } else {
+            if (scrollInterval) clearInterval(scrollInterval);
+            isScrolling = false;
+        }
         btn.textContent = "▶ Auto-Scroll";
     } else {
         isScrolling = true;
@@ -364,12 +371,14 @@ function toggleScroll() {
 
 function changeScrollSpeed(delta) {
     currentSpeedMs += delta;
-    if (currentSpeedMs < 10) currentSpeedMs = 10; // Limite di velocità massima
-    if (currentSpeedMs > 150) currentSpeedMs = 150; // Limite di lentezza massima
+    if (currentSpeedMs < 10) currentSpeedMs = 10;
+    if (currentSpeedMs > 150) currentSpeedMs = 150;
     
-    // Mostra un indicatore di velocità approssimativo proporzionale
-    let visualSpeed = Math.round((40 / currentSpeedMs) * 10) / 10;
-    document.getElementById("info-velocita").textContent = `Velocità: ${visualSpeed}x`;
+    const infoVelocita = document.getElementById("info-velocita");
+    if (infoVelocita) {
+        let visualSpeed = Math.round((40 / currentSpeedMs) * 10) / 10;
+        infoVelocita.textContent = `Velocità: ${visualSpeed}x`;
+    }
     
     if (isScrolling) {
         clearInterval(scrollInterval);
