@@ -390,8 +390,9 @@ pre {
     z-index: 100;
 }
 
+/* Stile base aggiornato per i pulsanti Toggle superiori */
 .btn-toggle-panel {
-    background-color: #34495e;
+    background-color: #34495e; /* Grigio scuro/Bluastro per il Pannello Controlli */
     color: white;
     border: none;
     padding: 8px 16px;
@@ -400,10 +401,21 @@ pre {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    margin-right: 10px; /* Crea un distacco fisico se i tasti sono vicini */
+    transition: background-color 0.2s ease;
 }
 
 .btn-toggle-panel:active {
     background-color: #2c3e50;
+}
+
+/* NUOVO: Personalizzazione specifica per il pulsante della Scaletta (Viola Liturgico) */
+#btn-toggle-scaletta {
+    background-color: #8e44ad; /* Viola coerente con la Home */
+}
+
+#btn-toggle-scaletta:active {
+    background-color: #732d91; /* Viola più scuro al tocco */
 }
 
 /* Area dello spartito centrale responsiva */
