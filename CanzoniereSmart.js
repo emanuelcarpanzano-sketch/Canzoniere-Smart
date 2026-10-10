@@ -88,9 +88,18 @@ window.addEventListener('DOMContentLoaded', () => {
         document.head.appendChild(scriptConfigurato);
     });
 
-    // Gestori della barra di ricerca e navigazione
-    document.getElementById('search-input').addEventListener('input', ricercaRapida);
-    document.getElementById('btn-elenco-brani').addEventListener('click', tornaAlMenuRicerca);
+// Gestori della barra di ricerca e navigazione (CON CONTROLLO DI SICUREZZA)
+    const inputRicerca = document.getElementById('search-input');
+    if (inputRicerca && typeof ricercaRapida === "function") {
+        inputRicerca.addEventListener('input', ricercaRapida);
+    } else if (inputRicerca) {
+        console.warn("Funzione ricercaRapida non trovata. Il listener non è stato agganciato.");
+    }
+
+    const btnElenco = document.getElementById('btn-elenco-brani');
+    if (btnElenco && typeof tornaAlMenuRicerca === "function") {
+        btnElenco.addEventListener('click', tornaAlMenuRicerca);
+    }
     
     // Gestori del transposer e della notazione
     document.getElementById('btn-transpose-meno').addEventListener('click', () => transpose(-1));
