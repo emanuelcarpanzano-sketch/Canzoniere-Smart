@@ -361,6 +361,7 @@ window.catalogoChiesa = [
     
     { titolo: "Sacro Cuore di Gesù", autore: "Roland Patzleiner (Figli del Divino Amore)" },
     { titolo: "Saldo è il mio cuore", autore: "E. Remigi - A. Martinez" },
+    { titolo: "Salmo 79", autore: "Salmo 79 Anno A" },
     { titolo: "Salmo_145", autore: "Salmo 145" },
     { titolo: "Salve o dolce vergine", autore: "Don Marco Frisina" },
     { titolo: "Salve Regina", autore: "Gen Verde" },
