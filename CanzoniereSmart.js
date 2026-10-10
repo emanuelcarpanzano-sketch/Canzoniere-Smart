@@ -230,19 +230,29 @@ function attivaScalettaLiturgica(jsonScaletta) {
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
 function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
+    console.log("🔍 [RICERCA SCALETTA] Cerco il titolo:", titoloDaCercare);
+    
     if (!catalogoAttivoRiferimento) {
-        console.error("Nessun catalogo attivo configurato.");
+        console.error("❌ [RICERCA] catalogoAttivoRiferimento è nullo o non configurato!");
         return;
     }
     
+    console.log("📊 [RICERCA] Numero totale di brani presenti nel catalogo attivo:", catalogoAttivoRiferimento.length);
+    if(catalogoAttivoRiferimento.length > 0) {
+        console.log("👀 [RICERCA] Esempio struttura del primo brano nel catalogo:", catalogoAttivoRiferimento[0]);
+    }
+
     const titoloPulito = titoloDaCercare.trim().toLowerCase();
     
-    const branoTrovato = catalogoAttivoRiferimento.find(brano => 
-        brano.titolo.trim().toLowerCase() === titoloPulito
-    );
+    // Eseguiamo la ricerca
+    const branoTrovato = catalogoAttivoRiferimento.find(brano => {
+        if (!brano || !brano.titolo) return false;
+        return brano.titolo.trim().toLowerCase() === titoloPulito;
+    });
     
     if (branoTrovato) {
-        // Lettura robusta sia per .testo che per .testoGrezzo
+        console.log("✅ [RICERCA] Brano TROVATO con successo!", branoTrovato);
+        
         originalText = branoTrovato.testo || branoTrovato.testoGrezzo || ""; 
         
         document.getElementById("song-title").textContent = branoTrovato.titolo;
@@ -256,11 +266,9 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
         currentSemitoneShift = 0;
         document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         
-        // Esegue il rendering attraverso il motore integrato in transposer.js
         render();
     } else {
-        console.warn(`Brano non trovato nel catalogo: ${titoloDaCercare}`);
-        alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere Liturgico caricato.`);
+        console.error(`❌ [RICERCA] Brano NON trovato nel catalogo in memoria per il titolo: "${titoloDaCercare}"`);
     }
 }
 
