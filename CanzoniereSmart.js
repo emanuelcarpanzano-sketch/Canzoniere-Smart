@@ -24,6 +24,45 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-load-pop').addEventListener('click', () => avviaCanzoniere('pop'));
     document.getElementById('btn-load-chiesa').addEventListener('click', () => avviaCanzoniere('chiesa'));
     document.getElementById('btn-home-splash').addEventListener('click', tornaAllaHomeSplash);
+
+    // --- NUOVO GESTORE PER CARICARE LA SCALETTA DAL JSON ---
+    document.getElementById('btn-load-scaletta-domenica').addEventListener('click', () => {
+        // 1. Carica in modo asincrono il file JSON locale
+        fetch('scalettaDomenica.json')
+            .then(response => {
+                if (!response.ok) throw new Error("Impossibile caricare il file della scaletta");
+                return response.json();
+            })
+            .then(data => {
+                // 2. Forza l'attivazione del catalogo Chiesa (necessario per trovare i brani liturgici)
+                // Usiamo le stesse identiche inizializzazioni che esegui in avviaCanzoniere('chiesa')
+                cartellaAttiva = "CatalogoTxTChiesa/";
+                catalogoAttivoRiferimento = window.catalogoChiesa; 
+
+                // 3. Nasconde la Home e mostra la schermata dello spartito (#song-screen)
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('song-screen').style.display = 'flex'; // Usiamo flex per il layout a colonne con sidebar
+
+                // 4. Inizializza graficamente la barra laterale con i tempi liturgici
+                attivaScalettaLiturgica(data);
+                
+                // 5. Opzionale: Seleziona in automatico il primo canto (Ingresso) per non mostrare la pagina vuota
+                const primoTempo = Object.keys(data.brani)[0];
+                if (primoTempo) {
+                    selezionaBranoDaScalettaPerTitolo(data.brani[primoTempo]);
+                    // Evidenzia visivamente il primo bottone generato
+                    setTimeout(() => {
+                        const primoBtn = document.querySelector(".btn-scaletta-item");
+                        if (primoBtn) primoBtn.classList.add("tempo-selezionato");
+                    }, 50);
+                }
+            })
+            .catch(error => {
+                console.error("Errore nel caricamento della scaletta:", error);
+                alert("Errore nel caricamento della scaletta. Controlla che il file 'scalettaDomenica.json' sia nella cartella corretta.");
+            });
+    });
+
     
     // Gestori della barra di ricerca e navigazione
     document.getElementById('search-input').addEventListener('input', ricercaRapida);
