@@ -29,88 +29,71 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-load-chiesa').addEventListener('click', () => avviaCanzoniere('chiesa'));
     document.getElementById('btn-home-splash').addEventListener('click', tornaAllaHomeSplash);
 
-    // --- GESTORE SCALETTA CON MESSAGGI DI CONTROLLO ---
+    // --- GESTORE PER CARICARE LA SCALETTA DAL JSON CON INIEZIONE DINAMICA ---
     document.getElementById('btn-load-scaletta-domenica').addEventListener('click', () => {
-        console.log("👉 PASSO 1: Pulsante viola cliccato!");
-
+        // 1. Rimuoviamo script precedenti se presenti per evitare conflitti di ridefinizione
         if (scriptConfigurato) {
             scriptConfigurato.remove();
             scriptConfigurato = null;
         }
 
+        // 2. Prepariamo la configurazione e i percorsi per il catalogo liturgico
         cartellaAttiva = "CatalogoTxTChiesa/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
 
+        // 3. Iniettiamo dinamicamente il catalogo Chiesa con stringa dinamica anti-cache
         scriptConfigurato = document.createElement("script");
         scriptConfigurato.src = "CanzoniereCatalogoChiesa.js?_=" + new Date().getTime();
 
+        // 4. Eseguiamo la logica solo quando lo script del catalogo è completamente caricato in memoria
         scriptConfigurato.onload = function() {
-            console.log("👉 PASSO 2: Script CanzoniereCatalogoChiesa.js caricato in memoria!");
-            
             if (window.catalogoChiesa) {
                 catalogoAttivoRiferimento = window.catalogoChiesa;
-                console.log("👉 PASSO 3: Il catalogo Chiesa è valido! Numero brani:", catalogoAttivoRiferimento.length);
             } else {
-                console.error("❌ ERRORE al PASSO 3: window.catalogoChiesa è undefined!");
-                alert("Errore: il catalogo Chiesa non è stato popolato correttamente.");
+                console.error("Errore: Impossibile trovare window.catalogoChiesa su window.");
+                alert("Errore nel caricamento del catalogo. Verifica CanzoniereCatalogoChiesa.js");
                 return;
             }
 
-            console.log("👉 PASSO 4: Avvio la fetch di scalettaDomenica.json...");
+            // 5. Carichiamo in modo asincrono il file JSON locale della scaletta
             fetch('scalettaDomenica.json')
                 .then(response => {
-                    if (!response.ok) throw new Error("File scalettaDomenica.json non trovato o non accessibile");
+                    if (!response.ok) throw new Error("Impossibile caricare il file della scaletta");
                     return response.json();
                 })
                 .then(data => {
-                    console.log("👉 PASSO 5: JSON della scaletta scaricato con successo!", data);
-                    
+                    // Nasconde la Home e mostra lo spartito
                     document.getElementById('splash-screen').style.display = 'none';
                     document.getElementById('song-screen').style.display = 'flex'; 
 
+                    // Inizializza graficamente la barra laterale con i tempi liturgici
                     attivaScalettaLiturgica(data);
-                    console.log("👉 PASSO 6: Barra laterale della scaletta iniettata nel DOM!");
                     
+                    // Seleziona in automatico il primo canto (Ingresso) per non mostrare la pagina vuota
                     const chiaviTempi = Object.keys(data.brani);
                     if (chiaviTempi.length > 0) {
                         const primoTempoDellaMessa = chiaviTempi[0];
-                        const primoTitolo = data.brani[primoTempoDellaMessa];
-                        console.log(`👉 PASSO 7: Provo a caricare in automatico il primo brano: "${primoTitolo}"`);
+                        selezionaBranoDaScalettaPerTitolo(data.brani[primoTempoDellaMessa]);
                         
-                        selezionaBranoDaScalettaPerTitolo(primoTitolo);
+                        // Evidenzia visivamente il primo bottone generato nella barra laterale
+                        setTimeout(() => {
+                            const primoBtn = document.querySelector(".btn-scaletta-item");
+                            if (primoBtn) primoBtn.classList.add("tempo-selezionato");
+                        }, 50);
                     }
                 })
                 .catch(error => {
-                    console.error("❌ ERRORE nel flusso della scaletta o nella fetch:", error);
+                    console.error("Errore nel caricamento della scaletta:", error);
+                    alert("Errore nel caricamento della scaletta. Controlla che il file 'scalettaDomenica.json' sia nella cartella corretta.");
                 });
         };
 
         document.head.appendChild(scriptConfigurato);
     });
 
-// Gestori della barra di ricerca e navigazione con controllo di sicurezza
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            if (typeof ricercaRapida === "function") {
-                ricercaRapida(e);
-            } else {
-                console.warn("Funzione ricercaRapida non ancora definita o caricata.");
-            }
-        });
-    }
-
-    const btnElencoBrani = document.getElementById('btn-elenco-brani');
-    if (btnElencoBrani) {
-        btnElencoBrani.addEventListener('click', () => {
-            if (typeof tornaAlMenuRicerca === "function") {
-                tornaAlMenuRicerca();
-            } else {
-                // Fallback se la funzione non esiste: torna semplicemente alla splash screen
-                tornaAllaHomeSplash();
-            }
-        });
-    }
+    // Gestori della barra di ricerca e navigazione
+    document.getElementById('search-input').addEventListener('input', ricercaRapida);
+    document.getElementById('btn-elenco-brani').addEventListener('click', tornaAlMenuRicerca);
     
     // Gestori del transposer e della notazione
     document.getElementById('btn-transpose-meno').addEventListener('click', () => transpose(-1));
@@ -143,15 +126,12 @@ window.addEventListener('DOMContentLoaded', () => {
             reader.onload = (event) => {
                 originalText = event.target.result;
                 document.getElementById('offline-zone').style.display = "none";
-                
-                // SOSTITUITO QUI: Richiamiamo il motore ufficiale centralizzato
                 render(); 
             };
             reader.readAsText(files[0]);
         });
     }
 }); // Fine di DOMContentLoaded
-
 
 /**
  * Carica dinamicamente il file del catalogo corretto con logica anti-cache attiva
@@ -248,10 +228,6 @@ function attivaScalettaLiturgica(jsonScaletta) {
     });
 }
 
-// ===================================================================
-// NUOVO MODULO: GESTIONE SCALETTA LITURGICA AUTOMATICA
-// ===================================================================
-
 /**
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
@@ -263,7 +239,6 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     
     const titoloPulito = titoloDaCercare.trim().toLowerCase();
     
-    // Ricerca il brano all'interno del catalogo attivo caricato in memoria
     const branoTrovato = catalogoAttivoRiferimento.find(brano => 
         brano.titolo.trim().toLowerCase() === titoloPulito
     );
@@ -279,24 +254,20 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
         }
         
         currentSemitoneShift = 0;
-        if (document.getElementById("info-tonalita")) {
-            document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
-        }
+        document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         
         const percorsoCompletoFile = cartellaAttiva + nomeFileTxt;
         document.getElementById("song-content").textContent = "Caricamento file .txt in corso...";
 
-        // Esegue il fetch automatico del file .txt dal server/cartella locale
+        // Caricamento automatico asincrono del file .txt
         fetch(percorsoCompletoFile)
             .then(res => {
                 if (!res.ok) throw new Error("File non accessibile direttamente");
                 return res.text();
             })
             .then(testoEstratto => {
-                originalText = testoEstratto; // Popola la variabile letta dal Transposer
+                originalText = testoEstratto; 
                 document.getElementById('offline-zone').style.display = "none";
-                
-                // ESEGUE IL RENDERING USANDO IL TUO MOTORE DI DISEGNO ORIGINALE
                 render(); 
             })
             .catch(err => {
@@ -312,39 +283,118 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
 }
 
 /**
- * Gestore per tornare alla schermata Home / Splash pulendo gli stati di scorrimento
+ * Filtra dinamicamente i brani del catalogo attivo in base a quanto digitato dall'utente
  */
-function tornaAllaHomeSplash() {
-    // Chiama la funzione di reset dello scorrimento se definita nel tuo codice
-    if (typeof resetScorrimentoSicuro === "function") {
-        resetScorrimentoSicuro();
-    } else if (scrollInterval) {
-        clearInterval(scrollInterval);
-        isScrolling = false;
-    }
+function ricercaRapida(event) {
+    const stringaRicerca = event.target.value.trim().toLowerCase();
+    const containerRisultati = document.getElementById('search-results');
     
-    document.getElementById("menu-screen").style.display = "none";
-    document.getElementById("song-screen").style.display = "none";
-    document.getElementById("splash-screen").style.display = "block";
+    if (!containerRisultati) return;
+
+    // Se l'input è vuoto, svuota e nascondi l'elenco dei risultati
+    if (stringaRicerca.length === 0) {
+        containerRisultati.innerHTML = "";
+        containerRisultati.style.display = "none";
+        return;
+    }
+
+    if (!catalogoAttivoRiferimento) {
+        console.warn("Nessun catalogo attivo da scansionare.");
+        return;
+    }
+
+    // Filtra i brani verificando la presenza della stringa nel titolo o nell'autore
+    const braniFiltrati = catalogoAttivoRiferimento.filter(brano => {
+        const titolo = brano.titolo ? brano.titolo.toLowerCase() : "";
+        const autore = brano.autore ? brano.autore.toLowerCase() : "";
+        return titolo.includes(stringaRicerca) || autore.includes(stringaRicerca);
+    });
+
+    // Svuotamento preventivo del DOM per evitare rallentamenti su tablet
+    containerRisultati.innerHTML = "";
+
+    if (braniFiltrati.length === 0) {
+        containerRisultati.innerHTML = "<div class='no-results'>Nessun brano trovato</div>";
+        containerRisultati.style.display = "block";
+        return;
+    }
+
+    // Genera la lista dei brani trovati
+    braniFiltrati.forEach(brano => {
+        const elementoBrano = document.createElement('div');
+        elementoBrano.className = 'search-result-item';
+        elementoBrano.style.padding = "10px";
+        elementoBrano.style.borderBottom = "1px solid #eee";
+        elementoBrano.style.cursor = "pointer";
+        
+        elementoBrano.innerHTML = `<strong>${brano.titolo}</strong> ${brano.autore ? ' - ' + brano.autore : ''}`;
+        
+        // Al click sul brano trovato, lo carichiamo nello spartito
+        elementoBrano.addEventListener('click', () => {
+            document.getElementById('menu-screen').style.display = 'none';
+            document.getElementById('song-screen').style.display = 'flex';
+            
+            // Nasconde la sidebar della scaletta se stiamo navigando dal catalogo generale
+            const panelScaletta = document.getElementById("scaletta-panel");
+            if (panelScaletta) panelScaletta.style.display = "none";
+            
+            // Sfrutta la logica di caricamento per titolo che abbiamo reso robusta
+            selezionaBranoDaScalettaPerTitolo(brano.titolo);
+        });
+
+        containerRisultati.appendChild(elementoBrano);
+    });
+
+    containerRisultati.style.display = "block";
 }
+
+/**
+ * Gestore per il pulsante "⬅ Elenco Brani" che pulisce gli stati e mostra il menu di ricerca
+ */
 function tornaAlMenuRicerca() {
     resetScorrimentoSicuro();
     document.getElementById("song-screen").style.display = "none";
     document.getElementById("menu-screen").style.display = "block";
+    
+    // Rimette il focus sulla barra di ricerca per una digitazione immediata
+    const input = document.getElementById('search-input');
+    if (input) {
+        input.value = "";
+        input.focus();
+    }
+    
+    // Nasconde i vecchi risultati della ricerca precedente
+    const containerRisultati = document.getElementById('search-results');
+    if (containerRisultati) {
+        containerRisultati.innerHTML = "";
+        containerRisultati.style.display = "none";
+    }
+}
+
+/**
+ * Gestore per tornare alla schermata Home / Splash pulendo gli stati di scorrimento
+ */
+function tornaAllaHomeSplash() {
+    resetScorrimentoSicuro(); 
+    document.getElementById("menu-screen").style.display = "none";
+    document.getElementById("song-screen").style.display = "none";
+    document.getElementById("splash-screen").style.display = "block";
 }
 
 // ================= GESTIONE TRASPOSIZIONE E NOTAZIONE =================
 function transpose(semitoni) {
     currentSemitoneShift += semitoni;
-    // Calcola la visualizzazione della tonalità relativa
     let segno = currentSemitoneShift > 0 ? "+" : "";
-    document.getElementById("info-tonalita").textContent = currentSemitoneShift === 0 ? "Tonalità: Originale" : `Tonalità: ${segno}${currentSemitoneShift} Semitoni`;
+    const infoTonalita = document.getElementById("info-tonalita");
+    if (infoTonalita) {
+        infoTonalita.textContent = currentSemitoneShift === 0 ? "Tonalità: Originale" : `Tonalità: ${segno}${currentSemitoneShift} Semitoni`;
+    }
     render();
 }
 
 function changeNotation(notazione) {
     currentNotation = notazione;
-    if (typeof render === "function") render();
+    render();
 }
 
 // ================= GESTIONE AUTO-SCROLL INTERFACCIA =================
@@ -353,13 +403,7 @@ function toggleScroll() {
     if (!btn) return;
     
     if (isScrolling) {
-        if (typeof resetScorrimentoSicuro === "function") {
-            resetScorrimentoSicuro();
-        } else {
-            if (scrollInterval) clearInterval(scrollInterval);
-            isScrolling = false;
-        }
-        btn.textContent = "▶ Auto-Scroll";
+        resetScorrimentoSicuro();
     } else {
         isScrolling = true;
         btn.textContent = "⏸ Pausa";
@@ -371,8 +415,8 @@ function toggleScroll() {
 
 function changeScrollSpeed(delta) {
     currentSpeedMs += delta;
-    if (currentSpeedMs < 10) currentSpeedMs = 10;
-    if (currentSpeedMs > 150) currentSpeedMs = 150;
+    if (currentSpeedMs < 10) currentSpeedMs = 10; // Limite di velocità massima
+    if (currentSpeedMs > 150) currentSpeedMs = 150; // Limite di lentezza massima
     
     const infoVelocita = document.getElementById("info-velocita");
     if (infoVelocita) {
@@ -394,5 +438,4 @@ function resetScorrimentoSicuro() {
     const btn = document.getElementById("btn-scroll");
     if (btn) btn.textContent = "▶ Auto-Scroll";
 }
-
 
