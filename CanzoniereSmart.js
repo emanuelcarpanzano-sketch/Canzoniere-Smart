@@ -123,7 +123,9 @@ window.addEventListener('DOMContentLoaded', () => {
             reader.onload = (event) => {
                 originalText = event.target.result;
                 document.getElementById('offline-zone').style.display = "none";
-                stampaASelezionato(); // Sostituire con render() se stampaASelezionato non è definita altrove
+                
+                // SOSTITUITO QUI: Richiamiamo il motore ufficiale centralizzato
+                render(); 
             };
             reader.readAsText(files[0]);
         });
