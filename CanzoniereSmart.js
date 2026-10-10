@@ -338,4 +338,95 @@ function stampaASelezionato() {
     }
 }
 
+// Stato della scaletta attiva nel sistema
+let scalettaCorrenteData = null;
+let momentoLiturgicoAttivo = null; 
+
+/**
+ * Carica e renderizza una scaletta liturgica da una struttura dati JSON
+ * @param {Object} jsonScaletta - Il file o l'oggetto JSON della scaletta
+ */
+function attivaScalettaLiturgica(jsonScaletta) {
+    scalettaCorrenteData = jsonScaletta;
+    
+    const panel = document.getElementById("scaletta-panel");
+    const titoloScaletta = document.getElementById("scaletta-nome-titolo");
+    const containerBottoni = document.getElementById("scaletta-bottoni-container");
+    
+    if (!panel || !containerBottoni) return;
+
+    // Imposta il titolo e svuota vecchi pulsanti per evitare memory leak sul tablet
+    titoloScaletta.textContent = jsonScaletta.nomeScaletta;
+    containerBottoni.innerHTML = "";
+    
+    // Mostra il pannello della scaletta
+    panel.style.display = "block";
+
+    // Cicla sui brani definiti nel JSON e genera i pulsanti della sequenza liturgica
+    Object.keys(jsonScaletta.brani).forEach(tempo => {
+        const nomeCanzone = jsonScaletta.brani[tempo];
+        
+        const btn = document.createElement("button");
+        btn.className = "btn-scaletta-item";
+        btn.innerHTML = `<span class="tempo-label">${tempo}</span><br><span class="titolo-label">${nomeCanzone}</span>`;
+        
+        // Evento di selezione del tempo liturgico al click sul tablet
+        btn.addEventListener("click", () => {
+            // Rimuove la classe attiva dai vecchi bottoni della scaletta e la assegna al corrente
+            document.querySelectorAll(".btn-scaletta-item").forEach(b => b.classList.remove("tempo-selezionato"));
+            btn.classList.add("tempo-selezionato");
+            
+            momentoLiturgicoAttivo = tempo;
+            selezionaBranoDaScalettaPerTitolo(nomeCanzone);
+        });
+        
+        containerBottoni.appendChild(btn);
+    });
+}
+
+/**
+ * Cerca un brano nel catalogo attivo usando solo il titolo e lo invia al rendering
+ * @param {string} titoloDaCercare - Il titolo esatto scritto nel JSON
+ */
+function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
+    if (!catalogoAttivoRiferimento) {
+        console.error("Nessun catalogo attivo configurato.");
+        return;
+    }
+    
+    // Normalizzazione per evitare problemi di maiuscole/minuscole o spazi extra
+    const titoloPulito = titoloDaCercare.trim().toLowerCase();
+    
+    // Ricerca nel catalogo attivo (Pop/Rock o Chiesa legato a window)
+    const branoTrovato = catalogoAttivoRiferimento.find(brano => 
+        brano.titolo.trim().toLowerCase() === titoloPulito
+    );
+    
+    if (branoTrovato) {
+        // Assegna il brano trovato alla variabile che usi per tracciare lo spartito corrente
+        // e imposta il testo originale per far lavorare il Transposer
+        originalText = branoTrovato.testoGrezzo || branoTrovato.testo || ""; 
+        
+        // Aggiorna i testi dell'interfaccia utente
+        document.getElementById("song-title").textContent = branoTrovato.titolo;
+        document.getElementById("song-author").textContent = branoTrovato.autore ? ` - ${branoTrovato.autore}` : "";
+        
+        // Se usi la modalità offline locale, prepariamo il nome file atteso
+        const targetFilename = document.getElementById("target-filename");
+        if (targetFilename) {
+            targetFilename.textContent = branoTrovato.nomeFile || `${branoTrovato.titolo}.txt`;
+        }
+        
+        // Resetta lo shift del transposer all'ingresso di un nuovo brano per sicurezza
+        currentSemitoneShift = 0;
+        document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
+        
+        // Esegue il rendering finale dello spartito (gestito da transposer.js)
+        render();
+    } else {
+        alert(`Attenzione: Il brano "${titoloDaCercare}" non è stato trovato nel catalogo attualmente attivo.`);
+    }
+}
+
+
 
