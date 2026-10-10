@@ -197,17 +197,14 @@ body {
 /* =========================================================================
    SCHERMATA VISUALIZZAZIONE CANZONE E PANNELLO COMANDI
    ========================================================================= */
+/* Stile aggiornato per la sidebar controlli (Sinistra) */
 .controls {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    z-index: 1000;
-    width: 160px;
-    box-sizing: border-box;
+    width: 200px;
+    background-color: #fcfcfc;
+    border-right: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
 }
 
 button {
@@ -368,23 +365,66 @@ pre {
     border-color: #27ae60 !important;
 }
 
-/* Layout Schermata Song con Sidebar Scaletta */
+/* Layout flessibile della schermata dello spartito */
 #song-screen {
     display: flex;
-    flex-direction: row-reverse; /* Posiziona la scaletta preferibilmente a destra o sinistra */
+    flex-direction: row;
     justify-content: space-between;
-    gap: 20px;
-    padding: 15px;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 60px 15px 15px 15px; /* Spazio in alto per la barra dei toggle fisici */
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Barra superiore fissa per ospitare i pulsanti Toggle sul tablet */
+.top-toggle-bar {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    right: 15px;
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.btn-toggle-panel {
+    background-color: #34495e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.btn-toggle-panel:active {
+    background-color: #2c3e50;
+}
+
+/* Area dello spartito centrale responsiva */
+.song-main-area {
+    flex: 1;
+    min-width: 0; /* Impedisce al tag <pre> di allargare forzatamente il flex container */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+/* Stile aggiornato per la sidebar scaletta (Destra) */
 .scaletta-sidebar {
-    width: 280px;
+    width: 250px;
     background-color: #f8f9fa;
-    border-left: 3px solid #007bff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: -2px 2px 8px rgba(0,0,0,0.1);
-    max-height: 85vh;
+    border-left: 3px solid #8e44ad;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: -2px 2px 6px rgba(0,0,0,0.05);
+    max-height: 80vh;
     overflow-y: auto;
 }
 
