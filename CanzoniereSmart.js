@@ -466,7 +466,7 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     if (branoTrovato) {
         // Assegna il brano trovato alla variabile che usi per tracciare lo spartito corrente
         // e imposta il testo originale per far lavorare il Transposer
-        originalText = branoTrovato.testoGrezzo || branoTrovato.testo || ""; 
+        originalText = branoTrovato.testo || branoTrovato.testoGrezzo || ""; 
         
         // Aggiorna i testi dell'interfaccia utente
         document.getElementById("song-title").textContent = branoTrovato.titolo;
