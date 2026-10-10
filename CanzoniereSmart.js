@@ -88,17 +88,28 @@ window.addEventListener('DOMContentLoaded', () => {
         document.head.appendChild(scriptConfigurato);
     });
 
-// Gestori della barra di ricerca e navigazione (CON CONTROLLO DI SICUREZZA)
-    const inputRicerca = document.getElementById('search-input');
-    if (inputRicerca && typeof ricercaRapida === "function") {
-        inputRicerca.addEventListener('input', ricercaRapida);
-    } else if (inputRicerca) {
-        console.warn("Funzione ricercaRapida non trovata. Il listener non è stato agganciato.");
+// Gestori della barra di ricerca e navigazione con controllo di sicurezza
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            if (typeof ricercaRapida === "function") {
+                ricercaRapida(e);
+            } else {
+                console.warn("Funzione ricercaRapida non ancora definita o caricata.");
+            }
+        });
     }
 
-    const btnElenco = document.getElementById('btn-elenco-brani');
-    if (btnElenco && typeof tornaAlMenuRicerca === "function") {
-        btnElenco.addEventListener('click', tornaAlMenuRicerca);
+    const btnElencoBrani = document.getElementById('btn-elenco-brani');
+    if (btnElencoBrani) {
+        btnElencoBrani.addEventListener('click', () => {
+            if (typeof tornaAlMenuRicerca === "function") {
+                tornaAlMenuRicerca();
+            } else {
+                // Fallback se la funzione non esiste: torna semplicemente alla splash screen
+                tornaAllaHomeSplash();
+            }
+        });
     }
     
     // Gestori del transposer e della notazione
