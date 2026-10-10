@@ -230,45 +230,48 @@ function attivaScalettaLiturgica(jsonScaletta) {
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
 function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
-    console.log("🔍 [RICERCA SCALETTA] Cerco il titolo:", titoloDaCercare);
-    
     if (!catalogoAttivoRiferimento) {
-        console.error("❌ [RICERCA] catalogoAttivoRiferimento è nullo o non configurato!");
+        console.error("Nessun catalogo attivo configurato.");
         return;
     }
     
-    console.log("📊 [RICERCA] Numero totale di brani presenti nel catalogo attivo:", catalogoAttivoRiferimento.length);
-    if(catalogoAttivoRiferimento.length > 0) {
-        console.log("👀 [RICERCA] Esempio struttura del primo brano nel catalogo:", catalogoAttivoRiferimento[0]);
-    }
-
     const titoloPulito = titoloDaCercare.trim().toLowerCase();
     
-    // Eseguiamo la ricerca
-    const branoTrovato = catalogoAttivoRiferimento.find(brano => {
-        if (!brano || !brano.titolo) return false;
-        return brano.titolo.trim().toLowerCase() === titoloPulito;
-    });
+    const branoTrovato = catalogoAttivoRiferimento.find(brano => 
+        brano.titolo.trim().toLowerCase() === titoloPulito
+    );
     
     if (branoTrovato) {
-        console.log("✅ [RICERCA] Brano TROVATO con successo!", branoTrovato);
-        
+        // Assegna il testo se presente, altrimenti stringa vuota (gestito da offline)
         originalText = branoTrovato.testo || branoTrovato.testoGrezzo || ""; 
         
+        // Aggiorna l'interfaccia del tablet con i metadati trovati
         document.getElementById("song-title").textContent = branoTrovato.titolo;
         document.getElementById("song-author").textContent = branoTrovato.autore ? ` - ${branoTrovato.autore}` : "";
         
+        // Determina il nome del file .txt da mostrare nella zona Offline
+        const nomeFileTxt = branoTrovato.nomeFile || `${branoTrovato.titolo}.txt`;
         const targetFilename = document.getElementById("target-filename");
         if (targetFilename) {
-            targetFilename.textContent = branoTrovato.nomeFile || `${branoTrovato.titolo}.txt`;
+            targetFilename.textContent = nomeFileTxt;
         }
         
+        // Reset dei parametri del Transposer
         currentSemitoneShift = 0;
         document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         
-        render();
+        if (originalText) {
+            // Se il testo è già incluso nel JS (Online/Cache full), nascondi la zona offline e renderizza
+            document.getElementById('offline-zone').style.display = "none";
+            render();
+        } else {
+            // Se il testo NON è incluso (Architettura a file TXT esterni su tablet):
+            // Mostriamo la zona offline e avvisiamo chiaramente quale file dare in pasto al lettore
+            document.getElementById('offline-zone').style.display = "block";
+            document.getElementById("song-content").textContent = `Seleziona il file "${nomeFileTxt}" qui sopra per visualizzare lo spartito.`;
+        }
     } else {
-        console.error(`❌ [RICERCA] Brano NON trovato nel catalogo in memoria per il titolo: "${titoloDaCercare}"`);
+        alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere Liturgico.`);
     }
 }
 
