@@ -231,9 +231,6 @@ function attivaScalettaLiturgica(jsonScaletta) {
 /**
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
-/**
- * Cerca un brano nel catalogo attivo usando solo il titolo e tenta il caricamento automatico o manuale del TXT
- */
 function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     if (!catalogoAttivoRiferimento) {
         console.error("Nessun catalogo attivo configurato.");
@@ -247,14 +244,10 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     );
     
     if (branoTrovato) {
-        // Aggiorna l'interfaccia con i metadati
         document.getElementById("song-title").textContent = branoTrovato.titolo;
         document.getElementById("song-author").textContent = branoTrovato.autore ? ` - ${branoTrovato.autore}` : "";
         
-        // Determina il nome del file .txt atteso (es. "Ecco lo sposo.txt")
-        // Se nel tuo catalogo JS c'è una proprietà specifica (es. branoTrovato.nomeFile) usa quella, altrimenti il titolo
         const nomeFileTxt = branoTrovato.nomeFile || `${branoTrovato.titolo}.txt`;
-        
         const targetFilename = document.getElementById("target-filename");
         if (targetFilename) {
             targetFilename.textContent = nomeFileTxt;
@@ -263,26 +256,22 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
         currentSemitoneShift = 0;
         document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         
-        // Costruiamo il percorso completo del file (es: "CatalogoTxTChiesa/Ecco lo sposo.txt")
         const percorsoCompletoFile = cartellaAttiva + nomeFileTxt;
-        
         document.getElementById("song-content").textContent = "Caricamento file .txt in corso...";
 
-        // --- TENTATIVO DI CARICAMENTO AUTOMATICO ---
+        // Caricamento automatico del file di testo
         fetch(percorsoCompletoFile)
             .then(res => {
                 if (!res.ok) throw new Error("File non accessibile direttamente");
                 return res.text();
             })
             .then(testoEstratto => {
-                // Se il fetch automatico ha successo, carichiamo il testo e disegnamo lo spartito
-                originalText = testoEstratto;
+                originalText = testoEstratto; // Popola la variabile globale per il transposer
                 document.getElementById('offline-zone').style.display = "none";
-                render();
+                render(); // Esegue il disegno dello spartito con accordi e WCAG attivo
             })
             .catch(err => {
-                // Se fallisce (es. protocollo file:// locale del tablet senza server), passiamo al selettore manuale
-                console.log("Richiesta diretta fallita, attivo selettore manuale locale:", err.message);
+                console.log("Auto-fetch non riuscito, attivo modalità manuale:", err.message);
                 originalText = "";
                 document.getElementById('offline-zone').style.display = "block";
                 document.getElementById("song-content").textContent = `Seleziona il file "${nomeFileTxt}" usando il bottone qui sopra per visualizzare lo spartito.`;
@@ -300,17 +289,63 @@ function tornaAllaHomeSplash() {
     document.getElementById("splash-screen").style.display = "block";
 }
 
-// Stub di sicurezza per funzioni richiamate dagli eventi del DOM
-function ricercaRapida() { /* Lascia intatta la tua funzione di ricerca originale in questo punto */ }
 function tornaAlMenuRicerca() {
     resetScorrimentoSicuro();
     document.getElementById("song-screen").style.display = "none";
     document.getElementById("menu-screen").style.display = "block";
 }
-function transpose(semitoni) { /* Lascia intatta la tua funzione transpose originale in questo punto */ }
-function changeNotation(tipo) { /* Lascia intatta la tua funzione changeNotation originale in questo punto */ }
-function toggleScroll() { /* Lascia intatta la tua funzione toggleScroll originale in questo punto */ }
-function changeScrollSpeed(delta) { /* Lascia intatta la tua funzione changeScrollSpeed originale in questo punto */ }
-function resetScorrimentoSicuro() { if(scrollInterval) clearInterval(scrollInterval); isScrolling = false; }
+
+// ================= GESTIONE TRASPOSIZIONE E NOTAZIONE =================
+function transpose(semitoni) {
+    currentSemitoneShift += semitoni;
+    // Calcola la visualizzazione della tonalità relativa
+    let segno = currentSemitoneShift > 0 ? "+" : "";
+    document.getElementById("info-tonalita").textContent = currentSemitoneShift === 0 ? "Tonalità: Originale" : `Tonalità: ${segno}${currentSemitoneShift} Semitoni`;
+    render();
+}
+
+function changeNotation(notazione) {
+    currentNotation = notazione;
+    render();
+}
+
+// ================= GESTIONE AUTO-SCROLL INTERFACCIA =================
+function toggleScroll() {
+    const btn = document.getElementById("btn-scroll");
+    if (isScrolling) {
+        resetScorrimentoSicuro();
+        btn.textContent = "▶ Auto-Scroll";
+    } else {
+        isScrolling = true;
+        btn.textContent = "⏸ Pausa";
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, 1);
+        }, currentSpeedMs);
+    }
+}
+
+function changeScrollSpeed(delta) {
+    currentSpeedMs += delta;
+    if (currentSpeedMs < 10) currentSpeedMs = 10; // Limite di velocità massima
+    if (currentSpeedMs > 150) currentSpeedMs = 150; // Limite di lentezza massima
+    
+    // Mostra un indicatore di velocità approssimativo proporzionale
+    let visualSpeed = Math.round((40 / currentSpeedMs) * 10) / 10;
+    document.getElementById("info-velocita").textContent = `Velocità: ${visualSpeed}x`;
+    
+    if (isScrolling) {
+        clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            window.scrollBy(0, 1);
+        }, currentSpeedMs);
+    }
+}
+
+function resetScorrimentoSicuro() {
+    if (scrollInterval) clearInterval(scrollInterval);
+    isScrolling = false;
+    const btn = document.getElementById("btn-scroll");
+    if (btn) btn.textContent = "▶ Auto-Scroll";
+}
 
 
