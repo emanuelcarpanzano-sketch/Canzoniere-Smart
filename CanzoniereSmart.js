@@ -31,21 +31,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // --- GESTORE PER CARICARE LA SCALETTA DAL JSON CON INIEZIONE DINAMICA ---
     document.getElementById('btn-load-scaletta-domenica').addEventListener('click', () => {
-        // 1. Rimuoviamo script precedenti se presenti per evitare conflitti di ridefinizione
         if (scriptConfigurato) {
             scriptConfigurato.remove();
             scriptConfigurato = null;
         }
 
-        // 2. Prepariamo la configurazione e i percorsi per il catalogo liturgico
         cartellaAttiva = "CatalogoTxTChiesa/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
 
-        // 3. Iniettiamo dinamicamente il catalogo Chiesa con stringa dinamica anti-cache
         scriptConfigurato = document.createElement("script");
         scriptConfigurato.src = "CanzoniereCatalogoChiesa.js?_=" + new Date().getTime();
 
-        // 4. Eseguiamo la logica solo quando lo script del catalogo è completamente caricato in memoria
         scriptConfigurato.onload = function() {
             if (window.catalogoChiesa) {
                 catalogoAttivoRiferimento = window.catalogoChiesa;
@@ -55,27 +51,26 @@ window.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 5. Carichiamo in modo asincrono il file JSON locale della scaletta
             fetch('scalettaDomenica.json')
                 .then(response => {
                     if (!response.ok) throw new Error("Impossibile caricare il file della scaletta");
                     return response.json();
                 })
                 .then(data => {
-                    // Nasconde la Home e mostra lo spartito
                     document.getElementById('splash-screen').style.display = 'none';
                     document.getElementById('song-screen').style.display = 'flex'; 
 
-                    // Inizializza graficamente la barra laterale con i tempi liturgici
+                    // MOSTRIAMO IL PULSANTE NELLA BARRA IN ALTO PERCHÈ LA SCALETTA È ATTIVA
+                    const btnToggle = document.getElementById('btn-toggle-scaletta');
+                    if (btnToggle) btnToggle.style.display = 'block';
+
                     attivaScalettaLiturgica(data);
                     
-                    // Seleziona in automatico il primo canto (Ingresso) per non mostrare la pagina vuota
                     const chiaviTempi = Object.keys(data.brani);
                     if (chiaviTempi.length > 0) {
                         const primoTempoDellaMessa = chiaviTempi[0];
                         selezionaBranoDaScalettaPerTitolo(data.brani[primoTempoDellaMessa]);
                         
-                        // Evidenzia visivamente il primo bottone generato nella barra laterale
                         setTimeout(() => {
                             const primoBtn = document.querySelector(".btn-scaletta-item");
                             if (primoBtn) primoBtn.classList.add("tempo-selezionato");
@@ -84,7 +79,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => {
                     console.error("Errore nel caricamento della scaletta:", error);
-                    alert("Errore nel caricamento della scaletta. Controlla che il file 'scalettaDomenica.json' sia nella cartella corretta.");
+                    alert("Errore nel caricamento della scaletta.");
                 });
         };
 
@@ -101,7 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('radio-it').addEventListener('click', () => changeNotation('IT'));
     document.getElementById('radio-en').addEventListener('click', () => changeNotation('EN'));
 
-    // GESTORE PER IL BOTTONE WCAG COMPATTA TESTO 80 CARATTERI
+    // Gestore bottone WCAG
     const btnWcag = document.getElementById('btn-wcag-toggle');
     if (btnWcag) {
         btnWcag.addEventListener('click', function() {
@@ -132,27 +127,17 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- GESTORI DI VISUALIZZAZIONE DEI PANNELLI LATERALI (TOGGLE) ---
+    // --- SEZIONE TOGGLE DEI PANNELLI LATERALI (AGGIUNTI QUI DENTRO NATURALE) ---
     document.getElementById('btn-toggle-controls').addEventListener('click', () => {
         const ctrlPanel = document.getElementById('controls-panel');
-        if (ctrlPanel.style.display === 'none') {
-            ctrlPanel.style.display = 'block';
-        } else {
-            ctrlPanel.style.display = 'none';
-        }
+        ctrlPanel.style.display = ctrlPanel.style.display === 'none' ? 'block' : 'none';
     });
 
     document.getElementById('btn-toggle-scaletta').addEventListener('click', () => {
         const scalettaPanel = document.getElementById('scaletta-panel');
-        if (scalettaPanel.style.display === 'none') {
-            scalettaPanel.style.display = 'block';
-        } else {
-            scalettaPanel.style.display = 'none';
-        }
+        scalettaPanel.style.display = scalettaPanel.style.display === 'none' ? 'block' : 'none';
     });
-    
 }); // Fine di DOMContentLoaded
-
 /**
  * Carica dinamicamente il file del catalogo corretto con logica anti-cache attiva
  */
