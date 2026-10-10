@@ -367,3 +367,63 @@ pre {
     color: #fff !important;
     border-color: #27ae60 !important;
 }
+
+/* Layout Schermata Song con Sidebar Scaletta */
+#song-screen {
+    display: flex;
+    flex-direction: row-reverse; /* Posiziona la scaletta preferibilmente a destra o sinistra */
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px;
+}
+
+.scaletta-sidebar {
+    width: 280px;
+    background-color: #f8f9fa;
+    border-left: 3px solid #007bff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: -2px 2px 8px rgba(0,0,0,0.1);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.scaletta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-scaletta-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-scaletta-item:hover {
+    background-color: #f1f3f5;
+}
+
+.tempo-label {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 0.85em;
+}
+
+.titolo-label {
+    font-size: 1em;
+    color: #333;
+}
+
+/* Evidenzia il tempo liturgico corrente che si sta suonando */
+.tempo-selezionato {
+    background-color: #e7f1ff !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+}
+
