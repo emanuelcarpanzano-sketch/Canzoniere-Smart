@@ -229,6 +229,9 @@ function attivaScalettaLiturgica(jsonScaletta) {
 /**
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
+/**
+ * Cerca un brano nel catalogo attivo usando solo il titolo e tenta il caricamento automatico o manuale del TXT
+ */
 function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     if (!catalogoAttivoRiferimento) {
         console.error("Nessun catalogo attivo configurato.");
@@ -242,34 +245,47 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     );
     
     if (branoTrovato) {
-        // Assegna il testo se presente, altrimenti stringa vuota (gestito da offline)
-        originalText = branoTrovato.testo || branoTrovato.testoGrezzo || ""; 
-        
-        // Aggiorna l'interfaccia del tablet con i metadati trovati
+        // Aggiorna l'interfaccia con i metadati
         document.getElementById("song-title").textContent = branoTrovato.titolo;
         document.getElementById("song-author").textContent = branoTrovato.autore ? ` - ${branoTrovato.autore}` : "";
         
-        // Determina il nome del file .txt da mostrare nella zona Offline
+        // Determina il nome del file .txt atteso (es. "Ecco lo sposo.txt")
+        // Se nel tuo catalogo JS c'è una proprietà specifica (es. branoTrovato.nomeFile) usa quella, altrimenti il titolo
         const nomeFileTxt = branoTrovato.nomeFile || `${branoTrovato.titolo}.txt`;
+        
         const targetFilename = document.getElementById("target-filename");
         if (targetFilename) {
             targetFilename.textContent = nomeFileTxt;
         }
         
-        // Reset dei parametri del Transposer
         currentSemitoneShift = 0;
         document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         
-        if (originalText) {
-            // Se il testo è già incluso nel JS (Online/Cache full), nascondi la zona offline e renderizza
-            document.getElementById('offline-zone').style.display = "none";
-            render();
-        } else {
-            // Se il testo NON è incluso (Architettura a file TXT esterni su tablet):
-            // Mostriamo la zona offline e avvisiamo chiaramente quale file dare in pasto al lettore
-            document.getElementById('offline-zone').style.display = "block";
-            document.getElementById("song-content").textContent = `Seleziona il file "${nomeFileTxt}" qui sopra per visualizzare lo spartito.`;
-        }
+        // Costruiamo il percorso completo del file (es: "CatalogoTxTChiesa/Ecco lo sposo.txt")
+        const percorsoCompletoFile = cartellaAttiva + nomeFileTxt;
+        
+        document.getElementById("song-content").textContent = "Caricamento file .txt in corso...";
+
+        // --- TENTATIVO DI CARICAMENTO AUTOMATICO ---
+        fetch(percorsoCompletoFile)
+            .then(res => {
+                if (!res.ok) throw new Error("File non accessibile direttamente");
+                return res.text();
+            })
+            .then(testoEstratto => {
+                // Se il fetch automatico ha successo, carichiamo il testo e disegnamo lo spartito
+                originalText = testoEstratto;
+                document.getElementById('offline-zone').style.display = "none";
+                render();
+            })
+            .catch(err => {
+                // Se fallisce (es. protocollo file:// locale del tablet senza server), passiamo al selettore manuale
+                console.log("Richiesta diretta fallita, attivo selettore manuale locale:", err.message);
+                originalText = "";
+                document.getElementById('offline-zone').style.display = "block";
+                document.getElementById("song-content").textContent = `Seleziona il file "${nomeFileTxt}" usando il bottone qui sopra per visualizzare lo spartito.`;
+            });
+
     } else {
         alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere Liturgico.`);
     }
@@ -282,18 +298,17 @@ function tornaAllaHomeSplash() {
     document.getElementById("splash-screen").style.display = "block";
 }
 
-// Stub di sicurezza per funzioni di ricerca / scorrimento richiamate dagli eventi
-function ricercaRapida() { /* TUA LOGICA DI RICERCA ESISTENTE - LASCIA IL TUO CODICE ORIGINALE */ }
+// Stub di sicurezza per funzioni richiamate dagli eventi del DOM
+function ricercaRapida() { /* Lascia intatta la tua funzione di ricerca originale in questo punto */ }
 function tornaAlMenuRicerca() {
     resetScorrimentoSicuro();
     document.getElementById("song-screen").style.display = "none";
     document.getElementById("menu-screen").style.display = "block";
 }
-function transpose(semitoni) { /* TUA LOGICA TRANSPOSE ESISTENTE - LASCIA IL TUO CODICE ORIGINALE */ }
-function changeNotation(tipo) { /* TUA LOGICA NOTATION ESISTENTE - LASCIA IL TUO CODICE ORIGINALE */ }
-function toggleScroll() { /* TUA LOGICA SCROLL ESISTENTE - LASCIA IL TUO CODICE ORIGINALE */ }
-function changeScrollSpeed(delta) { /* TUA LOGICA VELOCITA ESISTENTE - LASCIA IL TUO CODICE ORIGINALE */ }
+function transpose(semitoni) { /* Lascia intatta la tua funzione transpose originale in questo punto */ }
+function changeNotation(tipo) { /* Lascia intatta la tua funzione changeNotation originale in questo punto */ }
+function toggleScroll() { /* Lascia intatta la tua funzione toggleScroll originale in questo punto */ }
+function changeScrollSpeed(delta) { /* Lascia intatta la tua funzione changeScrollSpeed originale in questo punto */ }
 function resetScorrimentoSicuro() { if(scrollInterval) clearInterval(scrollInterval); isScrolling = false; }
-
 
 
