@@ -25,42 +25,64 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-load-chiesa').addEventListener('click', () => avviaCanzoniere('chiesa'));
     document.getElementById('btn-home-splash').addEventListener('click', tornaAllaHomeSplash);
 
-    // --- NUOVO GESTORE PER CARICARE LA SCALETTA DAL JSON ---
+    // --- NUOVO GESTORE PER CARICARE LA SCALETTA DAL JSON (CORRETTO & CORRETTO) ---
     document.getElementById('btn-load-scaletta-domenica').addEventListener('click', () => {
-        // 1. Carica in modo asincrono il file JSON locale
-        fetch('scalettaDomenica.json')
-            .then(response => {
-                if (!response.ok) throw new Error("Impossibile caricare il file della scaletta");
-                return response.json();
-            })
-            .then(data => {
-                // 2. Forza l'attivazione del catalogo Chiesa (necessario per trovare i brani liturgici)
-                // Usiamo le stesse identiche inizializzazioni che esegui in avviaCanzoniere('chiesa')
-                cartellaAttiva = "CatalogoTxTChiesa/";
-                catalogoAttivoRiferimento = window.catalogoChiesa; 
+        // 1. Rimuoviamo script precedenti se presenti per evitare conflitti
+        if (scriptConfigurato) {
+            scriptConfigurato.remove();
+            scriptConfigurato = null;
+        }
 
-                // 3. Nasconde la Home e mostra la schermata dello spartito (#song-screen)
-                document.getElementById('splash-screen').style.display = 'none';
-                document.getElementById('song-screen').style.display = 'flex'; // Usiamo flex per il layout a colonne con sidebar
+        // 2. Iniettiamo dinamicamente il catalogo Chiesa con logica anti-cache
+        cartellaAttiva = "CatalogoTxTChiesa/";
+        document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
 
-                // 4. Inizializza graficamente la barra laterale con i tempi liturgici
-                attivaScalettaLiturgica(data);
-                
-                // 5. Opzionale: Seleziona in automatico il primo canto (Ingresso) per non mostrare la pagina vuota
-                const primoTempo = Object.keys(data.brani)[0];
-                if (primoTempo) {
-                    selezionaBranoDaScalettaPerTitolo(data.brani[primoTempo]);
-                    // Evidenzia visivamente il primo bottone generato
-                    setTimeout(() => {
-                        const primoBtn = document.querySelector(".btn-scaletta-item");
-                        if (primoBtn) primoBtn.classList.add("tempo-selezionato");
-                    }, 50);
-                }
-            })
-            .catch(error => {
-                console.error("Errore nel caricamento della scaletta:", error);
-                alert("Errore nel caricamento della scaletta. Controlla che il file 'scalettaDomenica.json' sia nella cartella corretta.");
-            });
+        scriptConfigurato = document.createElement("script");
+        scriptConfigurato.src = "CanzoniereCatalogoChiesa.js?_=" + new Date().getTime();
+
+        // 3. Eseguiamo la logica della scaletta SOLO quando il catalogo è effettivamente in memoria
+        scriptConfigurato.onload = function() {
+            if (window.catalogoChiesa) {
+                catalogoAttivoRiferimento = window.catalogoChiesa;
+            } else {
+                console.error("Errore: Impossibile caricare window.catalogoChiesa.");
+                alert("Errore nel caricamento del catalogo. Verifica CanzoniereCatalogoChiesa.js");
+                return;
+            }
+
+            // 4. Ora che il catalogo è pronto, carichiamo il file JSON locale della scaletta
+            fetch('scalettaDomenica.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Impossibile caricare il file della scaletta");
+                    return response.json();
+                })
+                .then(data => {
+                    // Nasconde la Home e mostra lo spartito
+                    document.getElementById('splash-screen').style.display = 'none';
+                    document.getElementById('song-screen').style.display = 'flex'; 
+
+                    // Inizializza graficamente la barra laterale con i tempi liturgici
+                    attivaScalettaLiturgica(data);
+                    
+                    // Seleziona in automatico il primo canto (Ingresso)
+                    const primoTempo = Object.keys(data.brani)[0];
+                    if (primoTempo) {
+                        selezionaBranoDaScalettaPerTitolo(data.brani[primoTempo]);
+                        
+                        // Evidenzia visivamente il primo bottone generato
+                        setTimeout(() => {
+                            const primoBtn = document.querySelector(".btn-scaletta-item");
+                            if (primoBtn) primoBtn.classList.add("tempo-selezionato");
+                        }, 50);
+                    }
+                })
+                .catch(error => {
+                    console.error("Errore nel caricamento della scaletta:", error);
+                    alert("Errore nel caricamento della scaletta. Controlla che il file 'scalettaDomenica.json' sia nella cartella corretta.");
+                });
+        };
+
+        document.head.appendChild(scriptConfigurato);
     });
 
     
