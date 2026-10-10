@@ -18,15 +18,23 @@ modifiche di notatione Italiana o Internazionale
     <!-- ================= 1. SCHERMATA SPLASH (HOME) ================= -->
     <div id="splash-screen" class="splash-container">
         <img src="Canzoniere.png" alt="Copertina Canzoniere" class="splash-img">
-       <span>😊</span> <h1 style="display: inline;">Ciaooooo!</h1> <span>😊</span>
-        <img src = "pianista.gif" alt = "Pianista" />    <!--  Inserisco l'immagine (animata)  -->
+        <span>😊</span> <h1 style="display: inline;">Ciaooooo!</h1> <span>😊</span>
+        <img src="pianista.gif" alt="Pianista" />
         <h2>Clicca sul catalogo (🎸 o ⛪) </h2>
         <div class="splash-buttons">
-            <button id="btn-load-pop" class="btn-choice">🎸 Canzoniere Pop / Rock <img src = "chitarrista.gif" alt = "chitarrista" /></button>
-            <button id="btn-load-chiesa" class="btn-choice">⛪ Canzoniere Liturgico <img src = "eucaristia.gif" alt = "eucaristia" /></button>
+            <button id="btn-load-pop" class="btn-choice">🎸 Canzoniere Pop / Rock <img src="chitarrista.gif" alt="chitarrista" /></button>
+            <button id="btn-load-chiesa" class="btn-choice">⛪ Canzoniere Liturgico <img src="eucaristia.gif" alt="eucaristia" /></button>
+        </div>
+
+        <!-- === NUOVA SEZIONE: SELEZIONE RAPIDA SCALETTE LITURGICHE === -->
+        <div class="splash-scalette-zone" style="margin-top: 30px; border-top: 2px dashed #ccc; padding-top: 20px;">
+            <h3>📋 Avvia una Scaletta Liturgica Pronta:</h3>
+            <button id="btn-load-scaletta-domenica" class="btn-choice" style="background-color: #8e44ad; color: white;">
+                ⛪ Messa: Domenica Tempo Ordinario
+            </button>
         </div>
     </div>
-
+    
     <!-- ================= 2. SCHERMATA DI RICERCA ================= -->
     <div id="menu-screen" class="menu-container" style="display: none;">
         <button id="btn-home-splash" class="btn-back-splash">Torna a 🏠 per la SCELTA</button>
