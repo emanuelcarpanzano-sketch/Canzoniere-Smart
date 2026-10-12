@@ -444,3 +444,5 @@ function resetScorrimentoSicuro() {
     if (btn) btn.textContent = "▶ Auto-Scroll";
 }
 
+
+
