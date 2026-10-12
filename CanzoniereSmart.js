@@ -195,7 +195,7 @@ function avviaCanzoniere(tipo) {
     };
     
     document.head.appendChild(scriptConfigurato);
-}
+
 
 /**
  * Inizializza graficamente la barra laterale con i tempi liturgici
@@ -713,4 +713,4 @@ function confermaSostituzioneLastMinute(nuovoTitolo) {
 /**
  * Fine seconda tranche
  */
-
+}
