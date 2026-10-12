@@ -11,7 +11,7 @@ window.momentoInModifica = null;
  * Attiva e renderizza graficamente la scaletta liturgica sul tablet.
  * Sostituisce la vecchia implementazione statica abilitando le modifiche Last Minute.
  * @param {Object} data - I dati grezzi letti dal file scalettaDomenica.json
-
+ */
 function attivaScalettaLiturgica(data) {
     // Se la variabile globale di sessione non è ancora inizializzata, copiamo i dati passati
     if (!window.currentScaletta) {
@@ -105,7 +105,7 @@ function attivaScalettaLiturgica(data) {
 
     container.appendChild(listaBraniContainer);
 }
- */
+
 
 /**
  * Inietta l'HTML dinamico del Bottom Sheet di sostituzione e lo mostra a schermo.
