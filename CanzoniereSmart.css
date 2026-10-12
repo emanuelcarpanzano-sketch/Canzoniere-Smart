@@ -479,3 +479,88 @@ pre {
     box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
 }
 
+/* =========================================================================
+   PARTE AGGIUNTIVA: MODULO DI SOSTITUZIONE LAST MINUTE (BOTTOM SHEET)
+   ========================================================================= */
+
+/* Overlay scuro di sfondo a tutto schermo */
+#lastminute-picker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.55);
+    display: none; /* Controllato dinamicamente via JS */
+    justify-content: center;
+    align-items: flex-end; /* Spinge il foglio verso il basso dello schermo */
+    z-index: 9999; /* Supera lo spartito pre, la barra di navigazione e i toggle */
+    backdrop-filter: blur(4px); /* Effetto sfocatura moderno sullo sfondo */
+}
+
+/* Il foglio/pannello che compare dal basso */
+.picker-sheet {
+    width: 100%;
+    max-width: 650px; /* Larghezza ottimale sia verticale che orizzontale su tablet */
+    background-color: #ffffff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    animation: slideUpLastMinute 0.25s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+}
+
+/* Evidenziatore del tempo liturgico in modifica nell'header */
+.highlight-momento {
+    background-color: #8e44ad; /* Viola liturgico coordinato */
+    color: #ffffff;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* Area dei risultati del catalogo con scorrimento touch */
+#picker-results-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 6px;
+    background: #f8f9fa;
+    padding: 5px;
+    -webkit-overflow-scrolling: touch; /* Garantisce scorrimento fluido su tablet iOS/Safari */
+}
+
+/* Pulsante/Riga del singolo brano trovato nel catalogo */
+.picker-result-row {
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+/* Feedback visivo immediato al tocco del dito sul brano (Evita tocchi fantasma) */
+.picker-result-row:active {
+    background-color: #e8eaf6 !important; /* Leggero azzurro/viola di selezione */
+    transform: scale(0.99);
+}
+
+/* Ottimizzazione pulsante modifica "✏️" nella barra della scaletta liturgica */
+.btn-override-lastminute {
+    transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+.btn-override-lastminute:active {
+    background-color: #2c3e50 !important; /* Scurisce il grigio di controllo al tocco */
+    transform: scale(0.92); /* Micro-interazione di clic */
+}
+
+/* Animazione accelerata hardware per la salita del foglio */
+@keyframes slideUpLastMinute {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
