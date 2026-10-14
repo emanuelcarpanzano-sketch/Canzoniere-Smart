@@ -107,6 +107,35 @@ modifiche di notatione Italiana o Internazionale
 
     </div>
 
+
+<!-- =========================================================================
+       4. MODULO DI SOSTITUZIONE LAST MINUTE (BOTTOM SHEET)
+       ========================================================================= -->
+    <div id="lastminute-picker-overlay">
+        <div class="picker-sheet">
+            <h3 style="margin-top: 0; color: #333;">
+                🔄 Sostituisci canto per: 
+                <span id="picker-momento-label" class="highlight-momento">Ingresso</span>
+            </h3>
+            <p style="margin-bottom: 15px; font-size: 14px; color: #666;">
+                Seleziona un brano alternativo dal catalogo per sostituirlo in questa celebrazione:
+            </p>
+            
+            <!-- Campo di micro-ricerca interna al bottom sheet -->
+            <input type="text" id="picker-search-input" placeholder="Cerca nel catalogo per sostituire al volo..." 
+                   style="width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #8e44ad; border-radius: 8px; box-sizing: border-box; outline: none; font-size: 16px;">
+            
+            <!-- Contenitore dei risultati scansionabili tramite touch -->
+            <div id="picker-results-list"></div>
+            
+            <button id="btn-close-picker" style="background-color: #6c757d; color: white; border: none; margin-top: 15px; padding: 12px;">
+                ❌ Annulla Sostituzione
+            </button>
+        </div>
+    </div>
+
+
+    
     <!-- Caricamento degli Script Modulari -->
     <script src="transposer.js"></script>
     <script src="CanzoniereSmart.js"></script>
