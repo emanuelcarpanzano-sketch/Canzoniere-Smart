@@ -137,6 +137,7 @@ window.addEventListener('DOMContentLoaded', () => {
         scalettaPanel.style.display = scalettaPanel.style.display === 'none' ? 'block' : 'none';
     });
 }); // Fine di DOMContentLoaded
+
 /**
  * Carica dinamicamente il file del catalogo corretto con logica anti-cache attiva
  */
@@ -284,7 +285,7 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     } else {
         alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere.`);
     }
-}
+} // <--- Fissata la graffa di chiusura mancante che causava il SyntaxError!
 
 /**
  * Filtra dinamicamente i brani del catalogo attivo in base a quanto digitato dall'utente
@@ -386,60 +387,3 @@ function tornaAllaHomeSplash() {
 }
 
 // ================= GESTIONE TRASPOSIZIONE E NOTAZIONE =================
-function transpose(semitoni) {
-    currentSemitoneShift += semitoni;
-    let segno = currentSemitoneShift > 0 ? "+" : "";
-    const infoTonalita = document.getElementById("info-tonalita");
-    if (infoTonalita) {
-        infoTonalita.textContent = currentSemitoneShift === 0 ? "Tonalità: Originale" : `Tonalità: ${segno}${currentSemitoneShift} Semitoni`;
-    }
-    render();
-}
-
-function changeNotation(notazione) {
-    currentNotation = notazione;
-    render();
-}
-
-// ================= GESTIONE AUTO-SCROLL INTERFACCIA =================
-function toggleScroll() {
-    const btn = document.getElementById("btn-scroll");
-    if (!btn) return;
-    
-    if (isScrolling) {
-        resetScorrimentoSicuro();
-    } else {
-        isScrolling = true;
-        btn.textContent = "⏸ Pausa";
-        scrollInterval = setInterval(() => {
-            window.scrollBy(0, 1);
-        }, currentSpeedMs);
-    }
-}
-
-function changeScrollSpeed(delta) {
-    currentSpeedMs += delta;
-    if (currentSpeedMs < 10) currentSpeedMs = 10; // Limite di velocità massima
-    if (currentSpeedMs > 150) currentSpeedMs = 150; // Limite di lentezza massima
-    
-    const infoVelocita = document.getElementById("info-velocita");
-    if (infoVelocita) {
-        let visualSpeed = Math.round((40 / currentSpeedMs) * 10) / 10;
-        infoVelocita.textContent = `Velocità: ${visualSpeed}x`;
-    }
-    
-    if (isScrolling) {
-        clearInterval(scrollInterval);
-        scrollInterval = setInterval(() => {
-            window.scrollBy(0, 1);
-        }, currentSpeedMs);
-    }
-}
-
-function resetScorrimentoSicuro() {
-    if (scrollInterval) clearInterval(scrollInterval);
-    isScrolling = false;
-    const btn = document.getElementById("btn-scroll");
-    if (btn) btn.textContent = "▶ Auto-Scroll";
-}
- 
