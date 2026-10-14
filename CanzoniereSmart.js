@@ -212,19 +212,43 @@ function attivaScalettaLiturgica(jsonScaletta) {
     Object.keys(jsonScaletta.brani).forEach(tempo => {
         const nomeCanzone = jsonScaletta.brani[tempo];
         
+        // Contenitore flex per allineare brano e pulsante modifica al volo
+        const itemContainer = document.createElement("div");
+        itemContainer.style.display = "flex";
+        itemContainer.style.gap = "5px";
+        itemContainer.style.width = "100%";
+        itemContainer.style.marginBottom = "5px";
+
         const btn = document.createElement("button");
         btn.className = "btn-scaletta-item";
+        btn.style.flex = "1";
         btn.innerHTML = `<span class="tempo-label">${tempo}</span><br><span class="titolo-label">${nomeCanzone}</span>`;
         
         btn.addEventListener("click", () => {
             document.querySelectorAll(".btn-scaletta-item").forEach(b => b.classList.remove("tempo-selezionato"));
             btn.classList.add("tempo-selezionato");
-            
             momentoLiturgicoAttivo = tempo;
             selezionaBranoDaScalettaPerTitolo(nomeCanzone);
         });
         
-        containerBottoni.appendChild(btn);
+        // Pulsante last-minute "✏️" per attivare il Bottom Sheet
+        const btnOverride = document.createElement("button");
+        btnOverride.className = "btn-override-lastminute";
+        btnOverride.innerHTML = "✏️";
+        btnOverride.style.width = "45px";
+        btnOverride.style.backgroundColor = "#34495e";
+        btnOverride.style.color = "white";
+        btnOverride.style.border = "none";
+        btnOverride.title = "Sostituisci questo canto al volo";
+        
+        btnOverride.addEventListener("click", (e) => {
+            e.stopPropagation(); // Evita l'attivazione immediata del canto sottostante
+            apriLastMinutePicker(tempo);
+        });
+
+        itemContainer.appendChild(btn);
+        itemContainer.appendChild(btnOverride);
+        containerBottoni.appendChild(itemContainer);
     });
 }
 
@@ -392,3 +416,8 @@ function resetScorrimentoSicuro() {
     const btn = document.getElementById("btn-scroll");
     if (btn) btn.textContent = "▶ Auto-Scroll";
 }
+
+
+
+
+
