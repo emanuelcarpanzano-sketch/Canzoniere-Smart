@@ -417,6 +417,85 @@ function resetScorrimentoSicuro() {
     if (btn) btn.textContent = "▶ Auto-Scroll";
 }
 
+/**
+ * Aggiunta finale
+ */
+
+/**
+ * Apre il pannello di sostituzione bottom sheet impostando il focus touch
+ */
+function apriLastMinutePicker(tempo) {
+    momentoLiturgicoAttivo = tempo;
+    document.getElementById("picker-momento-label").textContent = tempo;
+    document.getElementById("lastminute-picker-overlay").style.display = "flex";
+    
+    const inputInterno = document.getElementById("picker-search-input");
+    if (inputInterno) {
+        inputInterno.value = "";
+        mostraRisultatiNelPicker(""); // Mostra l'elenco completo all'inizio
+        setTimeout(() => inputInterno.focus(), 150);
+    }
+}
+
+/**
+ * Filtra e renderizza i brani all'interno del Bottom Sheet liturgico
+ */
+function mostraRisultatiNelPicker(filtro) {
+    const listContainer = document.getElementById("picker-results-list");
+    if (!listContainer || !catalogoAttivoRiferimento) return;
+
+    listContainer.innerHTML = "";
+    
+    const braniFiltrati = catalogoAttivoRiferimento.filter(b => 
+        b.titolo.toLowerCase().includes(filtro.toLowerCase())
+    );
+
+    if (braniFiltrati.length === 0) {
+        listContainer.innerHTML = "<div style='padding:15px; color:#999; font-style:italic;'>Nessun brano corrispondente</div>";
+        return;
+    }
+
+    braniFiltrati.forEach(brano => {
+        const row = document.createElement("div");
+        row.className = "picker-result-row";
+        row.style.padding = "14px 18px";
+        row.style.borderBottom = "1px solid #e9ecef";
+        row.style.cursor = "pointer";
+        row.style.fontSize = "18px";
+        row.innerHTML = `<strong>${brano.titolo}</strong>${brano.autore ? ' <small style="color:#777; font-size:14px;">- ' + brano.autore + '</small>' : ''}`;
+        
+        row.addEventListener("click", () => {
+            // Aggiorna dinamicamente la memoria locale della scaletta attiva
+            if (scalettaCorrenteData && momentoLiturgicoAttivo) {
+                scalettaCorrenteData.brani[momentoLiturgicoAttivo] = brano.titolo;
+                
+                // Rigenera la grafica della sidebar e seleziona il nuovo brano al volo
+                attivaScalettaLiturgica(scalettaCorrenteData);
+                selezionaBranoDaScalettaPerTitolo(brano.titolo);
+                
+                // Chiude l'interfaccia
+                document.getElementById("lastminute-picker-overlay").style.display = "none";
+            }
+        });
+        
+        listContainer.appendChild(row);
+    });
+}
+
+// Eventi di controllo interni al DOMContentLoaded per il Bottom Sheet
+window.addEventListener('DOMContentLoaded', () => {
+    const pickerInput = document.getElementById("picker-search-input");
+    if (pickerInput) {
+        pickerInput.addEventListener("input", (e) => mostraRisultatiNelPicker(e.target.value));
+    }
+    
+    const btnClosePicker = document.getElementById("btn-close-picker");
+    if (btnClosePicker) {
+        btnClosePicker.addEventListener("click", () => {
+            document.getElementById("lastminute-picker-overlay").style.display = "none";
+        });
+    }
+});
 
 
 
