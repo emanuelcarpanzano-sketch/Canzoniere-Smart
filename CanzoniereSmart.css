@@ -564,3 +564,82 @@ pre {
     }
 }
 
+/* Aggiunti alla fine */
+
+/* =========================================================================
+   ALLINEAMENTO STRUTTURALE ED ESPANSIONE FLEX SCHERMO INTERO (TABLET)
+   ========================================================================= */
+
+/* Collega gli ID usati nel JS alle strutture flex del CSS */
+#controls-panel {
+    width: 220px;
+    background-color: #fcfcfc;
+    border-right: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+}
+
+#scaletta-panel {
+    width: 260px;
+    background-color: #f8f9fa;
+    border-left: 3px solid #8e44ad;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: -2px 2px 6px rgba(0,0,0,0.05);
+    max-height: 85vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* SOVRASCRITTURA FONDAMENTALE: Sblocca la larghezza dello spartito a schermo intero (100%) */
+pre, #song-title-container, .offline-picker {
+    max-width: 100% !important;
+}
+
+/* =========================================================================
+   ALLINEAMENTO CLASSI DI RICERCA RAPIDA (JS <=> CSS)
+   ========================================================================= */
+#search-results {
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 350px;
+    overflow-y: auto;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1050;
+}
+
+.search-result-item {
+    padding: 16px 20px !important;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 20px !important;
+    transition: background-color 0.15s ease;
+    color: #333;
+}
+
+.search-result-item:hover {
+    background-color: #f1f1f1;
+    color: #007bff;
+}
+
+.search-result-item strong {
+    font-weight: 800;
+    color: #111;
+}
+
+.no-results {
+    padding: 15px;
+    color: #999;
+    font-style: italic;
+    font-size: 16px;
+}
+
+
