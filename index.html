@@ -12,6 +12,63 @@ modifiche di notatione Italiana o Internazionale
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canzoniere Smart</title>
     <link rel="stylesheet" href="CanzoniereSmart.css">
+    <style>
+        /* ================= MODIFICHE DI ALLINEAMENTO E COLORE LAST-MINUTE ================= */
+        
+        /* Container nativo dei bottoni nella Splash trasformato in Flexbox */
+        .splash-buttons {
+            display: flex;
+            flex-direction: row;       /* Allineamento orizzontale di default */
+            justify-content: center;
+            align-items: stretch;      /* Rende i bottoni alti uguali */
+            gap: 20px;                 /* Spazio di sicurezza tra i due bottoni */
+            width: 100%;
+            max-width: 750px;          /* Ottimale per tablet e schermi grandi */
+            margin: 0 auto;
+        }
+
+        /* Ottimizzazione reattiva dei pulsanti nativi */
+        .splash-buttons .btn-choice {
+            flex: 1;                   /* Forza i due bottoni ad avere la stessa identica larghezza */
+            display: flex;
+            flex-direction: column;    /* Dispone testo e GIF internamente in verticale */
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        /* Forzatura specifica per il bottone del Canzoniere Liturgico */
+        #btn-load-chiesa.theme-liturgico-btn {
+            background-color: #c8a2c8 !important; /* Lilla richiesto per il bottone splash */
+            color: #2c2c2c !important;            /* Testo antracite per contrasto elevato */
+            border: 2px solid #b58cb5;
+        }
+
+        /* --- COERENZA CROMATICA SULLA SCHERMATA DI RICERCA --- */
+        
+        /* Classe applicata dinamicamente al body o al container menu per attivare lo sfondo lavanda */
+        body.theme-liturgico, 
+        .menu-container.theme-liturgico {
+            background-color: #e6e6fa !important;  /* Sfondo Lavender per la pagina di ricerca */
+            color: #2c2c2c !important;
+        }
+
+        /* Bordi di richiamo lilla sui risultati della ricerca liturgica */
+        body.theme-liturgico .search-results-list div,
+        body.theme-liturgico .search-result-item {
+            border-left: 4px solid #c8a2c8 !important;
+        }
+
+        /* Responsività per smartphone stretti: i bottoni scalano uno sopra l'altro se lo schermo è piccolo */
+        @media (max-width: 600px) {
+            .splash-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +80,8 @@ modifiche di notatione Italiana o Internazionale
         <h2>Clicca sul catalogo (🎸 o ⛪) </h2>
         <div class="splash-buttons">
             <button id="btn-load-pop" class="btn-choice">🎸 Canzoniere Pop / Rock <img src="chitarrista.gif" alt="chitarrista" /></button>
-            <button id="btn-load-chiesa" class="btn-choice">⛪ Canzoniere Liturgico <img src="eucaristia.gif" alt="eucaristia" /></button>
+            <!-- Aggiunta classe theme-liturgico-btn per la gestione colore -->
+            <button id="btn-load-chiesa" class="btn-choice theme-liturgico-btn">⛪ Canzoniere Liturgico <img src="eucaristia.gif" alt="eucaristia" /></button>
         </div>
 
         <!-- === NUOVA SEZIONE: SELEZIONE RAPIDA SCALETTE LITURGICHE === -->
