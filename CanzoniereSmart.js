@@ -1,5 +1,5 @@
 /**
-* CANZONIERE SMART - LOGICA APPLICATIVA E DI CONTROLLO CENTRALIZZATA
+ * CANZONIERE SMART - LOGICA APPLICATIVA E DI CONTROLLO CENTRALIZZATA
  * PARTE 1: STATI GENERALI, EVENTI DOM E CARICAMENTO REPERTORI
  */
 
@@ -30,11 +30,14 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-home-splash').addEventListener('click', tornaAllaHomeSplash);
 
     // --- GESTORE PER CARICARE LA SCALETTA DAL JSON CON INIEZIONE DINAMICA ---
-    document.getElementById('btn-load-scaletta-domenica').addEventListener('click', () => {
+    document.getElementById('btn-load-scaletta-domenica').addEventListener('click', function() {
         if (scriptConfigurato) {
             scriptConfigurato.remove();
             scriptConfigurato = null;
         }
+
+        // ATTIVAZIONE TEMA LITURGICO (COERENZA CROMATICA)
+        document.body.classList.add('theme-liturgico');
 
         cartellaAttiva = "CatalogoTxTChiesa/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
@@ -161,11 +164,17 @@ function avviaCanzoniere(tipo) {
     let chiaveFinestra = "";
     
     if (tipo === 'pop') {
+        // GESTIONE CAMBIO TEMA: Rimozione lilla se carichiamo Pop/Rock
+        document.body.classList.remove('theme-liturgico');
+        
         sorgenteScript = "CanzoniereCatalogo.js";
         chiaveFinestra = "catalogoPopRock"; 
         cartellaAttiva = "CatalogoTxT/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Pop / Rock";
     } else {
+        // GESTIONE CAMBIO TEMA: Attivazione lilla se carichiamo Chiesa
+        document.body.classList.add('theme-liturgico');
+        
         sorgenteScript = "CanzoniereCatalogoChiesa.js";
         chiaveFinestra = "catalogoChiesa";   
         cartellaAttiva = "CatalogoTxTChiesa/";
@@ -183,76 +192,8 @@ function avviaCanzoniere(tipo) {
         }
 
         document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("menu-screen").style.display = "block";
-        document.getElementById("song-screen").style.display = "none";
-        const input = document.getElementById('search-input');
-        if(input) { input.value = ""; input.focus(); }
-    };
-    
-    document.head.appendChild(scriptConfigurato);
-}
 
-/**
- * Inizializza graficamente la barra laterale con i tempi liturgici
- */
-function attivaScalettaLiturgica(jsonScaletta) {
-    scalettaCorrenteData = jsonScaletta;
-    
-    const panel = document.getElementById("scaletta-panel");
-    const titoloScaletta = document.getElementById("scaletta-nome-titolo");
-    const containerBottoni = document.getElementById("scaletta-bottoni-container");
-    
-    if (!panel || !containerBottoni) return;
-
-    titoloScaletta.textContent = jsonScaletta.nomeScaletta;
-    containerBottoni.innerHTML = "";
-    
-    panel.style.display = "block";
-
-    Object.keys(jsonScaletta.brani).forEach(tempo => {
-        const nomeCanzone = jsonScaletta.brani[tempo];
-        
-        // Contenitore flex per allineare brano e pulsante modifica al volo
-        const itemContainer = document.createElement("div");
-        itemContainer.style.display = "flex";
-        itemContainer.style.gap = "5px";
-        itemContainer.style.width = "100%";
-        itemContainer.style.marginBottom = "5px";
-
-        const btn = document.createElement("button");
-        btn.className = "btn-scaletta-item";
-        btn.style.flex = "1";
-        btn.innerHTML = `<span class="tempo-label">${tempo}</span><br><span class="titolo-label">${nomeCanzone}</span>`;
-        
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".btn-scaletta-item").forEach(b => b.classList.remove("tempo-selezionato"));
-            btn.classList.add("tempo-selezionato");
-            momentoLiturgicoAttivo = tempo;
-            selezionaBranoDaScalettaPerTitolo(nomeCanzone);
-        });
-        
-        // Pulsante last-minute "✏️" per attivare il Bottom Sheet
-        const btnOverride = document.createElement("button");
-        btnOverride.className = "btn-override-lastminute";
-        btnOverride.innerHTML = "✏️";
-        btnOverride.style.width = "45px";
-        btnOverride.style.backgroundColor = "#34495e";
-        btnOverride.style.color = "white";
-        btnOverride.style.border = "none";
-        btnOverride.title = "Sostituisci questo canto al volo";
-        
-        btnOverride.addEventListener("click", (e) => {
-            e.stopPropagation(); // Evita l'attivazione immediata del canto sottostante
-            apriLastMinutePicker(tempo);
-        });
-
-        itemContainer.appendChild(btn);
-        itemContainer.appendChild(btnOverride);
-        containerBottoni.appendChild(itemContainer);
-    });
-}
-
-/**
+        /**
  * Cerca un brano nel catalogo attivo usando solo il titolo e gestisce l'assegnazione adattiva del testo
  */
 function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
@@ -300,7 +241,7 @@ function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
     } else {
         alert(`Il brano "${titoloDaCercare}" non è presente nel Canzoniere.`);
     }
-} // Chiusura corretta della funzione
+}
 
 /**
  * Filtra dinamicamente i brani del catalogo attivo in base a quanto digitato dall'utente
@@ -363,6 +304,9 @@ function tornaAlMenuRicerca() {
 
 function tornaAllaHomeSplash() {
     resetScorrimentoSicuro(); 
+    // GESTIONE CAMBIO TEMA: Pulizia totale della classe liturgica quando si torna alla Home
+    document.body.classList.remove('theme-liturgico');
+    
     document.getElementById("menu-screen").style.display = "none";
     document.getElementById("song-screen").style.display = "none";
     document.getElementById("splash-screen").style.display = "block";
@@ -418,10 +362,6 @@ function resetScorrimentoSicuro() {
 }
 
 /**
- * Aggiunta finale
- */
-
-/**
  * Apre il pannello di sostituzione bottom sheet impostando il focus touch
  */
 function apriLastMinutePicker(tempo) {
@@ -432,7 +372,7 @@ function apriLastMinutePicker(tempo) {
     const inputInterno = document.getElementById("picker-search-input");
     if (inputInterno) {
         inputInterno.value = "";
-        mostraRisultatiNelPicker(""); // Mostra l'elenco completo all'inizio
+        mostraRisultatiNelPicker(""); 
         setTimeout(() => inputInterno.focus(), 150);
     }
 }
@@ -462,19 +402,28 @@ function mostraRisultatiNelPicker(filtro) {
         row.style.borderBottom = "1px solid #e9ecef";
         row.style.cursor = "pointer";
         row.style.fontSize = "18px";
-        row.innerHTML = `<strong>${brano.titolo}</strong>${brano.autore ? ' <small style="color:#777; font-size:14px;">- ' + brano.autore + '</small>' : ''}`;
+        row.innerHTML = `<strong>${brano.titolo}</strong> ${brano.autore ? ' - <small>' + brano.autore + '</small>' : ''}`;
         
-        row.addEventListener("click", () => {
-            // Aggiorna dinamicamente la memoria locale della scaletta attiva
+        // Logica Hot-Swap al tocco del brano alternativo
+        row.addEventListener('click', () => {
             if (scalettaCorrenteData && momentoLiturgicoAttivo) {
+                // Sostituisce il brano in memoria
                 scalettaCorrenteData.brani[momentoLiturgicoAttivo] = brano.titolo;
                 
-                // Rigenera la grafica della sidebar e seleziona il nuovo brano al volo
-                attivaScalettaLiturgica(scalettaCorrenteData);
+                // Aggiorna l'interfaccia
+                document.getElementById("lastminute-picker-overlay").style.display = "none";
+                attivaScalettaLiturgica(scalettaCorrenteData); 
                 selezionaBranoDaScalettaPerTitolo(brano.titolo);
                 
-                // Chiude l'interfaccia
-                document.getElementById("lastminute-picker-overlay").style.display = "none";
+                // Forza l'evidenziazione sul tempo modificato
+                setTimeout(() => {
+                    const bottoni = document.querySelectorAll('.btn-scaletta-item');
+                    bottoni.forEach(b => {
+                        if (b.querySelector('.tempo-label') && b.querySelector('.tempo-label').textContent === momentoLiturgicoAttivo) {
+                            b.classList.add('tempo-selezionato');
+                        }
+                    });
+                }, 50);
             }
         });
         
@@ -482,21 +431,21 @@ function mostraRisultatiNelPicker(filtro) {
     });
 }
 
-// Eventi di controllo interni al DOMContentLoaded per il Bottom Sheet
+// Collega l'evento di battitura in tempo reale all'input di ricerca del Bottom Sheet
 window.addEventListener('DOMContentLoaded', () => {
-    const pickerInput = document.getElementById("picker-search-input");
-    if (pickerInput) {
-        pickerInput.addEventListener("input", (e) => mostraRisultatiNelPicker(e.target.value));
+    const pickerSearch = document.getElementById("picker-search-input");
+    if (pickerSearch) {
+        pickerSearch.addEventListener('input', (e) => {
+            mostraRisultatiNelPicker(e.target.value);
+        });
     }
-    
     const btnClosePicker = document.getElementById("btn-close-picker");
     if (btnClosePicker) {
-        btnClosePicker.addEventListener("click", () => {
+        btnClosePicker.addEventListener('click', () => {
             document.getElementById("lastminute-picker-overlay").style.display = "none";
         });
     }
 });
-
-
+        
 
 
