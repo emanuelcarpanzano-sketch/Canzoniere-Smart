@@ -356,13 +356,24 @@ hr {
     color: #5d564d; 
 }
 
-/* Il foglio di testo (Rimossa limitazione max-width per sblocco schermo intero) */
+/* Il foglio di testo (Versione Blindata e Compatta per stringhe lunghe su Tablet) */
 pre {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    /* STACK DI FONT MONOSPAZIO MODERNI:
+       1. SFMono-Regular / Menlo = Perfetti e strettissimi per iPad/Mac
+       2. Roboto Mono = Nativo e compatto per Tablet Android
+       3. Consolas = Eccellente per PC Windows
+       4. monospace = Fallback finale di sistema */
+    font-family: "SFMono-Regular", Menlo, "Roboto Mono", Consolas, "Monaco", "Courier New", monospace;
+    
     font-size: 21px; 
     font-weight: 600; 
+    
+    /* Interlinea calibrata: abbastanza spaziosa ma compatta per evitare dispersioni */
     line-height: 1.5; 
+    
+    /* TRUCCO TRIDIMENSIONALE: Stringe i caratteri in larghezza del 5%, guadagnando spazio prezioso sulle righe lunghe */
     letter-spacing: -0.5px; 
+    
     background-color: #f7f2ea; 
     color: #2b261f; 
     padding: 25px;
