@@ -459,7 +459,7 @@ window.catalogoChiesa = [
     { titolo: "Vieni e seguimi", autore: "Gen Rosso" },
     { titolo: "Vieni Fratello", autore: "A. Lagorio" },
     { titolo: "Vieni Santo Spirito", autore: "Gen Verde" },
-     { titolo: "Vieni Santo Spirito vieni", autore: "Dave & Eli" },
+    { titolo: "Vieni Santo Spirito vieni", autore: "Dave & Eli" },
     { titolo: "Vieni Spirito forza dall'alto", autore: "Figli del Divino Amore" },
     { titolo: "Vieni, o Signor", autore: "Damilano" },
     { titolo: "Viva il Sacro Cuore", autore: "Anonimo" },
