@@ -1,12 +1,11 @@
 /**
- * CANZONIERE SMART - LOGICA APPLICATIVA CENTRALIZZATA
- * PARTE 1 DI 2 - EVENTI E CONFIGURAZIONE CATALOGHI
+ * CANZONIERE SMART - LOGICA APPLICATIVA
+ * PARTE 1 DI 2 - EVENTI DOM E AVVIO CATALOGHI
  */
 
 let currentNotation = 'IT';
 let originalText = ""; 
 let currentSemitoneShift = 0;
-let wcagCompattatoAttivo = false;
 
 let cartellaAttiva = "";     
 let scriptConfigurato = null; 
@@ -25,11 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-home-splash').addEventListener('click', tornaAllaHomeSplash);
 
     document.getElementById('btn-load-scaletta-domenica').addEventListener('click', function() {
-        if (scriptConfigurato) {
-            scriptConfigurato.remove();
-            scriptConfigurato = null;
-        }
-
+        if (scriptConfigurato) { scriptConfigurato.remove(); scriptConfigurato = null; }
         document.body.classList.add('theme-liturgico');
         cartellaAttiva = "CatalogoTxTChiesa/";
         document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
@@ -38,57 +33,38 @@ window.addEventListener('DOMContentLoaded', () => {
         scriptConfigurato.src = "CanzoniereCatalogoChiesa.js?_=" + new Date().getTime();
 
         scriptConfigurato.onload = function() {
-            if (window.catalogoChiesa) {
-                catalogoAttivoRiferimento = window.catalogoChiesa;
-            } else {
-                console.error("Errore: catalogoChiesa non trovato su window.");
-                return;
-            }
-
+            if (window.catalogoChiesa) { catalogoAttivoRiferimento = window.catalogoChiesa; } else { return; }
             fetch('scalettaDomenica.json')
-                .then(response => {
-                    if (!response.ok) throw new Error("File scaletta non accessibile");
-                    return response.json();
-                })
+                .then(res => res.json())
                 .then(data => {
                     document.getElementById('splash-screen').style.display = 'none';
                     document.getElementById('song-screen').style.display = 'flex'; 
-
-                    const btnToggle = document.getElementById('btn-toggle-scaletta');
-                    if (btnToggle) btnToggle.style.display = 'block';
-
+                    if (document.getElementById('btn-toggle-scaletta')) document.getElementById('btn-toggle-scaletta').style.display = 'block';
                     attivaScalettaLiturgica(data);
-                    
-                    const chiaviTempi = Object.keys(data.brani);
-                    if (chiaviTempi.length > 0) {
-                        const primoTempo = chiaviTempi[0];
-                        selezionaBranoDaScalettaPerTitolo(data.brani[primoTempo]);
-                        
-                        setTimeout(() => {
-                            const primoBtn = document.querySelector(".btn-scaletta-item");
-                            if (primoBtn) primoBtn.classList.add("tempo-selezionato");
-                        }, 50);
+                    const chiavi = Object.keys(data.brani);
+                    if (chiavi.length > 0) {
+                        selezionaBranoDaScalettaPerTitolo(data.brani[chiavi[0]]);
+                        setTimeout(() => { if (document.querySelector(".btn-scaletta-item")) document.querySelector(".btn-scaletta-item").classList.add("tempo-selezionato"); }, 50);
                     }
-                })
-                .catch(error => console.error("Errore caricamento scaletta:", error));
+                }).catch(err => console.error(err));
         };
         document.head.appendChild(scriptConfigurato);
     });
 
     document.getElementById('search-input').addEventListener('input', ricercaRapida);
     document.getElementById('btn-elenco-brani').addEventListener('click', tornaAlMenuRicerca);
-    
     document.getElementById('btn-transpose-meno').addEventListener('click', () => transpose(-1));
     document.getElementById('btn-transpose-piu').addEventListener('click', () => transpose(1));
     document.getElementById('radio-it').addEventListener('click', () => changeNotation('IT'));
     document.getElementById('radio-en').addEventListener('click', () => changeNotation('EN'));
 
-    const btnWcag = document.getElementById('btn-wcag-toggle');
-    if (btnWcag) {
-        btnWcag.addEventListener('click', function() {
-            wcagCompattatoAttivo = !wcagCompattatoAttivo;
-            this.classList.toggle("attivo-accessibile", wcagCompattatoAttivo);
-            render();
+    if (document.getElementById('btn-wcag-toggle')) {
+        document.getElementById('btn-wcag-toggle').addEventListener('click', function() {
+            if (typeof wcagCompattatoAttivo !== 'undefined') {
+                wcagCompattatoAttivo = !wcagCompattatoAttivo;
+                this.classList.toggle("attivo-accessibile", wcagCompattatoAttivo);
+                render();
+            }
         });
     }
     
@@ -96,199 +72,113 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-scroll-slower').addEventListener('click', () => changeScrollSpeed(5));
     document.getElementById('btn-scroll-faster').addEventListener('click', () => changeScrollSpeed(-5));
 
-    const fileSelector = document.getElementById('file-selector');
-    if (fileSelector) {
-        fileSelector.addEventListener('change', (e) => {
-            const files = e.target.files;
-            if (!files || files.length === 0) return;
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                originalText = event.target.result;
-                document.getElementById('offline-zone').style.display = "none";
-                render(); 
-            };
-            reader.readAsText(files[0]);
+    if (document.getElementById('file-selector')) {
+        document.getElementById('file-selector').addEventListener('change', (e) => {
+            const files = e.target.files; if (!files || files.length === 0) return;
+            const r = new FileReader(); r.onload = (ev) => { originalText = ev.target.result; document.getElementById('offline-zone').style.display = "none"; render(); };
+            r.readAsText(files[0]);
         });
     }
 
-    document.getElementById('btn-toggle-controls').addEventListener('click', () => {
-        const ctrlPanel = document.getElementById('controls-panel');
-        ctrlPanel.style.display = ctrlPanel.style.display === 'none' ? 'block' : 'none';
-    });
-
-    document.getElementById('btn-toggle-scaletta').addEventListener('click', () => {
-        const scalettaPanel = document.getElementById('scaletta-panel');
-        scalettaPanel.style.display = scalettaPanel.style.display === 'none' ? 'block' : 'none';
-    });
-
-    const pickerSearch = document.getElementById("picker-search-input");
-    if (pickerSearch) {
-        pickerSearch.addEventListener('input', (e) => mostraRisultatiNelPicker(e.target.value));
-    }
-    const btnClosePicker = document.getElementById("btn-close-picker");
-    if (btnClosePicker) {
-        btnClosePicker.addEventListener('click', () => {
-            document.getElementById("lastminute-picker-overlay").style.display = "none";
-        });
-    }
+    document.getElementById('btn-toggle-controls').addEventListener('click', () => { const p = document.getElementById('controls-panel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; });
+    document.getElementById('btn-toggle-scaletta').addEventListener('click', () => { const p = document.getElementById('scaletta-panel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; });
+    if (document.getElementById("picker-search-input")) document.getElementById("picker-search-input").addEventListener('input', (e) => mostraRisultatiNelPicker(e.target.value));
+    if (document.getElementById("btn-close-picker")) document.getElementById("btn-close-picker").addEventListener('click', () => document.getElementById("lastminute-picker-overlay").style.display = "none");
 }); 
 
 function avviaCanzoniere(tipo) {
-    if (scriptConfigurato) {
-        scriptConfigurato.remove();
-        scriptConfigurato = null;
-    }
-    
-    const resultsContainer = document.getElementById('search-results');
-    if (resultsContainer) {
-        resultsContainer.innerHTML = "";
-        resultsContainer.style.display = "none";
-    }
-    
-    const panel = document.getElementById("scaletta-panel");
-    if (panel) panel.style.display = "none";
-    
-    let sorgenteScript = "";
-    let chiaveFinestra = "";
-    
-    if (tipo === 'pop') {
-        document.body.classList.remove('theme-liturgico');
-        sorgenteScript = "CanzoniereCatalogo.js";
-        chiaveFinestra = "catalogoPopRock"; 
-        cartellaAttiva = "CatalogoTxT/";
-        document.getElementById("menu-main-title").innerText = "Canzoniere Pop / Rock";
-    } else {
-        document.body.classList.add('theme-liturgico');
-        sorgenteScript = "CanzoniereCatalogoChiesa.js";
-        chiaveFinestra = "catalogoChiesa";   
-        cartellaAttiva = "CatalogoTxTChiesa/";
-        document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
-    }
-    
-    scriptConfigurato = document.createElement("script");
-    scriptConfigurato.src = sorgenteScript + "?_=" + new Date().getTime();
-    
-    scriptConfigurato.onload = function() {
-        if (window[chiaveFinestra]) {
-            catalogoAttivoRiferimento = window[chiaveFinestra];
-        }
-        document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("menu-screen").style.display = "block";
-    };
+    if (scriptConfigurato) { scriptConfigurato.remove(); scriptConfigurato = null; }
+    if (document.getElementById('search-results')) { document.getElementById('search-results').innerHTML = ""; document.getElementById('search-results').style.display = "none"; }
+    if (document.getElementById("scaletta-panel")) document.getElementById("scaletta-panel").style.display = "none";
+    let src = tipo === 'pop' ? "CanzoniereCatalogo.js" : "CanzoniereCatalogoChiesa.js";
+    let winKey = tipo === 'pop' ? "catalogoPopRock" : "catalogoChiesa";
+    cartellaAttiva = tipo === 'pop' ? "CatalogoTxT/" : "CatalogoTxTChiesa/";
+    document.getElementById("menu-main-title").innerText = tipo === 'pop' ? "Canzoniere Pop / Rock" : "Canzoniere Liturgico";
+    if (tipo === 'pop') document.body.classList.remove('theme-liturgico'); else document.body.classList.add('theme-liturgico');
+    scriptConfigurato = document.createElement("script"); scriptConfigurato.src = src + "?_=" + new Date().getTime();
+    scriptConfigurato.onload = function() { if (window[winKey]) catalogoAttivoRiferimento = window[winKey]; document.getElementById("splash-screen").style.display = "none"; document.getElementById("menu-screen").style.display = "block"; };
     document.head.appendChild(scriptConfigurato);
 }
 /**
- * CANZONIERE SMART - LOGICA APPLICATIVA CENTRALIZZATA
- * PARTE 2 DI 2 - OPERAZIONI SUI BRANI, SCALETTE E BOTTOM SHEET
+ * CANZONIERE SMART - LOGICA APPLICATIVA
+ * PARTE 2 DI 2 - LOGICA INTERNA E BOTTOM SHEET
  */
 
-function selezionaBranoDaScalettaPerTitolo(titoloDaCercare) {
+function selezionaBranoDaScalettaPerTitolo(titolo) {
     if (!catalogoAttivoRiferimento) return;
-    
-    const titoloPulito = titoloDaCercare.trim().toLowerCase();
-    const branoTrovato = catalogoAttivoRiferimento.find(b => 
-        b.titolo.trim().toLowerCase() === titoloPulito
-    );
-    
-    if (branoTrovato) {
-        document.getElementById("song-title").textContent = branoTrovato.titolo;
-        document.getElementById("song-author").textContent = branoTrovato.autore ? ` - ${branoTrovato.autore}` : "";
-        
-        const nomeFileTxt = branoTrovato.nomeFile || `${branoTrovato.titolo}.txt`;
-        const targetFilename = document.getElementById("target-filename");
-        if (targetFilename) targetFilename.textContent = nomeFileTxt;
-        
-        currentSemitoneShift = 0;
-        document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
-        
-        const percorsoCompletoFile = cartellaAttiva + nomeFileTxt;
-        document.getElementById("song-content").textContent = "Caricamento file .txt in corso...";
-
-        fetch(percorsoCompletoFile)
-            .then(res => {
-                if (!res.ok) throw new Error("File non accessibile");
-                return res.text();
-            })
-            .then(testoEstratto => {
-                originalText = testoEstratto; 
-                document.getElementById('offline-zone').style.display = "none";
-                render(); 
-            })
-            .catch(err => {
-                originalText = "";
-                document.getElementById('offline-zone').style.display = "block";
-                document.getElementById("song-content").textContent = `Seleziona il file "${nomeFileTxt}" manualmente.`;
-            });
+    const brano = catalogoAttivoRiferimento.find(b => b.titolo.trim().toLowerCase() === titolo.trim().toLowerCase());
+    if (brano) {
+        document.getElementById("song-title").textContent = brano.titolo;
+        document.getElementById("song-author").textContent = brano.autore ? ` - ${brano.autore}` : "";
+        const fName = brano.nomeFile || `${brano.titolo}.txt`;
+        if (document.getElementById("target-filename")) document.getElementById("target-filename").textContent = fName;
+        currentSemitoneShift = 0; document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
+        document.getElementById("song-content").textContent = "Caricamento in corso...";
+        fetch(cartellaAttiva + fName).then(res => res.text()).then(txt => { originalText = txt; document.getElementById('offline-zone').style.display = "none"; render(); })
+        .catch(() => { originalText = ""; document.getElementById('offline-zone').style.display = "block"; document.getElementById("song-content").textContent = `Seleziona il file "${fName}" manualmente.`; });
     }
 }
 
-function ricercaRapida(event) {
-    const stringaRicerca = event.target.value.trim().toLowerCase();
-    const containerRisultati = document.getElementById('search-results');
-    
-    if (!containerRisultati || !catalogoAttivoRiferimento) return;
-    if (stringaRicerca.length === 0) {
-        containerRisultati.innerHTML = "";
-        containerRisultati.style.display = "none";
-        return;
-    }
-
-    const braniFiltrati = catalogoAttivoRiferimento.filter(b => {
-        const tit = b.titolo ? b.titolo.toLowerCase() : "";
-        const aut = b.autore ? b.autore.toLowerCase() : "";
-        return tit.includes(stringaRicerca) || aut.includes(stringaRicerca);
+function ricercaRapida(e) {
+    const s = e.target.value.trim().toLowerCase(); const container = document.getElementById('search-results'); if (!container || !catalogoAttivoRiferimento) return;
+    if (s.length === 0) { container.innerHTML = ""; container.style.display = "none"; return; }
+    const filtrati = catalogoAttivoRiferimento.filter(b => (b.titolo||"").toLowerCase().includes(s) || (b.autore||"").toLowerCase().includes(s));
+    container.innerHTML = ""; if (filtrati.length === 0) { container.innerHTML = "<div class='no-results'>Nessun brano trovato</div>"; container.style.display = "block"; return; }
+    filtrati.forEach(b => {
+        const div = document.createElement('div'); div.className = 'search-result-item'; div.innerHTML = `<strong>${b.titolo}</strong> ${b.autore ? ' - ' + b.autore : ''}`;
+        div.addEventListener('click', () => { document.getElementById('menu-screen').style.display = 'none'; document.getElementById('song-screen').style.display = 'flex'; if (document.getElementById("scaletta-panel")) document.getElementById("scaletta-panel").style.display = "none"; selezionaBranoDaScalettaPerTitolo(b.titolo); });
+        container.appendChild(div);
     });
+    container.style.display = "block";
+}
 
-    containerRisultati.innerHTML = "";
+function tornaAlMenuRicerca() { resetScorrimentoSicuro(); document.getElementById("song-screen").style.display = "none"; document.getElementById("menu-screen").style.display = "block"; if (document.getElementById('search-input')) { document.getElementById('search-input').value = ""; document.getElementById('search-input').focus(); } if (document.getElementById('search-results')) { document.getElementById('search-results').innerHTML = ""; document.getElementById('search-results').style.display = "none"; } }
+function tornaAllaHomeSplash() { resetScorrimentoSicuro(); document.body.classList.remove('theme-liturgico'); document.getElementById("menu-screen").style.display = "none"; document.getElementById("song-screen").style.display = "none"; document.getElementById("splash-screen").style.display = "block"; }
+function transpose(n) { currentSemitoneShift += n; let s = currentSemitoneShift > 0 ? "+" : ""; if (document.getElementById("info-tonalita")) document.getElementById("info-tonalita").textContent = currentSemitoneShift === 0 ? "Tonalità: Originale" : `Tonalità: ${s}${currentSemitoneShift} Semitoni`; render(); }
+function changeNotation(n) { currentNotation = n; render(); }
+function toggleScroll() { const b = document.getElementById("btn-scroll"); if (!b) return; if (isScrolling) { resetScorrimentoSicuro(); } else { isScrolling = true; b.textContent = "⏸ Pausa"; scrollInterval = setInterval(() => { window.scrollBy(0, 1); }, currentSpeedMs); } }
+function changeScrollSpeed(d) { currentSpeedMs += d; if (currentSpeedMs < 10) currentSpeedMs = 10; if (currentSpeedMs > 150) currentSpeedMs = 150; if (document.getElementById("info-velocita")) document.getElementById("info-velocita").textContent = `Velocità: ${Math.round((40 / currentSpeedMs) * 10) / 10}x`; if (isScrolling) { clearInterval(scrollInterval); scrollInterval = setInterval(() => { window.scrollBy(0, 1); }, currentSpeedMs); } }
+function resetScorrimentoSicuro() { if (scrollInterval) clearInterval(scrollInterval); isScrolling = false; if (document.getElementById("btn-scroll")) document.getElementById("btn-scroll").textContent = "▶ Auto-Scroll"; }
 
-    if (braniFiltrati.length === 0) {
-        containerRisultati.innerHTML = "<div class='no-results'>Nessun brano trovato</div>";
-        containerRisultati.style.display = "block";
-        return;
-    }
+function apriLastMinutePicker(tempo) {
+    momentoLiturgicoAttivo = tempo; document.getElementById("picker-momento-label").textContent = tempo; document.getElementById("lastminute-picker-overlay").style.display = "flex";
+    const inp = document.getElementById("picker-search-input"); if (inp) { inp.value = ""; mostraRisultatiNelPicker(""); setTimeout(() => inp.focus(), 150); }
+}
 
-    braniFiltrati.forEach(b => {
-        const elementoBrano = document.createElement('div');
-        elementoBrano.className = 'search-result-item';
-        elementoBrano.innerHTML = `<strong>${b.titolo}</strong> ${b.autore ? ' - ' + b.autore : ''}`;
-        
-        elementoBrano.addEventListener('click', () => {
-            document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('song-screen').style.display = 'flex';
-            const panelScaletta = document.getElementById("scaletta-panel");
-            if (panelScaletta) panelScaletta.style.display = "none";
-            selezionaBranoDaScalettaPerTitolo(b.titolo);
+function mostraRisultatiNelPicker(filtro) {
+    const container = document.getElementById("picker-results-list"); if (!container || !catalogoAttivoRiferimento) return; container.innerHTML = "";
+    const filtrati = catalogoAttivoRiferimento.filter(b => b.titolo.toLowerCase().includes(filtro.toLowerCase()));
+    if (filtrati.length === 0) { container.innerHTML = "<div style='padding:15px; color:#999; font-style:italic;'>Nessun brano trovato</div>"; return; }
+    filtrati.forEach(b => {
+        const row = document.createElement("div"); row.className = "picker-result-row"; row.innerHTML = `<strong>${b.titolo}</strong> ${b.autore ? ' - <small>' + b.autore + '</small>' : ''}`;
+        row.addEventListener('click', () => {
+            if (scalettaCorrenteData && momentoLiturgicoAttivo) {
+                scalettaCorrenteData.brani[momentoLiturgicoAttivo] = b.titolo; document.getElementById("lastminute-picker-overlay").style.display = "none";
+                attivaScalettaLiturgica(scalettaCorrenteData); selezionaBranoDaScalettaPerTitolo(b.titolo);
+                setTimeout(() => { document.querySelectorAll('.btn-scaletta-item').forEach(btn => { const lbl = btn.querySelector('.tempo-label'); if (lbl && lbl.textContent === momentoLiturgicoAttivo) btn.classList.add('tempo-selezionato'); }); }, 50);
+            }
         });
-        containerRisultati.appendChild(elementoBrano);
+        container.appendChild(row);
     });
-    containerRisultati.style.display = "block";
 }
 
-function tornaAlMenuRicerca() {
-    resetScorrimentoSicuro();
-    document.getElementById("song-screen").style.display = "none";
-    document.getElementById("menu-screen").style.display = "block";
-    const input = document.getElementById('search-input');
-    if (input) { input.value = ""; input.focus(); }
-    const containerRisultati = document.getElementById('search-results');
-    if (containerRisultati) { containerRisultati.innerHTML = ""; containerRisultati.style.display = "none"; }
+function attivaScalettaLiturgica(data) {
+    scalettaCorrenteData = data; if (document.getElementById("scaletta-nome-titolo")) document.getElementById("scaletta-nome-titolo").textContent = data.nome || "Messa del Giorno";
+    const container = document.getElementById("scaletta-bottoni-container"); if (!container) return; container.innerHTML = "";
+    Object.keys(data.brani).forEach(tempo => {
+        const titoloBrano = data.brani[tempo]; const item = document.createElement("div"); item.className = "btn-scaletta-item"; item.style.display = "flex"; item.style.justifyContent = "space-between"; item.style.alignItems = "center";
+        const clickArea = document.createElement("div"); clickArea.style.flex = "1"; clickArea.style.cursor = "pointer"; clickArea.innerHTML = `<div class="tempo-label">${tempo}</div><div class="titolo-label">${titoloBrano}</div>`;
+        clickArea.addEventListener("click", () => { document.querySelectorAll(".btn-scaletta-item").forEach(b => b.classList.remove("tempo-selezionato")); item.classList.add("tempo-selezionato"); selezionaBranoDaScalettaPerTitolo(titoloBrano); });
+        const editBtn = document.createElement("button"); editBtn.className = "btn-override-lastminute"; editBtn.innerHTML = "✏️"; editBtn.title = `Sostituisci ${tempo}`;
+        editBtn.addEventListener("click", (e) => { e.stopPropagation(); apriLastMinutePicker(tempo); });
+        item.appendChild(clickArea); item.appendChild(editBtn); container.appendChild(item);
+    });
 }
 
-function tornaAllaHomeSplash() {
-    resetScorrimentoSicuro(); 
-    document.body.classList.remove('theme-liturgico');
-    document.getElementById("menu-screen").style.display = "none";
-    document.getElementById("song-screen").style.display = "none";
-    document.getElementById("splash-screen").style.display = "block";
-}
-
-function transpose(semitoni) {
-    currentSemitoneShift += semitoni;
-    let segno = currentSemitoneShift > 0 ? "+" : "";
-    const infoTonalita = document.getElementById("info-tonalita");
-    if (infoTonalita) {
-        infoTonalita.textContent = currentSemitoneShift === 0 ? "Tonalità: Originale" : `Tonalità: ${segno}${currentSemitoneShift} Semitoni`;
-    }
-    render();
+if (typeof window.render !== "function") {
+    window.render = function() {
+        const area = document.getElementById("song-content");
+        if (area && originalText) { if (typeof window.trasponiTestoNotazione === "function") { area.innerHTML = window.trasponiTestoNotazione(originalText, currentSemitoneShift, currentNotation); } else { area.textContent = originalText; } }
+    };
 }
 
