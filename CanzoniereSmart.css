@@ -12,6 +12,7 @@ body {
     background-color: #f9f9f9;
     color: #333;
     margin: 0;
+    transition: background-color 0.3s ease; /* Transizione fluida per il cambio tema */
 }
 
 /* =========================================================================
@@ -19,7 +20,7 @@ body {
    ========================================================================= */
 
 .splash-container {
-    max-width: 500px;
+    max-width: 650px; /* Allargato leggermente per ospitare comodamente i bottoni affiancati */
     margin: 50px auto;
     background: white;
     padding: 40px 30px;
@@ -42,13 +43,23 @@ body {
     font-size: 24px;
 }
 
+/* Modificato in Flexbox per allineamento orizzontale su tablet e PC */
 .splash-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch; /* Mantiene la stessa altezza per entrambi i pulsanti */
+    gap: 20px;
+    width: 100%;
 }
 
 .btn-choice {
+    flex: 1; /* Distribuisce lo spazio equamente al 50% */
+    display: flex;
+    flex-direction: column; /* Testo sopra, GIF sotto all'interno del bottone */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 16px;
     font-size: 18px;
     background-color: #f8f9fa;
@@ -58,7 +69,6 @@ body {
     cursor: pointer;
     font-weight: bold;
     transition: all 0.15s ease;
-    width: 100%;
 }
 
 .btn-choice:hover {
@@ -68,6 +78,67 @@ body {
     transform: translateY(-1px);
 }
 
+.btn-choice img {
+    max-height: 40px; /* Ridimensionamento di sicurezza per le GIF nei bottoni */
+    width: auto;
+}
+
+/* =========================================================================
+   TEMA LITURGICO (COERENZA CROMATICA) - NUOVE REGOLE
+   ========================================================================= */
+
+/* Forzatura colore per il bottone del Canzoniere Liturgico nella Splash */
+#btn-load-chiesa.theme-liturgico-btn {
+    background-color: #c8a2c8; /* Lilla */
+    color: #2c2c2c; /* Testo scuro ad alto contrasto */
+    border: 2px solid #b58cb5;
+}
+
+#btn-load-chiesa.theme-liturgico-btn:hover {
+    background-color: #b58cb5;
+    color: #111;
+    border-color: #a275a2;
+}
+
+/* Classe globale per lo sfondo lavanda applicata tramite JavaScript */
+body.theme-liturgico,
+.menu-container.theme-liturgico {
+    background-color: #e6e6fa !important; /* Lavender */
+    color: #2c2c2c !important;
+}
+
+/* Coerenza cromatica per la pagina di menu liturgica */
+body.theme-liturgico .menu-container {
+    border: 1px solid #c8a2c8;
+    box-shadow: 0 4px 15px rgba(200, 162, 200, 0.2);
+}
+
+body.theme-liturgico .menu-container h1 {
+    color: #8e44ad; /* Viola più scuro ed elegante per i titoli liturgici */
+}
+
+body.theme-liturgico .search-box-container input[type="text"] {
+    border-color: #c8a2c8; /* Bordo input lilla */
+}
+
+body.theme-liturgico .search-box-container input[type="text"]:focus {
+    box-shadow: 0 0 8px rgba(200, 162, 200, 0.5);
+}
+
+/* Bordi laterali a contrasto lilla per la lista risultati e gli item */
+body.theme-liturgico .search-results-list {
+    border-color: #c8a2c8;
+}
+
+body.theme-liturgico .search-item {
+    border-left: 4px solid transparent;
+}
+
+body.theme-liturgico .search-item:hover {
+    background-color: #f5eff5;
+    color: #8e44ad;
+    border-left: 4px solid #c8a2c8; /* Richiamo visivo lilla al passaggio del mouse */
+}
 
 
 /* =========================================================================
@@ -81,7 +152,8 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     text-align: center;
-    position: relative; /* <--- AGGIUNGI QUESTA RIGA FONDAMENTALE */
+    position: relative; 
+    transition: background-color 0.3s ease;
 }
 
 .menu-container h1 {
@@ -127,7 +199,7 @@ body {
     border-radius: 8px;
     box-sizing: border-box;
     outline: none;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .search-box-container input[type="text"]:focus {
@@ -141,7 +213,7 @@ body {
     background: white;
     border: 1px solid #ccc;
     border-top: none;
-    max-height: 350px; /* Leggermente più alto per mostrare più brani su tablet */
+    max-height: 350px; 
     overflow-y: auto;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.12);
@@ -151,39 +223,39 @@ body {
     z-index: 1050;
 }
 
-/* Contenitore del singolo brano nella lista */
-.search-item {
-    padding: 16px 20px; /* Più spazio per il tocco su tablet */
+/* Contenitore del singolo brano nella lista (Allineato a classi JS dello sprint precedente) */
+.search-item, .search-result-item {
+    padding: 16px 20px; 
     cursor: pointer;
     border-bottom: 1px solid #eee;
     text-align: left;
-    font-size: 20px; /* Font più grande rispetto allo standard */
-    transition: background-color 0.15s ease;
+    font-size: 20px; 
+    transition: all 0.15s ease;
     color: #333;
 }
 
-.search-item:last-child {
+.search-item:last-child, .search-result-item:last-child {
     border-bottom: none;
 }
 
-.search-item:hover {
+.search-item:hover, .search-result-item:hover {
     background-color: #f1f1f1;
     color: #007bff;
 }
 
 /* Il Titolo dentro l'elemento di ricerca */
-.search-item strong {
-    font-weight: 800; /* Neretto molto marcato */
+.search-item strong, .search-result-item strong {
+    font-weight: 800; 
     color: #111;
 }
 
 /* L'Autore dentro l'elemento di ricerca */
-.search-item small {
-    color: #888; /* Grigetto chiaro */
-    font-weight: 300; /* Più sottile */
-    font-size: 16px; /* Più piccolo rispetto al titolo */
-    margin-left: 12px; /* Spazio dal titolo */
-    font-style: italic; /* Corsivo elegante */
+.search-item small, .search-result-item small {
+    color: #888; 
+    font-weight: 300; 
+    font-size: 16px; 
+    margin-left: 12px; 
+    font-style: italic; 
     display: inline-block;
 }
 
@@ -197,7 +269,6 @@ body {
 /* =========================================================================
    SCHERMATA VISUALIZZAZIONE CANZONE E PANNELLO COMANDI
    ========================================================================= */
-/* Stile aggiornato per la sidebar controlli (Sinistra) */
 .controls {
     width: 200px;
     background-color: #fcfcfc;
@@ -262,43 +333,36 @@ hr {
    AREA DEL BRANO (VERSIONE COMFORT - ALTA LEGGIBILITÀ)
    ========================================================================= */
 #song-title-container {
-    font-size: 34px; /* Un po' più grande */
-    color: #1a4f8a; /* Un blu notte più scuro e leggibile rispetto al blu elettrico */
+    font-size: 34px; 
+    color: #1a4f8a; 
     margin-top: 20px;
     margin-bottom: 20px;
-    border-bottom: 2px solid #dcd6cd; /* Linea di divisione più morbida */
+    border-bottom: 2px solid #dcd6cd; 
     padding-bottom: 12px;
     display: flex;
     align-items: baseline;
     gap: 15px;
-    max-width: calc(100% - 180px);
+    width: 100%; /* Sblocco schermo intero flessibile */
 }
 
 #song-title {
-    font-weight: bold; /* Titolo ben marcato */
+    font-weight: bold; 
 }
 
 #song-author {
     font-size: 22px;
     font-weight: normal;
     font-style: italic;
-    color: #5d564d; /* Grigio seppia caldo */
+    color: #5d564d; 
 }
 
-/* Il foglio di testo (Sfondo Pergamena/Avorio rilassante) */
-/* Il foglio di testo (Versione Compatta per stringhe lunghe) */
+/* Il foglio di testo (Rimossa limitazione max-width per sblocco schermo intero) */
 pre {
-    /* Usa font monospazio moderni e più stretti di default (es. Monaco, Consolas o il font di sistema) */
     font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 21px; 
     font-weight: 600; 
-    
-    /* Interlinea calibrata: abbastanza spaziosa ma compatta per evitare dispersioni */
     line-height: 1.5; 
-    
-    /* TRUCCO TRIDIMENSIONALE: Stringe i caratteri in larghezza del 5%, guadagnando spazio prezioso sulle righe lunghe */
     letter-spacing: -0.5px; 
-    
     background-color: #f7f2ea; 
     color: #2b261f; 
     padding: 25px;
@@ -306,17 +370,23 @@ pre {
     box-shadow: inset 0 0 10px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.04);
     white-space: pre-wrap;
     margin-top: 20px;
-    max-width: calc(100% - 180px);
+    width: 100%; /* Sblocco schermo intero flessibile dello sprint precedente */
     box-sizing: border-box;
 }
 
 /* Gli accordi evidenziati ad alto contrasto */
 .chord {
-    color: #b71c1c; /* Un rosso cremisi/scuro molto profondo, spicca di più sull'avorio rispetto al rosso acceso */
+    color: #b71c1c; 
     font-weight: bold;
-    text-shadow: 0.3px 0 0 #b71c1c; /* Un piccolissimo trucco d'ombra per raddoppiare l'effetto stampato dell'accordo */
+    text-shadow: 0.3px 0 0 #b71c1c; 
 }
 
+/* Media Query Responsiva per schermi smartphone stretti */
+@media (max-width: 600px) {
+    .splash-buttons {
+        flex-direction: column; /* Torna in verticale su schermi piccoli */
+    }
+}
 /* =========================================================================
    ZONA DI SELEZIONE FILE IN MODALITÀ OFFLINE
    ========================================================================= */
@@ -326,7 +396,7 @@ pre {
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    max-width: calc(100% - 180px);
+    width: 100%; /* Sblocco schermo intero dello sprint precedente */
     box-sizing: border-box;
     font-size: 16px;
     line-height: 1.5;
@@ -358,9 +428,9 @@ pre {
     margin-top: 6px;
 }
 
-/* Aggiunta la classe per visuslizzare l'accessibilità della compattazione WCAG 80 cratteri per riga */
+/* Aggiunta la classe per visualizzare l'accessibilità della compattazione WCAG 80 caratteri per riga */
 .attivo-accessibile {
-    background-color: #2ecc71 !important; /* Colore verde accessibilità o quello che preferisci */
+    background-color: #2ecc71 !important; 
     color: #fff !important;
     border-color: #27ae60 !important;
 }
@@ -467,6 +537,11 @@ pre {
     font-size: 0.85em;
 }
 
+/* Variante del tempo-label sotto tema liturgico */
+body.theme-liturgico .tempo-label {
+    color: #8e44ad; /* Sincronizzato con il viola */
+}
+
 .titolo-label {
     font-size: 1em;
     color: #333;
@@ -477,6 +552,13 @@ pre {
     background-color: #e7f1ff !important;
     border-color: #0d6efd !important;
     box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+}
+
+/* Variante della selezione per il tema liturgico */
+body.theme-liturgico .tempo-selezionato {
+    background-color: #f5eff5 !important;
+    border-color: #c8a2c8 !important;
+    box-shadow: 0 0 5px rgba(200, 162, 200, 0.6);
 }
 
 /* =========================================================================
@@ -491,17 +573,17 @@ pre {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.55);
-    display: none; /* Controllato dinamicamente via JS */
+    display: none; 
     justify-content: center;
     align-items: flex-end; /* Spinge il foglio verso il basso dello schermo */
-    z-index: 9999; /* Supera lo spartito pre, la barra di navigazione e i toggle */
-    backdrop-filter: blur(4px); /* Effetto sfocatura moderno sullo sfondo */
+    z-index: 9999; 
+    backdrop-filter: blur(4px); 
 }
 
 /* Il foglio/pannello che compare dal basso */
 .picker-sheet {
     width: 100%;
-    max-width: 650px; /* Larghezza ottimale sia verticale che orizzontale su tablet */
+    max-width: 650px; 
     background-color: #ffffff;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -530,27 +612,54 @@ pre {
     border-radius: 6px;
     background: #f8f9fa;
     padding: 5px;
-    -webkit-overflow-scrolling: touch; /* Garantisce scorrimento fluido su tablet iOS/Safari */
+    -webkit-overflow-scrolling: touch; 
 }
 
 /* Pulsante/Riga del singolo brano trovato nel catalogo */
 .picker-result-row {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    text-align: left;
     transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.picker-result-row:last-child {
+    border-bottom: none;
+}
+
+.picker-result-row:hover {
+    background-color: #f1f3f5;
 }
 
 /* Feedback visivo immediato al tocco del dito sul brano (Evita tocchi fantasma) */
 .picker-result-row:active {
-    background-color: #e8eaf6 !important; /* Leggero azzurro/viola di selezione */
+    background-color: #e8eaf6 !important; 
     transform: scale(0.99);
+}
+
+/* Coerenza del Bottom Sheet sotto tema liturgico */
+body.theme-liturgico #picker-search-input {
+    border-color: #c8a2c8 !important;
+}
+body.theme-liturgico #picker-search-input:focus {
+    box-shadow: 0 0 8px rgba(200, 162, 200, 0.5) !important;
 }
 
 /* Ottimizzazione pulsante modifica "✏️" nella barra della scaletta liturgica */
 .btn-override-lastminute {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    width: auto;
+    display: inline-block;
     transition: transform 0.1s ease, background-color 0.15s ease;
 }
 
 .btn-override-lastminute:active {
-    background-color: #2c3e50 !important; /* Scurisce il grigio di controllo al tocco */
+    background-color: #e2e6ea !important; 
     transform: scale(0.92); /* Micro-interazione di clic */
 }
 
@@ -563,8 +672,6 @@ pre {
         transform: translateY(0);
     }
 }
-
-/* Aggiunti alla fine */
 
 /* =========================================================================
    ALLINEAMENTO STRUTTURALE ED ESPANSIONE FLEX SCHERMO INTERO (TABLET)
@@ -615,14 +722,18 @@ pre, #song-title-container, .offline-picker {
     z-index: 1050;
 }
 
+/* Sincronizzazione ed espansione per le classi iniettate dinamicamente dal JS */
+.search-results-list, .search-result-item {
+    font-size: 20px;
+    text-align: left;
+}
+
 .search-result-item {
-    padding: 16px 20px !important;
+    padding: 16px 20px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
-    text-align: left;
-    font-size: 20px !important;
-    transition: background-color 0.15s ease;
     color: #333;
+    transition: background-color 0.15s ease;
 }
 
 .search-result-item:hover {
@@ -635,11 +746,13 @@ pre, #song-title-container, .offline-picker {
     color: #111;
 }
 
-.no-results {
-    padding: 15px;
-    color: #999;
-    font-style: italic;
+.search-result-item small {
+    color: #888;
+    font-weight: 300;
     font-size: 16px;
+    margin-left: 12px;
+    font-style: italic;
+    display: inline-block;
 }
 
 
