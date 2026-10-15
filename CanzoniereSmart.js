@@ -446,6 +446,79 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+        /**
+ * Genera dinamicamente i bottoni della sidebar destra per la scaletta attiva
+ */
+function attivaScalettaLiturgica(data) {
+    scalettaCorrenteData = data;
+    const titoloNome = document.getElementById("scaletta-nome-titolo");
+    if (titoloNome) titoloNome.textContent = data.nome || "Messa del Giorno";
+
+    const container = document.getElementById("scaletta-bottoni-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    // Ciclo sui brani della scaletta (es. Ingresso, Offertorio...)
+    Object.keys(data.brani).forEach(tempo => {
+        const titoloBrano = data.brani[tempo];
+
+        // Container del singolo slot della scaletta
+        const itemContainer = document.createElement("div");
+        itemContainer.className = "btn-scaletta-item";
+        itemContainer.style.display = "flex";
+        itemContainer.style.justifyContent = "space-between";
+        itemContainer.style.alignItems = "center";
+
+        // Area touch a sinistra per selezionare e visualizzare il brano
+        const clickArea = document.createElement("div");
+        clickArea.style.flex = "1";
+        clickArea.style.cursor = "pointer";
+        clickArea.innerHTML = `<div class="tempo-label">${tempo}</div><div class="titolo-label">${titoloBrano}</div>`;
+        
+        clickArea.addEventListener("click", () => {
+            // Rimuove la selezione visiva da tutti gli altri bottoni
+            document.querySelectorAll(".btn-scaletta-item").forEach(b => b.classList.remove("tempo-selezionato"));
+            // Aggiunge la selezione a questo bottone
+            itemContainer.classList.add("tempo-selezionato");
+            selezionaBranoDaScalettaPerTitolo(titoloBrano);
+        });
+
+        // Pulsante di modifica rapida a destra (Matita ✏️ Safe-Spacing per tablet)
+        const editBtn = document.createElement("button");
+        editBtn.className = "btn-override-lastminute";
+        editBtn.innerHTML = "✏️";
+        editBtn.title = `Sostituisci canto di ${tempo}`;
+        editBtn.style.marginLeft = "10px";
+        
+        editBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // Evita che il clic selezioni anche il brano sottostante
+            apriLastMinutePicker(tempo);
+        });
+
+        itemContainer.appendChild(clickArea);
+        itemContainer.appendChild(editBtn);
+        container.appendChild(itemContainer);
+    });
+}
+
+/**
+ * Funzione di rendering fittizia / di fallback se non definita in transposer.js
+ * Sostituisci o adatta se hai già una funzione render() globale nel progetto
+ */
+if (typeof window.render !== "function") {
+    window.render = function() {
+        const contentArea = document.getElementById("song-content");
+        if (contentArea && originalText) {
+            // Se esiste la logica del transposer la usa, altrimenti mostra il testo originale
+            if (typeof window.trasponiTestoNotazione === "function") {
+                contentArea.innerHTML = window.trasponiTestoNotazione(originalText, currentSemitoneShift, currentNotation);
+            } else {
+                contentArea.textContent = originalText;
+            }
+        }
+    };
+}
         
 
 
