@@ -192,3 +192,30 @@ function ricercaRapida(e) {
     // NOTA: Da qui in poi prosegue la logica di creazione degli elementi DOM 
     // per visualizzare l'elenco filtrato a schermo.
 }
+// [NEW] FUNZIONE DI RITORNO ALLA SCHERMATA SPLASH (HOME)
+function tornaAllaHomeSplash() {
+    // Se la scaletta è bloccata, impediamo il ritorno accidentale alla home per sicurezza live
+    if (isScalettaLocked) {
+        console.warn("Ritorno alla Home ignorato: la scaletta è BLOCCATA.");
+        return;
+    }
+
+    // Ripristina la visualizzazione iniziale delle schermate
+    document.getElementById('splash-screen').style.display = 'block';
+    document.getElementById('menu-screen').style.display = 'none';
+    document.getElementById('song-screen').style.display = 'none';
+    
+    // Rimuove temporaneamente il tema liturgico visivo dal body se presente
+    document.body.classList.remove('theme-liturgico');
+    
+    // Ripulisce i risultati della ricerca precedente per decoro grafico
+    const container = document.getElementById('search-results');
+    if (container) {
+        container.innerHTML = "";
+        container.style.display = "none";
+    }
+    const inputRicerca = document.getElementById('search-input');
+    if (inputRicerca) inputRicerca.value = "";
+
+    console.log("Navigazione: Ritorno alla Splash Screen eseguito.");
+}
