@@ -219,3 +219,25 @@ function tornaAllaHomeSplash() {
 
     console.log("Navigazione: Ritorno alla Splash Screen eseguito.");
 }
+
+// [NEW] FUNZIONE DI RITORNO AL MENU DI RICERCA BRANI
+function tornaAlMenuRicerca() {
+    // Impedisce l'uscita accidentale dallo spartito se lo scudo Live è attivo
+    if (isScalettaLocked) {
+        console.warn("Navigazione bloccata: sblocca la scaletta per tornare al menu.");
+        return;
+    }
+
+    // Nasconde lo spartito e mostra la schermata con la barra di ricerca
+    document.getElementById('song-screen').style.display = 'none';
+    document.getElementById('menu-screen').style.display = 'block';
+    
+    // Ripristina il focus sulla ricerca rapida
+    const inputRicerca = document.getElementById('search-input');
+    if (inputRicerca) {
+        inputRicerca.value = "";
+        setTimeout(() => inputRicerca.focus(), 50);
+    }
+    
+    console.log("Navigazione: Ritorno alla schermata di ricerca.");
+}
