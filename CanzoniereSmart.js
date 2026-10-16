@@ -241,3 +241,62 @@ function tornaAlMenuRicerca() {
     
     console.log("Navigazione: Ritorno alla schermata di ricerca.");
 }
+
+// [NEW] GESTIONE AUTO-SCORRIMENTO COMPATIBILE CON LIVE LOCK
+function toggleScroll() {
+    const btn = document.getElementById('btn-scroll');
+    
+    if (isScrolling) {
+        // Ferma lo scorrimento
+        clearInterval(scrollInterval);
+        isScrolling = false;
+        if (btn) btn.innerHTML = '▶ Auto-Scroll';
+        console.log("Auto-Scroll: Messo in pausa.");
+    } else {
+        // Avvia lo scorrimento all'intervallo memorizzato
+        isScrolling = true;
+        if (btn) btn.innerHTML = '⏸ Pausa Scroll';
+        
+        scrollInterval = setInterval(() => {
+            window.scrollBy({
+                top: 1,
+                behavior: 'auto'
+            });
+            
+            // Controllo fine pagina per fermarsi automaticamente
+            if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight) {
+                clearInterval(scrollInterval);
+                isScrolling = false;
+                if (btn) btn.innerHTML = '▶ Auto-Scroll';
+            }
+        }, currentSpeedMs);
+        
+        console.log(`Auto-Scroll: Avviato con intervallo ${currentSpeedMs}ms`);
+    }
+}
+
+// [NEW] VARIAZIONE VELOCITÀ AUTO-SCORRIMENTO
+function changeScrollSpeed(delta) {
+    // delta positivo = rallenta (aumenta i ms di attesa)
+    // delta negativo = accelera (diminuisce i ms di attesa)
+    currentSpeedMs += delta;
+    
+    // Limiti di sicurezza per evitare blocchi o accelerazioni folli
+    if (currentSpeedMs < 10) currentSpeedMs = 10;  // Velocità massima
+    if (currentSpeedMs > 150) currentSpeedMs = 150; // Velocità minima
+    
+    // Feedback testuale a schermo
+    const infoVel = document.getElementById('info-velocita');
+    if (infoVel) {
+        // Calcola un fattore moltiplicativo indicativo per l'utente
+        const calcoloFattore = (40 / currentSpeedMs).toFixed(1);
+        infoVel.innerText = `Velocità: ${calcoloFattore}x`;
+    }
+    
+    // Se stava già scorrendo, riavvia il timer con la nuova velocità
+    if (isScrolling) {
+        clearInterval(scrollInterval);
+        isScrolling = false;
+        toggleScroll();
+    }
+}
