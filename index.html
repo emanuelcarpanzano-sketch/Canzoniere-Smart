@@ -93,7 +93,7 @@ modifiche di notatione Italiana o Internazionale
         </div>
     </div>
     
-    <!-- ================= 2. SCHERMATA DI RICERCA ================= -->
+<!-- ================= 2. SCHERMATA DI RICERCA ================= -->
     <div id="menu-screen" class="menu-container" style="display: none;">
         <button id="btn-home-splash" class="btn-back-splash">Torna a 🏠 per la SCELTA</button>
         <h1 id="menu-main-title">Canzoniere Smart</h1>
@@ -108,13 +108,17 @@ modifiche di notatione Italiana o Internazionale
 
    <!-- ================= 3. SCHERMATA VISUALIZZAZIONE SPARTITO ================= -->
     <div id="song-screen" style="display: none;">
-        <!-- NUOVA BARRA DI CONTROLLO SUPERIORE PER I TOGGLE DI VISUALIZZAZIONE -->
+        <!-- BARRA DI CONTROLLO SUPERIORE PER I TOGGLE DI VISUALIZZAZIONE -->
         <div class="top-toggle-bar">
             <button id="btn-toggle-controls" class="btn-toggle-panel" title="Mostra/Nascondi Controlli e Tonalità">⚙️ Pannello Controlli</button>
+            
+            <!-- [NEW] Inserito il pulsante fisico per lo Scudo di Sicurezza Live Lock -->
+            <button id="btn-lock-scaletta" class="btn-toggle-panel" title="Blocca/Sblocca la scaletta contro tocchi involontari">🔓 Blocca Scaletta</button>
+            
             <button id="btn-toggle-scaletta" class="btn-toggle-panel" title="Mostra/Nascondi la Scaletta del Giorno" style="display: none;">📋 Pannello Scaletta</button>
         </div>
         
-        <!-- IL TUO VECCHIO CONTENITORE CONTROLLI (SINISTRA) -->
+        <!-- CONTENITORE CONTROLLI (SINISTRA) -->
         <div id="controls-panel" class="controls">
             <button id="btn-elenco-brani" class="btn-menu">⬅ Elenco Brani</button>
             <hr>
@@ -162,11 +166,9 @@ modifiche di notatione Italiana o Internazionale
             <h4 id="scaletta-nome-titolo">Nessuna scaletta</h4>
             <div id="scaletta-bottoni-container" class="scaletta-list"></div>
         </div>
-
     </div>
 
-
-<!-- =========================================================================
+    <!-- =========================================================================
        4. MODULO DI SOSTITUZIONE LAST MINUTE (BOTTOM SHEET)
        ========================================================================= -->
     <div id="lastminute-picker-overlay">
@@ -192,10 +194,9 @@ modifiche di notatione Italiana o Internazionale
         </div>
     </div>
 
-
-    
     <!-- Caricamento degli Script Modulari -->
     <script src="transposer.js"></script>
     <script src="CanzoniereSmart.js"></script>
 </body>
 </html>
+
