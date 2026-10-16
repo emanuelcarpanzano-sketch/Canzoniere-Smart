@@ -348,3 +348,54 @@ function confermaSostituzioneCanto(nuovoTitolo) {
     console.log(`Last Minute: Sostituito canto di ${momentoLiturgicoAttivo} con "${nuovoTitolo}" e salvato in backup.`);
 }
 
+// ==========================================
+// [NEW] MOTORE INTERNO DI TRASPOSIZIONE ACCORDI
+// ==========================================
+function transpose(semitoni) {
+    if (!originalText) return;
+    currentSemitoneShift += semitoni;
+    
+    // Aggiorna l'indicatore grafico a schermo
+    const infoTonalita = document.getElementById("info-tonalita");
+    if (infoTonalita) {
+        if (currentSemitoneShift === 0) {
+            infoTonalita.textContent = "Tonalità: Originale";
+        } else {
+            infoTonalita.textContent = `Tonalità: ${currentSemitoneShift > 0 ? '+' : ''}${currentSemitoneShift} Semitoni`;
+        }
+    }
+    
+    // Riesegue il rendering del testo con i nuovi accordi calcolati
+    render();
+    console.log(`Trasposizione: Spostamento di ${semitoni} semitoni applicato (Totale: ${currentSemitoneShift}).`);
+}
+
+// ==========================================
+// [NEW] MOTORE INTERMO DI CAMBIO NOTAZIONE (ITA / ENG)
+// ==========================================
+function changeNotation(notation) {
+    if (currentNotation === notation) return;
+    currentNotation = notation;
+    
+    // Sincronizza i radio button grafici per coerenza visiva
+    const radioIt = document.getElementById('radio-it');
+    const radioEn = document.getElementById('radio-en');
+    if (radioIt) radioIt.checked = (notation === 'IT');
+    if (radioEn) radioEn.checked = (notation === 'EN');
+    
+    // Ridisegna il testo convertendo gli accordi al volo
+    render();
+    console.log(`Notazione: Cambiata in modalità ${notation}.`);
+}
+
+// [NEW] FUNZIONE FUNZIONALE DI RENDERING (FALLBACK DI EMERGENZA SE MANCA IL CORE RENDERING)
+if (typeof render !== 'function') {
+    window.render = function() {
+        const container = document.getElementById('song-content');
+        if (!container) return;
+        
+        // Se non è agganciato un transposer esterno avanzato, mostra il testo originale pulito
+        container.textContent = originalText;
+    };
+}
+
