@@ -234,7 +234,7 @@ function selezionaBranoDaScalettaPerTitolo(titolo) {
 }
 
 // ==========================================
-// FUNZIONE DI RICERCA RAPIDA COMPLETA (POP & CHIESA)
+// FUNZIONE DI RICERCA RAPIDA DEFINITIVA E CORRETTA (POP & CHIESA)
 // ==========================================
 function ricercaRapida(e) {
     if (isScalettaLocked) { 
@@ -277,19 +277,19 @@ function ricercaRapida(e) {
     filtrati.forEach(brano => {
         const item = document.createElement('div');
         item.className = 'search-result-item';
-        item.innerHTML = `<strong>${brano.titolo}</strong>${brano.autore ? `<small> - <i>\${brano.autore}</i></small>` : ""}`;
+        
+        // CORRETTO: Uso della concatenazione classica per evitare stringhe letterali errate
+        item.innerHTML = '<strong>' + brano.titolo + '</strong>' + 
+                         (brano.autore ? '<small> - <i>' + brano.autore + '</i></small>' : '');
         
         // Al clic sul brano trovato, avvia il caricamento dello spartito
         item.addEventListener('click', () => {
-            // Seleziona il brano passandogli il titolo
             selezionaBranoDaScalettaPerTitolo(brano.titolo);
             
-            // Nasconde la lista dei risultati e pulisce l'input
             container.innerHTML = "";
             container.style.display = "none";
             document.getElementById('search-input').value = "";
             
-            // Sposta la visualizzazione sullo schermo dello spartito
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('song-screen').style.display = 'flex';
         });
