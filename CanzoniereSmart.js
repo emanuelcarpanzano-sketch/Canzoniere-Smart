@@ -300,3 +300,81 @@ function changeScrollSpeed(delta) {
         toggleScroll();
     }
 }
+
+// [NEW] GENERAZIONE E RENDERING DELLA SCALETTA LITURGICA NELLA SIDEBAR
+function attivaScalettaLiturgica(data) {
+    if (!data || !data.brani) return;
+    
+    scalettaCorrenteData = data;
+    
+    // Aggiorna il titolo della scaletta (es. Domenica Tempo Ordinario)
+    const titoloScaletta = document.getElementById('scaletta-nome-titolo');
+    if (titoloScaletta) titoloScaletta.innerText = data.nome || "Scaletta Domenicale";
+    
+    const container = document.getElementById('scaletta-bottoni-container');
+    if (!container) return;
+    container.innerHTML = ""; // Svuota il contenitore
+    
+    // Cicla sui brani della scaletta (es. Ingresso, Offertorio...)
+    Object.keys(data.brani).forEach(momento => {
+        const titoloCanto = data.brani[momento];
+        
+        // Crea il blocco del singolo canto in scaletta
+        const itemEl = document.createElement('div');
+        itemEl.className = 'scaletta-item';
+        itemEl.style.marginBottom = "10px";
+        
+        // Bottone principale per selezionare e visualizzare il testo del brano
+        const btnCanto = document.createElement('button');
+        btnCanto.className = 'btn-scaletta-item';
+        btnCanto.style.width = "85%";
+        btnCanto.style.display = "inline-block";
+        btnCanto.innerHTML = `
+            <div class="tempo-label">${momento.toUpperCase()}</div>
+            <div class="titolo-label">${titoloCanto}</div>
+        `;
+        btnCanto.addEventListener('click', () => {
+            selezionaBranoDaScalettaPerTitolo(titoloCanto);
+            
+            // Gestione grafica della classe .tempo-selezionato
+            document.querySelectorAll('.btn-scaletta-item').forEach(b => b.classList.remove('tempo-selezionato'));
+            btnCanto.classList.add('tempo-selezionato');
+        });
+        
+        // Bottone Matita "✏️" per la sostituzione last-minute volante
+        const btnOverride = document.createElement('button');
+        btnOverride.className = 'btn-override-lastminute';
+        btnOverride.style.width = "15%";
+        btnOverride.style.display = isScalettaLocked ? "none" : "inline-block"; // Nasconde se bloccato
+        btnOverride.innerText = "✏️";
+        btnOverride.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita di attivare il cambio brano sotto
+            apriPannelloSostituzioneLastMinute(momento);
+        });
+        
+        itemEl.appendChild(btnCanto);
+        itemEl.appendChild(btnOverride);
+        container.appendChild(itemEl);
+    });
+    
+    console.log("Scaletta Liturgica: Rendering completato.");
+}
+
+// [NEW] FUNZIONE DI SUPPORTO PER IL BOTTOM SHEET LAST MINUTE
+function apriPannelloSostituzioneLastMinute(momento) {
+    if (isScalettaLocked) return;
+    
+    momentoLiturgicoAttivo = momento;
+    const labelMomento = document.getElementById('picker-momento-label');
+    if (labelMomento) labelMomento.innerText = momento;
+    
+    const overlay = document.getElementById('lastminute-picker-overlay');
+    if (overlay) overlay.style.display = "flex";
+    
+    // Pulisce l'input di ricerca del pannello al volo
+    const inputPicker = document.getElementById('picker-search-input');
+    if (inputPicker) {
+        inputPicker.value = "";
+        setTimeout(() => inputPicker.focus(), 50);
+    }
+}
