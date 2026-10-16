@@ -286,4 +286,62 @@ function changeScrollSpeed(delta) {
     if (infoVel) { infoVel.innerText = `Velocità: ${(40 / currentSpeedMs).toFixed(1)}x`; }
     if (isScrolling) { clearInterval(scrollInterval); isScrolling = false; toggleScroll(); }
 }
+// [NEW] RICERCA INTERNA AL BOTTOM SHEET PER LE SOSTITUZIONI LAST MINUTE
+function mostraRisultatiNelPicker(valore) {
+    const s = valore.trim().toLowerCase();
+    const container = document.getElementById('picker-results-list');
+    if (!container || !catalogoAttivoRiferimento) return;
+    
+    container.innerHTML = ""; // Svuota i vecchi risultati
+    
+    // Se la casella è vuota, non mostra nulla
+    if (s.length === 0) return;
+    
+    // Filtra nel catalogo attivo (Pop o Chiesa a seconda di cosa stai usando)
+    const filtrati = catalogoAttivoRiferimento.filter(b => 
+        (b.titolo || "").toLowerCase().includes(s) || 
+        (b.autore || "").toLowerCase().includes(s)
+    );
+    
+    if (filtrati.length === 0) {
+        container.innerHTML = '<div class="search-no-result">Nessun brano alternativo trovato</div>';
+        return;
+    }
+    
+    // Disegna le righe dei brani trovati nel Bottom Sheet
+    filtrati.forEach(brano => {
+        const row = document.createElement('div');
+        row.className = 'picker-result-row';
+        row.innerHTML = `<strong>${brano.titolo}</strong>${brano.autore ? `<small> - \${brano.autore}</small>` : ""}`;
+        
+        // Al clic sulla riga, effettua la sostituzione immediata
+        row.addEventListener('click', () => {
+            confermaSostituzioneCanto(brano.titolo);
+        });
+        
+        container.appendChild(row);
+    });
+}
+
+// [NEW] APPLICA E SALVA LA SOSTITUZIONE VOLANTE
+function confermaSostituzioneCanto(nuovoTitolo) {
+    if (!scalettaCorrenteData || !momentoLiturgicoAttivo) return;
+    
+    // Aggiorna l'oggetto in memoria
+    scalettaCorrenteData.brani[momentoLiturgicoAttivo] = nuovoTitolo;
+    
+    // Salva immediatamente la scaletta modificata nel localStorage (Scudo Anti-Reset)
+    localStorage.setItem(STORAGE_KEY_SCALETTA, JSON.stringify(scalettaCorrenteData));
+    
+    // Ridisegna la barra della scaletta con il nuovo brano inserito
+    attivaScalettaLiturgica(scalettaCorrenteData);
+    
+    // Chiude il pannello Bottom Sheet
+    document.getElementById('lastminute-picker-overlay').style.display = "none";
+    
+    // Carica automaticamente a schermo il testo del nuovo brano selezionato
+    selezionaBranoDaScalettaPerTitolo(nuovoTitolo);
+    
+    console.log(`Last Minute: Sostituito canto di ${momentoLiturgicoAttivo} con "${nuovoTitolo}" e salvato in backup.`);
+}
 
