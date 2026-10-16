@@ -233,11 +233,71 @@ function selezionaBranoDaScalettaPerTitolo(titolo) {
     }
 }
 
+// ==========================================
+// FUNZIONE DI RICERCA RAPIDA COMPLETA (POP & CHIESA)
+// ==========================================
 function ricercaRapida(e) {
-    if (isScalettaLocked) { e.target.value = ""; return; }
-    const s = e.target.value.trim().toLowerCase(); const container = document.getElementById('search-results'); if (!container || !catalogoAttivoRiferimento) return;
-    if (s.length === 0) { container.innerHTML = ""; container.style.display = "none"; return; }
-    const filtrati = catalogoAttivoRiferimento.filter(b => (b.titolo||"").toLowerCase().includes(s) || (b.autore||"").toLowerCase().includes(s));
+    if (isScalettaLocked) { 
+        e.target.value = ""; 
+        return; 
+    }
+    
+    const s = e.target.value.trim().toLowerCase(); 
+    const container = document.getElementById('search-results'); 
+    if (!container) return;
+    
+    // Se la casella viene svuotata, nasconde il pannello dei risultati
+    if (s.length === 0) { 
+        container.innerHTML = ""; 
+        container.style.display = "none"; 
+        return; 
+    }
+    
+    // Controllo di sicurezza sul catalogo caricato in memoria
+    if (!catalogoAttivoRiferimento) {
+        console.warn("Ricerca interrotta: nessun catalogo caricato.");
+        return;
+    }
+    
+    // Filtra i brani per titolo o per autore nel catalogo corrente
+    const filtrati = catalogoAttivoRiferimento.filter(b => 
+        (b.titolo || "").toLowerCase().includes(s) || 
+        (b.autore || "").toLowerCase().includes(s)
+    );
+    
+    container.innerHTML = ""; // Pulisce i vecchi risultati
+    
+    if (filtrati.length === 0) {
+        container.innerHTML = '<div class="search-no-result">Nessun brano trovato</div>';
+        container.style.display = "block";
+        return;
+    }
+    
+    // Disegna dinamicamente la lista dei risultati a schermo
+    filtrati.forEach(brano => {
+        const item = document.createElement('div');
+        item.className = 'search-result-item';
+        item.innerHTML = `<strong>${brano.titolo}</strong>${brano.autore ? `<small> - <i>\${brano.autore}</i></small>` : ""}`;
+        
+        // Al clic sul brano trovato, avvia il caricamento dello spartito
+        item.addEventListener('click', () => {
+            // Seleziona il brano passandogli il titolo
+            selezionaBranoDaScalettaPerTitolo(brano.titolo);
+            
+            // Nasconde la lista dei risultati e pulisce l'input
+            container.innerHTML = "";
+            container.style.display = "none";
+            document.getElementById('search-input').value = "";
+            
+            // Sposta la visualizzazione sullo schermo dello spartito
+            document.getElementById('menu-screen').style.display = 'none';
+            document.getElementById('song-screen').style.display = 'flex';
+        });
+        
+        container.appendChild(item);
+    });
+    
+    container.style.display = "block"; // Mostra il riquadro dei risultati
 }
 
 function tornaAllaHomeSplash() {
