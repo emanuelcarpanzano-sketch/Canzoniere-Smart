@@ -312,7 +312,10 @@ function mostraRisultatiNelPicker(valore) {
     filtrati.forEach(brano => {
         const row = document.createElement('div');
         row.className = 'picker-result-row';
-        row.innerHTML = `<strong>${brano.titolo}</strong>${brano.autore ? `<small> - \${brano.autore}</small>` : ""}`;
+        
+        // CORRETTO: Uso dei backtick per l'interpolazione reale delle stringhe
+        row.innerHTML = '<strong>' + brano.titolo + '</strong>' + 
+                        (brano.autore ? '<small> - <i>' + brano.autore + '</i></small>' : '');
         
         // Al clic sulla riga, effettua la sostituzione immediata
         row.addEventListener('click', () => {
