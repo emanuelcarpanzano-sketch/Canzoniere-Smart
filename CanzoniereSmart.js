@@ -26,6 +26,77 @@ let momentoSelezionatoAttivo = null; // Rinominato da momentoLiturgicoAttivo per
 let isScalettaLocked = false;
 let currentStorageKey = 'canzoniere_smart_local_backup'; // Trasformata in let per supportare più scalette
 
+
+// ==========================================
+// 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO (BLINDATO)
+// ==========================================
+let wcagCompattatoAttivo = false; 
+
+window.render = function() {
+    const container = document.getElementById('song-content');
+    if (!container) return;
+    if (!originalText) {
+        container.textContent = "Nessun testo caricato.";
+        return;
+    }
+
+    const noteITA = ["DO", "DO#", "RE", "RE#", "MI", "FA", "FA#", "SOL", "SOL#", "LA", "LA#", "SI"];
+    const noteENG = ["C",  "C#",  "D",  "D#",  "E",  "F",  "F#",  "G",   "G#",   "A",  "A#",  "B"];
+
+    function trovaIndiceNota(nota) {
+        const n = nota.toUpperCase().trim();
+        let idx = noteENG.indexOf(n);
+        if (idx !== -1) return idx;
+        idx = noteITA.indexOf(n);
+        return idx;
+    }
+
+    function elaboraAccordo(accordoPuro) {
+        const match = accordoPuro.match(/^([A-G]|DO|RE|MI|FA|SOL|LA|SI)(#|b)?(.*)/i);
+        if (!match) return accordoPuro;
+
+        let notaFondamentale = match[1];
+        let alterazione = match[2] || "";
+        let estensione = match[3] || "";
+
+        let idx = trovaIndiceNota(notaFondamentale);
+        if (idx === -1) return accordoPuro;
+
+        if (alterazione.toLowerCase() === 'b') {
+            idx = (idx - 1 + 12) % 12;
+            alterazione = ""; 
+        }
+
+        let nuovoIdx = (idx + currentSemitoneShift) % 12;
+        if (nuovoIdx < 0) nuovoIdx += 12;
+
+        let notaConvertita = (currentNotation === 'EN') ? noteENG[nuovoIdx] : noteITA[nuovoIdx];
+        return notaConvertita + alterazione + estensione;
+    }
+
+    let testoElaborato = originalText.replace(/\[([^\]]+)\]/g, (match, accordo) => {
+        let accordoFinale = accordo;
+        if (accordo.includes('/')) {
+            accordoFinale = accordo.split('/').map(elaboraAccordo).join('/');
+        } else {
+            accordoFinale = elaboraAccordo(accordo);
+        }
+        return '<span class="chord">' + accordoFinale + '</span>';
+    });
+
+    if (wcagCompattatoAttivo) {
+        testoElaborato = testoElaborato.split('\n').map(linea => {
+            if (linea.length > 80) return linea.substring(0, 77) + "...";
+            return linea;
+        }).join('\n');
+    }
+
+    container.innerHTML = testoElaborato;
+};
+
+
+
+
 // ==========================================
 // 2. MOTORE CORE DI RENDERING E SCALETTA
 // ==========================================
@@ -264,24 +335,30 @@ function selezionaBranoDaScalettaPerTitolo(titolo) {
         if (document.getElementById("target-filename")) document.getElementById("target-filename").textContent = fName;
         currentSemitoneShift = 0; document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         document.getElementById("song-content").textContent = "Caricamento in corso...";
-        
+
         fetch(cartellaAttiva + fName)
             .then(res => res.text())
             .then(txt => { 
                 originalText = txt; 
                 document.getElementById('offline-zone').style.display = "none"; 
-                
-                // PROTEZIONE CRITICA: Ritardiamo leggermente il render di 80ms 
-                // per essere sicuri che qualsiasi script esterno abbia finito di fare i suoi loop
-                setTimeout(() => {
-                    window.render(); 
-                }, 80);
+        
+                // BILINDATURA LINEA 277: Esegue il render in sicurezza se esiste, altrimenti attende un attimo
+                if (typeof window.render === 'function') {
+                    window.render();
+                } else {
+                    console.warn("Render temporaneamente non definito, riprovo tra 50ms...");
+                    setTimeout(() => {
+                        if (typeof window.render === 'function') window.render();
+                    }, 50);
+                }
             })
             .catch(() => { 
                 originalText = ""; 
                 document.getElementById('offline-zone').style.display = "block"; 
                 document.getElementById("song-content").textContent = `Seleziona il file "${fName}" manualmente.`; 
             });
+
+        
     }
 }
 
