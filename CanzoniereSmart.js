@@ -491,9 +491,9 @@ function changeNotation(notation) {
 }
 
 // ==========================================
-// 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO
+// 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO (CORRETTO)
 // ==========================================
-let wcagCompattatoAttivo = false; // Stato globale per la compressione a 80 caratteri
+let wcagCompattatoAttivo = false; 
 
 window.render = function() {
     const container = document.getElementById('song-content');
@@ -518,8 +518,8 @@ window.render = function() {
 
     // Converte e traspone il singolo accordo
     function elaboraAccordo(accordoPuro) {
-        // Separa la nota fondamentale da varianti (es. m, 7, sus4, /c)
-        const match = accordoPuro.match(/^([A-G]|DO|RE|MI|FA|SOL|LA|SI)(#|b)?(.*)\$/i);
+        // CORRETTO: Rimossa l'ancora della stringa \$ errata per intercettare varianti reali (es. m, 7, sus4)
+        const match = accordoPuro.match(/^([A-G]|DO|RE|MI|FA|SOL|LA|SI)(#|b)?(.*)/i);
         if (!match) return accordoPuro;
 
         let notaFondamentale = match[1];
@@ -530,8 +530,9 @@ window.render = function() {
         if (idx === -1) return accordoPuro;
 
         // Gestione dei bemolle transitori in fase di input
-        if (alterazione === 'b') {
+        if (alterazione.toLowerCase() === 'b') {
             idx = (idx - 1 + 12) % 12;
+            alterazione = ""; // Il bemolle viene assorbito dall'indice trasposto in diesis
         }
 
         // Applica lo shift dei semitoni impostato dai pulsanti
@@ -540,16 +541,20 @@ window.render = function() {
 
         // Restituisce la nota nella notazione corretta richiesta dall'interfaccia
         let notaConvertita = (currentNotation === 'EN') ? noteENG[nuovoIdx] : noteITA[nuovoIdx];
-        return notaConvertita + estensione;
+        return notaConvertita + alterazione + estensione;
     }
 
-    // Scannerizza il testo regolando i tag degli accordi e la compressione WCAG
+    // Scannerizza il testo regolando i tag degli accordi ed inserendo la classe .chord
     let testoElaborato = originalText.replace(/\[([^\]]+)\]/g, (match, accordo) => {
-        // Se l'accordo contiene una linea di basso frazionata (es. Do/Mi o C/E) li elabora entrambi
+        let accordoFinale = accordo;
+        // Se l'accordo contiene una linea di basso frazionata (es. Mim/Sol o C/E) li elabora entrambi
         if (accordo.includes('/')) {
-            return '[' + accordo.split('/').map(elaboraAccordo).join('/') + ']';
+            accordoFinale = accordo.split('/').map(elaboraAccordo).join('/');
+        } else {
+            accordoFinale = elaboraAccordo(accordo);
         }
-        return '[' + elaboraAccordo(accordo) + ']';
+        // CORRETTO: Inietta una stringa HTML <span> con classe .chord invece del testo grezzo tra parentesi quadre
+        return '<span class="chord">' + accordoFinale + '</span>';
     });
 
     // Funzione opzionale WCAG: taglia le righe troppo lunghe per display stretti o ipovedenti
@@ -562,6 +567,8 @@ window.render = function() {
         }).join('\n');
     }
 
-    container.textContent = testoElaborato;
+    // CORRETTO: Usiamo innerHTML per forzare il browser a interpretare i tag <span> della classe .chord
+    container.innerHTML = testoElaborato;
 };
+
 
