@@ -507,11 +507,11 @@ function changeNotation(notation) {
 }
 
 // ==========================================
-// 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO (CORRETTO)
+// 🛠️ ALGORITMO DI RENDERING PRIVATO ED ESCLUSIVO (BLINDATO)
 // ==========================================
 let wcagCompattatoAttivo = false; 
 
-window.render = function() {
+function eseguiSmartRenderingCore() {
     const container = document.getElementById('song-content');
     if (!container) return;
     if (!originalText) {
@@ -519,11 +519,9 @@ window.render = function() {
         return;
     }
 
-    // Tabelle di mappatura note per trasposizione e notazione
     const noteITA = ["DO", "DO#", "RE", "RE#", "MI", "FA", "FA#", "SOL", "SOL#", "LA", "LA#", "SI"];
     const noteENG = ["C",  "C#",  "D",  "D#",  "E",  "F",  "F#",  "G",   "G#",   "A",  "A#",  "B"];
 
-    // Normalizza una nota trovata cercandone l'indice assoluto
     function trovaIndiceNota(nota) {
         const n = nota.toUpperCase().trim();
         let idx = noteENG.indexOf(n);
@@ -532,9 +530,7 @@ window.render = function() {
         return idx;
     }
 
-    // Converte e traspone il singolo accordo
     function elaboraAccordo(accordoPuro) {
-        // CORRETTO: Rimossa l'ancora della stringa \$ errata per intercettare varianti reali (es. m, 7, sus4)
         const match = accordoPuro.match(/^([A-G]|DO|RE|MI|FA|SOL|LA|SI)(#|b)?(.*)/i);
         if (!match) return accordoPuro;
 
@@ -545,46 +541,38 @@ window.render = function() {
         let idx = trovaIndiceNota(notaFondamentale);
         if (idx === -1) return accordoPuro;
 
-        // Gestione dei bemolle transitori in fase di input
         if (alterazione.toLowerCase() === 'b') {
             idx = (idx - 1 + 12) % 12;
-            alterazione = ""; // Il bemolle viene assorbito dall'indice trasposto in diesis
+            alterazione = ""; 
         }
 
-        // Applica lo shift dei semitoni impostato dai pulsanti
         let nuovoIdx = (idx + currentSemitoneShift) % 12;
         if (nuovoIdx < 0) nuovoIdx += 12;
 
-        // Restituisce la nota nella notazione corretta richiesta dall'interfaccia
         let notaConvertita = (currentNotation === 'EN') ? noteENG[nuovoIdx] : noteITA[nuovoIdx];
         return notaConvertita + alterazione + estensione;
     }
 
-    // Scannerizza il testo regolando i tag degli accordi ed inserendo la classe .chord
     let testoElaborato = originalText.replace(/\[([^\]]+)\]/g, (match, accordo) => {
         let accordoFinale = accordo;
-        // Se l'accordo contiene una linea di basso frazionata (es. Mim/Sol o C/E) li elabora entrambi
         if (accordo.includes('/')) {
             accordoFinale = accordo.split('/').map(elaboraAccordo).join('/');
         } else {
             accordoFinale = elaboraAccordo(accordo);
         }
-        // CORRETTO: Inietta una stringa HTML <span> con classe .chord invece del testo grezzo tra parentesi quadre
         return '<span class="chord">' + accordoFinale + '</span>';
     });
 
-    // Funzione opzionale WCAG: taglia le righe troppo lunghe per display stretti o ipovedenti
     if (wcagCompattatoAttivo) {
         testoElaborato = testoElaborato.split('\n').map(linea => {
-            if (linea.length > 80) {
-                return linea.substring(0, 77) + "...";
-            }
+            if (linea.length > 80) return linea.substring(0, 77) + "...";
             return linea;
         }).join('\n');
     }
 
-    // CORRETTO: Usiamo innerHTML per forzare il browser a interpretare i tag <span> della classe .chord
     container.innerHTML = testoElaborato;
-};
+}
 
+// Forza la mappatura anche sulla finestra globale per sicurezza
+window.eseguiSmartRenderingCore = eseguiSmartRenderingCore;
 
