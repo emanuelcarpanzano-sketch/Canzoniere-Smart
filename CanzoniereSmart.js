@@ -20,22 +20,23 @@ let currentSpeedMs = 40;
 let isScrolling = false;
 
 let scalettaCorrenteData = null;
-let momentoLiturgicoAttivo = null; 
+let momentoSelezionatoAttivo = null; // Rinominato da momentoLiturgicoAttivo per universalità
 
-// Stato di blocco per la sicurezza sul palco e chiave Storage
+// Stato di blocco per la sicurezza sul palco e chiave Storage Dinamica
 let isScalettaLocked = false;
-const STORAGE_KEY_SCALETTA = 'canzoniere_smart_local_backup';
+let currentStorageKey = 'canzoniere_smart_local_backup'; // Trasformata in let per supportare più scalette
 
 // ==========================================
 // 2. MOTORE CORE DI RENDERING E SCALETTA
 // ==========================================
-function attivaScalettaLiturgica(data) {
+function attivaScalettaUI(data) { // Rinominata da attivaScalettaLiturgica per supportare anche il Concerto
     if (!data || !data.brani) return;
     
     scalettaCorrenteData = data;
     
     const titoloScaletta = document.getElementById('scaletta-nome-titolo');
-    if (titoloScaletta) titoloScaletta.innerText = data.nome || "Scaletta Domenicale";
+    // CORRETTO: Puntamento a data.nomeScaletta coerente con i file JSON
+    if (titoloScaletta) titoloScaletta.innerText = data.nomeScaletta || "Scaletta Attiva";
     
     const container = document.getElementById('scaletta-bottoni-container');
     if (!container) return;
@@ -53,7 +54,7 @@ function attivaScalettaLiturgica(data) {
         btnCanto.style.width = "85%";
         btnCanto.style.display = "inline-block";
         btnCanto.innerHTML = `
-            <div class="tempo-label">${momento.toUpperCase()}</div>
+            <div class="tempo-label">${momento.trim().toUpperCase()}</div>
             <div class="titolo-label">${titoloCanto}</div>
         `;
         btnCanto.addEventListener('click', () => {
@@ -65,6 +66,7 @@ function attivaScalettaLiturgica(data) {
         const btnOverride = document.createElement('button');
         btnOverride.className = 'btn-override-lastminute';
         btnOverride.style.width = "15%";
+        // Gestione dinamica dello scudo di resilienza live-lock
         btnOverride.style.display = isScalettaLocked ? "none" : "inline-block"; 
         btnOverride.innerText = "✏️";
         btnOverride.addEventListener('click', (e) => {
@@ -77,7 +79,7 @@ function attivaScalettaLiturgica(data) {
         container.appendChild(itemEl);
     });
     
-    console.log("Scaletta Liturgica: Rendering completato.");
+    console.log("Rendering Scaletta completato correttamente.");
 }
 
 function elaboraEAttivaScaletta(data) {
@@ -85,7 +87,14 @@ function elaboraEAttivaScaletta(data) {
     document.getElementById('song-screen').style.display = 'flex'; 
     if (document.getElementById('btn-toggle-scaletta')) document.getElementById('btn-toggle-scaletta').style.display = 'block';
     
-    attivaScalettaLiturgica(data);
+    // Cambia dinamicamente la chiave di persistenza in base al tipo di scaletta rilevata
+    if (data.nomeScaletta && data.nomeScaletta.toLowerCase().includes("concerto")) {
+        currentStorageKey = 'canzoniere_smart_concerto_backup';
+    } else {
+        currentStorageKey = 'canzoniere_smart_local_backup';
+    }
+    
+    attivaScalettaUI(data);
     
     const chiavi = Object.keys(data.brani);
     if (chiavi.length > 0) {
@@ -96,7 +105,7 @@ function elaboraEAttivaScaletta(data) {
 
 function apriPannelloSostituzioneLastMinute(momento) {
     if (isScalettaLocked) return;
-    momentoLiturgicoAttivo = momento;
+    momentoSelezionatoAttivo = momento;
     const labelMomento = document.getElementById('picker-momento-label');
     if (labelMomento) labelMomento.innerText = momento;
     const overlay = document.getElementById('lastminute-picker-overlay');
@@ -121,32 +130,59 @@ window.addEventListener('DOMContentLoaded', () => {
         lockBtn.addEventListener('click', toggleLiveLock);
     }
 
-    document.getElementById('btn-load-scaletta-domenica').addEventListener('click', function() {
+    // [LOGICA UNIFICATA] Gestore riutilizzabile per il caricamento delle scalette offline/online
+    function caricaScalettaSpecificata(tipoScaletta, fileJson, cartellaCatalogo, fileScriptCatalogo, winKeyCatalogo, classeTema) {
         if (scriptConfigurato) { scriptConfigurato.remove(); scriptConfigurato = null; }
-        document.body.classList.add('theme-liturgico');
-        cartellaAttiva = "CatalogoTxTChiesa/";
-        document.getElementById("menu-main-title").innerText = "Canzoniere Liturgico";
+        
+        // Reset e impostazione del tema grafico
+        if (classeTema) {
+            document.body.classList.add(classeTema);
+        } else {
+            document.body.classList.remove('theme-liturgico');
+        }
+        
+        cartellaAttiva = cartellaCatalogo;
+        document.getElementById("menu-main-title").innerText = tipoScaletta === 'pop' ? "Canzoniere Pop / Rock" : "Canzoniere Liturgico";
+
+        // Configurazione dinamica dello Storage Key (impostato prima del caricamento)
+        currentStorageKey = tipoScaletta === 'pop' ? 'canzoniere_smart_concerto_backup' : 'canzoniere_smart_local_backup';
 
         scriptConfigurato = document.createElement("script");
-        scriptConfigurato.src = "CanzoniereCatalogoChiesa.js?_=" + new Date().getTime();
+        scriptConfigurato.src = fileScriptCatalogo + "?_=" + new Date().getTime();
 
         scriptConfigurato.onload = function() {
-            if (window.catalogoChiesa) { catalogoAttivoRiferimento = window.catalogoChiesa; } else { return; }
+            if (window[winKeyCatalogo]) { 
+                catalogoAttivoRiferimento = window[winKeyCatalogo]; 
+            } else { 
+                console.error("Errore: Catalogo non trovato in window." + winKeyCatalogo);
+                return; 
+            }
             
-            const backupLocale = localStorage.getItem(STORAGE_KEY_SCALETTA);
+            // Failsafe offline adattivo tramite la chiave corretta
+            const backupLocale = localStorage.getItem(currentStorageKey);
             if (backupLocale) {
-                console.log("Recupero scaletta da backup locale offline...");
+                console.log(`[Offline] Recupero scaletta ${tipoScaletta} da backup locale...`);
                 elaboraEAttivaScaletta(JSON.parse(backupLocale));
             } else {
-                fetch('scalettaDomenica.json')
+                fetch(fileJson)
                     .then(res => res.json())
                     .then(data => {
-                        localStorage.setItem(STORAGE_KEY_SCALETTA, JSON.stringify(data));
+                        localStorage.setItem(currentStorageKey, JSON.stringify(data));
                         elaboraEAttivaScaletta(data);
-                    }).catch(err => console.error(err));
+                    }).catch(err => console.error("Impossibile caricare il JSON della scaletta:", err));
             }
         };
         document.head.appendChild(scriptConfigurato);
+    }
+
+    // Listener Scaletta Liturgica
+    document.getElementById('btn-load-scaletta-domenica').addEventListener('click', function() {
+        caricaScalettaSpecificata('chiesa', 'scalettaDomenica.json', 'CatalogoTxTChiesa/', 'CanzoniereCatalogoChiesa.js', 'catalogoChiesa', 'theme-liturgico');
+    });
+
+    // [NEW] Listener Scaletta Concerto Pop/Rock
+    document.getElementById('btn-load-scaletta-concerto').addEventListener('click', function() {
+        caricaScalettaSpecificata('pop', 'scalettaConcerto.json', 'CatalogoTxT/', 'CanzoniereCatalogo.js', 'catalogoPopRock', null);
     });
 
     document.getElementById('search-input').addEventListener('input', ricercaRapida);
@@ -346,6 +382,7 @@ function changeScrollSpeed(delta) {
     if (infoVel) { infoVel.innerText = `Velocità: ${(40 / currentSpeedMs).toFixed(1)}x`; }
     if (isScrolling) { clearInterval(scrollInterval); isScrolling = false; toggleScroll(); }
 }
+
 // [NEW] RICERCA INTERNA AL BOTTOM SHEET PER LE SOSTITUZIONI LAST MINUTE
 function mostraRisultatiNelPicker(valore) {
     const s = valore.trim().toLowerCase();
@@ -373,7 +410,6 @@ function mostraRisultatiNelPicker(valore) {
         const row = document.createElement('div');
         row.className = 'picker-result-row';
         
-        // CORRETTO: Uso dei backtick per l'interpolazione reale delle stringhe
         row.innerHTML = '<strong>' + brano.titolo + '</strong>' + 
                         (brano.autore ? '<small> - <i>' + brano.autore + '</i></small>' : '');
         
@@ -386,18 +422,19 @@ function mostraRisultatiNelPicker(valore) {
     });
 }
 
-// [NEW] APPLICA E SALVA LA SOSTITUZIONE VOLANTE
+// [NEW] APPLICA E SALVA LA SOSTITUZIONE VOLANTE (CORRETTA ED ADATTIVA)
 function confermaSostituzioneCanto(nuovoTitolo) {
-    if (!scalettaCorrenteData || !momentoLiturgicoAttivo) return;
+    // CORRETTO: Uso di momentoSelezionatoAttivo coerente con lo stato della prima tranche
+    if (!scalettaCorrenteData || !momentoSelezionatoAttivo) return;
     
     // Aggiorna l'oggetto in memoria
-    scalettaCorrenteData.brani[momentoLiturgicoAttivo] = nuovoTitolo;
+    scalettaCorrenteData.brani[momentoSelezionatoAttivo] = nuovoTitolo;
     
-    // Salva immediatamente la scaletta modificata nel localStorage (Scudo Anti-Reset)
-    localStorage.setItem(STORAGE_KEY_SCALETTA, JSON.stringify(scalettaCorrenteData));
+    // CORRETTO: Salva nella chiave specifica corrente (Evita sovrascritture incrociate)
+    localStorage.setItem(currentStorageKey, JSON.stringify(scalettaCorrenteData));
     
-    // Ridisegna la barra della scaletta con il nuovo brano inserito
-    attivaScalettaLiturgica(scalettaCorrenteData);
+    // CORRETTO: Richiamo alla funzione unificata attivaScalettaUI
+    attivaScalettaUI(scalettaCorrenteData);
     
     // Chiude il pannello Bottom Sheet
     document.getElementById('lastminute-picker-overlay').style.display = "none";
@@ -405,7 +442,7 @@ function confermaSostituzioneCanto(nuovoTitolo) {
     // Carica automaticamente a schermo il testo del nuovo brano selezionato
     selezionaBranoDaScalettaPerTitolo(nuovoTitolo);
     
-    console.log(`Last Minute: Sostituito canto di ${momentoLiturgicoAttivo} con "${nuovoTitolo}" e salvato in backup.`);
+    console.log(`Last Minute: Sostituito brano in ${momentoSelezionatoAttivo} con "${nuovoTitolo}" e salvato nel backup offline.`);
 }
 
 // ==========================================
@@ -430,8 +467,13 @@ function transpose(semitoni) {
     console.log(`Trasposizione: Spostamento di ${semitoni} semitoni applicato (Totale: ${currentSemitoneShift}).`);
 }
 
+
+
+
+
+
 // ==========================================
-// [NEW] MOTORE INTERMO DI CAMBIO NOTAZIONE (ITA / ENG)
+// [NEW] MOTORE INTERNO DI CAMBIO NOTAZIONE (ITA / ENG)
 // ==========================================
 function changeNotation(notation) {
     if (currentNotation === notation) return;
@@ -448,14 +490,78 @@ function changeNotation(notation) {
     console.log(`Notazione: Cambiata in modalità ${notation}.`);
 }
 
-// [NEW] FUNZIONE FUNZIONALE DI RENDERING (FALLBACK DI EMERGENZA SE MANCA IL CORE RENDERING)
-if (typeof render !== 'function') {
-    window.render = function() {
-        const container = document.getElementById('song-content');
-        if (!container) return;
-        
-        // Se non è agganciato un transposer esterno avanzato, mostra il testo originale pulito
-        container.textContent = originalText;
-    };
-}
+// ==========================================
+// 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO
+// ==========================================
+let wcagCompattatoAttivo = false; // Stato globale per la compressione a 80 caratteri
+
+window.render = function() {
+    const container = document.getElementById('song-content');
+    if (!container) return;
+    if (!originalText) {
+        container.textContent = "Nessun testo caricato.";
+        return;
+    }
+
+    // Tabelle di mappatura note per trasposizione e notazione
+    const noteITA = ["DO", "DO#", "RE", "RE#", "MI", "FA", "FA#", "SOL", "SOL#", "LA", "LA#", "SI"];
+    const noteENG = ["C",  "C#",  "D",  "D#",  "E",  "F",  "F#",  "G",   "G#",   "A",  "A#",  "B"];
+
+    // Normalizza una nota trovata cercandone l'indice assoluto
+    function trovaIndiceNota(nota) {
+        const n = nota.toUpperCase().trim();
+        let idx = noteENG.indexOf(n);
+        if (idx !== -1) return idx;
+        idx = noteITA.indexOf(n);
+        return idx;
+    }
+
+    // Converte e traspone il singolo accordo
+    function elaboraAccordo(accordoPuro) {
+        // Separa la nota fondamentale da varianti (es. m, 7, sus4, /c)
+        const match = accordoPuro.match(/^([A-G]|DO|RE|MI|FA|SOL|LA|SI)(#|b)?(.*)\$/i);
+        if (!match) return accordoPuro;
+
+        let notaFondamentale = match[1];
+        let alterazione = match[2] || "";
+        let estensione = match[3] || "";
+
+        let idx = trovaIndiceNota(notaFondamentale);
+        if (idx === -1) return accordoPuro;
+
+        // Gestione dei bemolle transitori in fase di input
+        if (alterazione === 'b') {
+            idx = (idx - 1 + 12) % 12;
+        }
+
+        // Applica lo shift dei semitoni impostato dai pulsanti
+        let nuovoIdx = (idx + currentSemitoneShift) % 12;
+        if (nuovoIdx < 0) nuovoIdx += 12;
+
+        // Restituisce la nota nella notazione corretta richiesta dall'interfaccia
+        let notaConvertita = (currentNotation === 'EN') ? noteENG[nuovoIdx] : noteITA[nuovoIdx];
+        return notaConvertita + estensione;
+    }
+
+    // Scannerizza il testo regolando i tag degli accordi e la compressione WCAG
+    let testoElaborato = originalText.replace(/\[([^\]]+)\]/g, (match, accordo) => {
+        // Se l'accordo contiene una linea di basso frazionata (es. Do/Mi o C/E) li elabora entrambi
+        if (accordo.includes('/')) {
+            return '[' + accordo.split('/').map(elaboraAccordo).join('/') + ']';
+        }
+        return '[' + elaboraAccordo(accordo) + ']';
+    });
+
+    // Funzione opzionale WCAG: taglia le righe troppo lunghe per display stretti o ipovedenti
+    if (wcagCompattatoAttivo) {
+        testoElaborato = testoElaborato.split('\n').map(linea => {
+            if (linea.length > 80) {
+                return linea.substring(0, 77) + "...";
+            }
+            return linea;
+        }).join('\n');
+    }
+
+    container.textContent = testoElaborato;
+};
 
