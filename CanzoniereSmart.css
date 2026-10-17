@@ -449,6 +449,7 @@ body.theme-pop pre {
     color: #b71c1c; 
     font-weight: bold;
     text-shadow: 0.3px 0 0 #b71c1c; 
+    margin: 0 2px; /* Fornisce un micro-spazio di sicurezza laterale tra testo e accordo */
 }
 
 /* Variante accordi per il tema Pop/Rock (Giallo/Arancio neon ad alta visibilità al buio) */
