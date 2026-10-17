@@ -10,6 +10,8 @@
 let currentNotation = 'IT';
 let originalText = ""; 
 let currentSemitoneShift = 0;
+let wcagCompattatoAttivo = false; 
+
 
 let cartellaAttiva = "";     
 let scriptConfigurato = null; 
@@ -26,11 +28,10 @@ let momentoSelezionatoAttivo = null; // Rinominato da momentoLiturgicoAttivo per
 let isScalettaLocked = false;
 let currentStorageKey = 'canzoniere_smart_local_backup'; // Trasformata in let per supportare più scalette
 
-
 // ==========================================
 // 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO (BLINDATO)
 // ==========================================
-let wcagCompattatoAttivo = false; 
+
 
 window.render = function() {
     const container = document.getElementById('song-content');
