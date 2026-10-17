@@ -7,14 +7,14 @@ body {
     background-color: #f9f9f9;
     color: #333;
     margin: 0;
-    transition: background-color 0.3s ease; /* Transizione fluida per il cambio tema */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transizione fluida per il cambio tema */
 }
 
 /* =========================================================================
    LOGICA GRAFICA SPLASH SCREEN (HOME) 
    ========================================================================= */
 .splash-container {
-    max-width: 650px; /* Allargato leggermente per ospitare comodamente i bottoni affiancati */
+    max-width: 650px; 
     margin: 50px auto;
     background: white;
     padding: 40px 30px;
@@ -37,20 +37,20 @@ body {
     font-size: 24px;
 }
 
-/* Modificato in Flexbox per allineamento orizzontale su tablet e PC */
+/* Flexbox fluido per allineamento orizzontale di default */
 .splash-buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: stretch; /* Mantiene la stessa altezza per entrambi i pulsanti */
+    align-items: stretch; 
     gap: 20px;
     width: 100%;
 }
 
 .btn-choice {
-    flex: 1; /* Distribuisce lo spazio equamente al 50% */
+    flex: 1; 
     display: flex;
-    flex-direction: column; /* Testo sopra, GIF sotto all'interno del bottone */
+    flex-direction: column; 
     align-items: center;
     justify-content: center;
     gap: 8px;
@@ -73,64 +73,92 @@ body {
 }
 
 .btn-choice img {
-    max-height: 40px; /* Ridimensionamento di sicurezza per le GIF nei bottoni */
+    max-height: 40px; 
     width: auto;
 }
 
 /* =========================================================================
-   TEMA LITURGICO (COERENZA CROMATICA) - NUOVE REGOLE
+   TEMA LITURGICO (COERENZA CROMATICA)
    ========================================================================= */
-/* Forzatura colore per il bottone del Canzoniere Liturgico nella Splash */
 #btn-load-chiesa.theme-liturgico-btn {
-    background-color: #c8a2c8; /* Lilla */
-    color: #2c2c2c; /* Testo scuro ad alto contrasto */
+    background-color: #c8a2c8 !important; 
+    color: #2c2c2c !important; 
     border: 2px solid #b58cb5;
 }
 
 #btn-load-chiesa.theme-liturgico-btn:hover {
-    background-color: #b58cb5;
-    color: #111;
+    background-color: #b58cb5 !important;
+    color: #111 !important;
     border-color: #a275a2;
 }
 
-/* Classe globale per lo sfondo lavanda applicata tramite JavaScript */
 body.theme-liturgico,
 .menu-container.theme-liturgico {
-    background-color: #e6e6fa !important; /* Lavender */
+    background-color: #e6e6fa !important; 
     color: #2c2c2c !important;
 }
 
-/* Coerenza cromatica per la pagina di menu liturgica */
 body.theme-liturgico .menu-container {
     border: 1px solid #c8a2c8;
     box-shadow: 0 4px 15px rgba(200, 162, 200, 0.2);
 }
 
 body.theme-liturgico .menu-container h1 {
-    color: #8e44ad; /* Viola più scuro ed elegante per i titoli liturgici */
+    color: #8e44ad; 
 }
 
 body.theme-liturgico .search-box-container input[type="text"] {
-    border-color: #c8a2c8; /* Bordo input lilla */
+    border-color: #c8a2c8; 
 }
 
 body.theme-liturgico .search-box-container input[type="text"]:focus {
     box-shadow: 0 0 8px rgba(200, 162, 200, 0.5);
 }
 
-/* Bordi laterali a contrasto lilla per la lista risultati e gli item */
 body.theme-liturgico .search-results-list {
     border-color: #c8a2c8;
 }
 
-body.theme-liturgico .search-item {
+/* CORRETTO: Cambiato da .search-item a .search-result-item in linea con JS */
+body.theme-liturgico .search-result-item {
     border-left: 4px solid transparent;
 }
 
-body.theme-liturgico .search-item:hover {
+body.theme-liturgico .search-result-item:hover {
     background-color: #f5eff5;
     color: #8e44ad;
-    border-left: 4px solid #c8a2c8; /* Richiamo visivo lilla al passaggio del mouse */
+    border-left: 4px solid #c8a2c8; 
+}
+
+/* =========================================================================
+   [NEW] TEMA ROCK / CONCERTO (COERENZA CROMATICA POP)
+   ========================================================================= */
+body.theme-pop,
+.menu-container.theme-pop {
+    background-color: #2c3e50 !important; /* Grigio scuro rock */
+    color: #ecf0f1 !important;
+}
+
+body.theme-pop .menu-container {
+    background-color: #34495e;
+    border: 1px solid #d35400; /* Bordo arancione Ligabue */
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+}
+
+body.theme-pop .menu-container h1 {
+    color: #e67e22;
+}
+
+body.theme-pop .search-box-container input[type="text"] {
+    background-color: #2c3e50;
+    color: #fff;
+    border-color: #d35400;
+}
+
+body.theme-pop .search-result-item:hover {
+    background-color: #2c3e50;
+    color: #e67e22;
+    border-left: 4px solid #d35400;
 }
 
 /* =========================================================================
@@ -182,7 +210,6 @@ body.theme-liturgico .search-item:hover {
     font-size: 18px;
 }
 
-/* La Casella di Inserimento Testo */
 .search-box-container input[type="text"] {
     width: 100%;
     padding: 14px;
@@ -197,6 +224,18 @@ body.theme-liturgico .search-item:hover {
 .search-box-container input[type="text"]:focus {
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
+
+/* Responsività Mobile interna */
+@media (max-width: 600px) {
+    .splash-buttons {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
 
 /* =========================================================================
    LISTA RISULTATI DELLA RICERCA RAPIDA (A SCOMPARSA)
@@ -257,6 +296,20 @@ body.theme-liturgico .search-item:hover {
     font-style: italic;
     font-size: 16px;
 }
+
+/* Modifiche specifiche per i risultati di ricerca in modalità Pop/Rock */
+body.theme-pop .search-results-list {
+    background-color: #34495e;
+    border-color: #d35400;
+}
+body.theme-pop .search-result-item {
+    color: #ecf0f1;
+    border-bottom: 1px solid #2c3e50;
+}
+body.theme-pop .search-result-item strong {
+    color: #fff;
+}
+
 /* =========================================================================
    SCHERMATA VISUALIZZAZIONE CANZONE E PANNELLO COMANDI
    ========================================================================= */
@@ -269,6 +322,7 @@ body.theme-liturgico .search-item:hover {
     box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
 }
 
+/* CORRETTO: Limitato lo stile globale impattante dei bottoni */
 button {
     padding: 10px 12px;
     margin: 3px 0;
@@ -279,6 +333,7 @@ button {
     background: #f8f9fa;
     width: 100%;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
 button:active {
@@ -333,7 +388,13 @@ hr {
     display: flex;
     align-items: baseline;
     gap: 15px;
-    width: 100%; /* Sblocco schermo intero flessibile */
+    width: 100%; 
+}
+
+/* Variante colore per il titolo brano in modalità Pop/Rock */
+body.theme-pop #song-title-container {
+    color: #e67e22;
+    border-bottom: 2px solid #d35400;
 }
 
 #song-title {
@@ -347,24 +408,23 @@ hr {
     color: #5d564d; 
 }
 
+body.theme-pop #song-author {
+    color: #bdc3c7;
+}
+
+
+
+
+
+
+
 /* Il foglio di testo (Versione Blindata e Compatta per stringhe lunghe su Tablet) */
 pre {
-    /* STACK DI FONT MONOSPAZIO MODERNI:
-       1. SFMono-Regular / Menlo = Perfetti e strettissimi per iPad/Mac
-       2. Roboto Mono = Nativo e compatto per Tablet Android
-       3. Consolas = Eccellente per PC Windows
-       4. monospace = Fallback finale di sistema */
     font-family: "SFMono-Regular", Menlo, "Roboto Mono", Consolas, "Monaco", "Courier New", monospace;
-    
     font-size: 21px; 
     font-weight: 600; 
-    
-    /* Interlinea calibrata: abbastanza spaziosa ma compatta per evitare dispersioni */
     line-height: 1.5; 
-    
-    /* TRUCCO TRIDIMENSIONALE: Stringe i caratteri in larghezza del 5%, guadagnando spazio prezioso sulle righe lunghe */
     letter-spacing: -0.5px; 
-    
     background-color: #f7f2ea; 
     color: #2b261f; 
     padding: 25px;
@@ -372,21 +432,35 @@ pre {
     box-shadow: inset 0 0 10px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.04);
     white-space: pre-wrap;
     margin-top: 20px;
-    width: 100%; /* Sblocco schermo intero flessibile dello sprint precedente */
+    width: 100%; 
     box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Gli accordi evidenziati ad alto contrasto */
+/* Variante ad alto contrasto scuro per il tag pre in modalità Pop/Rock */
+body.theme-pop pre {
+    background-color: #1e272e;
+    color: #ffffff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+/* Gli accordi evidenziati ad alto contrasto (Valido se racchiusi in tag o classi dedicate) */
 .chord {
     color: #b71c1c; 
     font-weight: bold;
     text-shadow: 0.3px 0 0 #b71c1c; 
 }
 
+/* Variante accordi per il tema Pop/Rock (Giallo/Arancio neon ad alta visibilità al buio) */
+body.theme-pop .chord {
+    color: #f1c40f;
+    text-shadow: 0.3px 0 0 #f1c40f;
+}
+
 /* Media Query Responsiva per schermi smartphone stretti */
 @media (max-width: 600px) {
     .splash-buttons {
-        flex-direction: column; /* Torna in verticale su schermi piccoli */
+        flex-direction: column; 
     }
 }
 
@@ -399,7 +473,7 @@ pre {
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    width: 100%; /* Sblocco schermo intero dello sprint precedente */
+    width: 100%; 
     box-sizing: border-box;
     font-size: 16px;
     line-height: 1.5;
@@ -417,7 +491,7 @@ pre {
 }
 
 .scroll-speed-controls button {
-    flex: 1; /* Divide lo spazio in parti uguali per i due tasti */
+    flex: 1; 
     padding: 6px;
     font-size: 12px;
     background: #e9ecef;
@@ -431,7 +505,6 @@ pre {
     margin-top: 6px;
 }
 
-/* Aggiunta la classe per visualizzare l'accessibilità della compattazione WCAG 80 caratteri per riga */
 .attivo-accessibile {
     background-color: #2ecc71 !important; 
     color: #fff !important;
@@ -445,7 +518,7 @@ pre {
     justify-content: space-between;
     align-items: flex-start;
     gap: 15px;
-    padding: 60px 15px 15px 15px; /* Spazio in alto per la barra dei toggle fisici */
+    padding: 60px 15px 15px 15px; 
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -463,9 +536,8 @@ pre {
     z-index: 100;
 }
 
-/* Stile base aggiornato per i pulsanti Toggle superiori */
 .btn-toggle-panel {
-    background-color: #34495e; /* Grigio scuro/Bluastro per il Pannello Controlli */
+    background-color: #34495e; 
     color: white;
     border: none;
     padding: 8px 16px;
@@ -474,7 +546,7 @@ pre {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    margin-right: 10px; /* Crea un distacco fisico se i tasti sono vicini */
+    margin-right: 10px; 
     transition: background-color 0.2s ease;
 }
 
@@ -482,47 +554,50 @@ pre {
     background-color: #2c3e50;
 }
 
-/* Personalizzazione specifica per il pulsante della Scaletta (Viola Liturgico) */
 #btn-toggle-scaletta {
-    background-color: #8e44ad; /* Viola coerente con la Home */
+    background-color: #8e44ad; 
 }
 
 #btn-toggle-scaletta:active {
-    background-color: #732d91; /* Viola più scuro al tocco */
+    background-color: #732d91; 
+}
+
+/* Adattamento pulsante scaletta in modalità Rock */
+body.theme-pop #btn-toggle-scaletta {
+    background-color: #d35400;
+}
+body.theme-pop #btn-toggle-scaletta:active {
+    background-color: #ba4a00;
 }
 
 /* =========================================================================
-   [NEW] LOGICA GRAFICA PER SCUDO DI SICUREZZA LIVE LOCK 
+   🛡️ LOGICA GRAFICA PER SCUDO DI SICUREZZA LIVE LOCK 
    ========================================================================= */
-
-/* Pulsante di blocco in stato ATTIVO */
 #btn-lock-scaletta.locked {
-    background-color: #d63031 !important; /* Rosso deciso per indicare lo scudo attivo */
+    background-color: #d63031 !important; 
     color: #ffffff !important;
     border-color: #b33939 !important;
     box-shadow: 0 0 10px rgba(214, 48, 49, 0.4);
 }
 
-/* Stato del contenitore o pannello scaletta quando è congelato */
 .ui-locked {
-    pointer-events: none; /* Impedisce i click sugli elementi interni */
+    pointer-events: none; 
 }
 
-/* Mantiene però attivo il pulsante stesso per poterlo sbloccare all'occorrenza */
 #btn-lock-scaletta {
     pointer-events: auto !important;
 }
 
-/* Feedback opacità per far capire che la lista è congelata */
 .ui-locked .btn-scaletta-item, 
 .ui-locked .scaletta-item {
     opacity: 0.85;
-    border-left: 4px solid #d63031 !important; /* Indicatore visivo di blocco */
+    border-left: 4px solid #d63031 !important; 
 }
- /* Area dello spartito centrale responsiva */
+
+/* Area dello spartito centrale responsiva */
 .song-main-area {
     flex: 1;
-    min-width: 0; /* Impedisce al tag <pre> di allargare forzatamente il flex container */
+    min-width: 0; 
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -538,6 +613,14 @@ pre {
     box-shadow: -2px 2px 6px rgba(0,0,0,0.05);
     max-height: 80vh;
     overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+/* Variante sidebar per il tema Concerto Rock */
+body.theme-pop .scaletta-sidebar {
+    background-color: #34495e;
+    border-left: 3px solid #d35400;
+    color: #fff;
 }
 
 .scaletta-list {
@@ -557,8 +640,17 @@ pre {
     transition: all 0.2s ease;
 }
 
+body.theme-pop .btn-scaletta-item {
+    background-color: #2c3e50;
+    border-color: #455a64;
+    color: #fff;
+}
+
 .btn-scaletta-item:hover {
     background-color: #f1f3f5;
+}
+body.theme-pop .btn-scaletta-item:hover {
+    background-color: #415b76;
 }
 
 .tempo-label {
@@ -567,35 +659,46 @@ pre {
     font-size: 0.85em;
 }
 
-/* Variante del tempo-label sotto tema liturgico */
 body.theme-liturgico .tempo-label {
-    color: #8e44ad; /* Sincronizzato con il viola */
+    color: #8e44ad; 
+}
+
+/* Variante etichetta tempo per il tema Pop/Rock concerto */
+body.theme-pop .tempo-label {
+    color: #e67e22; 
 }
 
 .titolo-label {
     font-size: 1em;
     color: #333;
 }
+body.theme-pop .titolo-label {
+    color: #ecf0f1;
+}
 
-/* Evidenzia il tempo liturgico corrente che si sta suonando */
 .tempo-selezionato {
     background-color: #e7f1ff !important;
     border-color: #0d6efd !important;
     box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
 }
 
-/* Variante della selezione per il tema liturgico */
 body.theme-liturgico .tempo-selezionato {
     background-color: #f5eff5 !important;
     border-color: #c8a2c8 !important;
     box-shadow: 0 0 5px rgba(200, 162, 200, 0.6);
 }
 
+/* Variante selezione brano attivo per il tema Pop/Rock */
+body.theme-pop .tempo-selezionato {
+    background-color: #d35400 !important;
+    border-color: #e67e22 !important;
+    box-shadow: 0 0 5px rgba(211, 84, 0, 0.6);
+    color: #fff !important;
+}
+
 /* =========================================================================
    PARTE AGGIUNTIVA: MODULO DI SOSTITUZIONE LAST MINUTE (BOTTOM SHEET)
    ========================================================================= */
-
-/* Overlay scuro di sfondo a tutto schermo */
 #lastminute-picker-overlay {
     position: fixed;
     top: 0;
@@ -605,12 +708,11 @@ body.theme-liturgico .tempo-selezionato {
     background-color: rgba(0, 0, 0, 0.55);
     display: none; 
     justify-content: center;
-    align-items: flex-end; /* Spinge il foglio verso il basso dello schermo */
+    align-items: flex-end; 
     z-index: 9999; 
     backdrop-filter: blur(4px); 
 }
 
-/* Il foglio/pannello che compare dal basso */
 .picker-sheet {
     width: 100%;
     max-width: 650px; 
@@ -623,9 +725,14 @@ body.theme-liturgico .tempo-selezionato {
     animation: slideUpLastMinute 0.25s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
 }
 
-/* Evidenziatore del tempo liturgico in modifica nell'header */
+/* CORRETTO: Aggiunta la definizione Keyframes mancante per evitare il blocco animazione */
+@keyframes slideUpLastMinute {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
 .highlight-momento {
-    background-color: #8e44ad; /* Viola liturgico coordinato */
+    background-color: #8e44ad; 
     color: #ffffff;
     padding: 3px 10px;
     border-radius: 6px;
@@ -634,6 +741,20 @@ body.theme-liturgico .tempo-selezionato {
     margin-left: 5px;
     font-weight: bold;
 }
+
+body.theme-pop .highlight-momento {
+    background-color: #d35400;
+}
+
+
+
+
+
+
+
+
+
+
 
 /* Area dei risultati del catalogo con scorrimento touch */
 #picker-results-list {
@@ -645,6 +766,11 @@ body.theme-liturgico .tempo-selezionato {
     -webkit-overflow-scrolling: touch; 
 }
 
+/* Adattamento sfondo risultati picker in modalità Pop/Rock */
+body.theme-pop #picker-results-list {
+    background: #2c3e50;
+}
+
 /* Pulsante/Riga del singolo brano trovato nel catalogo */
 .picker-result-row {
     padding: 14px 18px;
@@ -654,6 +780,11 @@ body.theme-liturgico .tempo-selezionato {
     transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
+body.theme-pop .picker-result-row {
+    border-bottom: 1px solid #34495e;
+    color: #fff;
+}
+
 .picker-result-row:last-child {
     border-bottom: none;
 }
@@ -661,11 +792,17 @@ body.theme-liturgico .tempo-selezionato {
 .picker-result-row:hover {
     background-color: #f1f3f5;
 }
+body.theme-pop .picker-result-row:hover {
+    background-color: #415b76;
+}
 
 /* Feedback visivo immediato al tocco del dito sul brano (Evita tocchi fantasma) */
 .picker-result-row:active {
     background-color: #e8eaf6 !important; 
     transform: scale(0.99);
+}
+body.theme-pop .picker-result-row:active {
+    background-color: #d35400 !important; 
 }
 
 /* Coerenza del Bottom Sheet sotto tema liturgico */
@@ -676,7 +813,17 @@ body.theme-liturgico #picker-search-input:focus {
     box-shadow: 0 0 8px rgba(200, 162, 200, 0.5) !important;
 }
 
-/* Ottimizzazione pulsante modifica "✏️" nella barra della scaletta liturgica */
+/* [NEW] Coerenza del Bottom Sheet sotto tema Pop/Rock */
+body.theme-pop #picker-search-input {
+    background-color: #2c3e50;
+    color: #fff;
+    border-color: #d35400 !important;
+}
+body.theme-pop #picker-search-input:focus {
+    box-shadow: 0 0 8px rgba(211, 84, 0, 0.5) !important;
+}
+
+/* Ottimizzazione pulsante modifica "✏️" nella barra della scaletta */
 .btn-override-lastminute {
     background: none;
     border: none;
@@ -690,17 +837,7 @@ body.theme-liturgico #picker-search-input:focus {
 
 .btn-override-lastminute:active {
     background-color: #e2e6ea !important; 
-    transform: scale(0.92); /* Micro-interazione di clic */
-}
-
-/* Animazione accelerata hardware per la salita del foglio */
-@keyframes slideUpLastMinute {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
+    transform: scale(0.92); 
 }
 
 /* =========================================================================
@@ -716,10 +853,15 @@ body.theme-liturgico #picker-search-input:focus {
     box-sizing: border-box;
 }
 
+/* Adattamento pannello controlli sinistro per modalità rock */
+body.theme-pop #controls-panel {
+    background-color: #34495e;
+    border-right: 2px solid #2c3e50;
+    color: #fff;
+}
+
 #scaletta-panel {
     width: 260px;
-    background-color: #f8f9fa;
-    border-left: 3px solid #8e44ad;
     padding: 12px;
     border-radius: 6px;
     box-shadow: -2px 2px 6px rgba(0,0,0,0.05);
@@ -750,7 +892,6 @@ pre, #song-title-container, .offline-picker {
     z-index: 1050;
 }
 
-/* Sincronizzazione ed espansione per le classi iniettate dinamicamente dal JS */
 .search-results-list, .search-result-item {
     font-size: 20px;
     text-align: left;
@@ -785,7 +926,7 @@ pre, #song-title-container, .offline-picker {
 
 /* [NEW] CONGELAMENTO GRAFICO SOSTITUZIONI LAST MINUTE SE LA SCALETTA È PROTETTA */
 .ui-locked .btn-override-lastminute {
-    visibility: hidden !important; /* Nasconde l'icona della matita ✏️ */
+    visibility: hidden !important; 
     pointer-events: none !important;
 }
 
