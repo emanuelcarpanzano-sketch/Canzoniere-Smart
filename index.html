@@ -85,16 +85,17 @@ modifiche di notatione Italiana o Internazionale
             <button id="btn-load-chiesa" class="btn-choice theme-liturgico-btn">⛪ Canzoniere Liturgico <img src="eucaristia.gif" alt="eucaristia" /></button>
         </div>
 
-        <!-- === NUOVA SEZIONE SELEZIONE RAPIDA SCALETTE (LITURGICA & CONCERTO) === -->
-        <div class="splash-scalette-zone" style="margin-top: 30px; border-top: 2px dashed #ccc; padding-top: 20px;">
+        <!-- === NUOVA SEZIONE SELEZIONE RAPIDA SCALETTE (INCOLONNATE IN MODO CORRETTO) === -->
+        <div class="splash-scalette-zone" style="margin-top: 35px; border-top: 2px dashed #ccc; padding-top: 20px;">
             <h3>📋 Avvia una Scaletta Pronta:</h3>
-            <div class="splash-buttons" style="gap: 10px; margin-top: 10px;">
+            <!-- Modificato il layout interno in Flexbox Verticale (Column) per incolonnare i tasti -->
+            <div style="display: flex; flex-direction: column; gap: 12px; max-width: 500px; margin: 15px auto 0 auto;">
                 <!-- Bottone Messa Liturgica -->
-                <button id="btn-load-scaletta-domenica" class="btn-choice" style="background-color: #8e44ad; color: white; margin-top: 0; flex: 1;">
+                <button id="btn-load-scaletta-domenica" class="btn-choice" style="background-color: #8e44ad; color: white; flex-direction: row; justify-content: center; font-size: 1rem; padding: 14px;">
                     ⛪ Messa: Tempo Ordinario
                 </button>
                 <!-- Bottone Concerto Pop/Rock tributo Ligabue -->
-                <button id="btn-load-scaletta-concerto" class="btn-choice" style="background-color: #d35400; color: white; margin-top: 0; flex: 1;">
+                <button id="btn-load-scaletta-concerto" class="btn-choice" style="background-color: #d35400; color: white; flex-direction: row; justify-content: center; font-size: 1rem; padding: 14px;">
                     🎸 Concerto: Tributo Ligabue
                 </button>
             </div>
