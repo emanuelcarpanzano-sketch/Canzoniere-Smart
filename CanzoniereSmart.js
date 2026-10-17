@@ -264,8 +264,24 @@ function selezionaBranoDaScalettaPerTitolo(titolo) {
         if (document.getElementById("target-filename")) document.getElementById("target-filename").textContent = fName;
         currentSemitoneShift = 0; document.getElementById("info-tonalita").textContent = "Tonalità: Originale";
         document.getElementById("song-content").textContent = "Caricamento in corso...";
-        fetch(cartellaAttiva + fName).then(res => res.text()).then(txt => { originalText = txt; document.getElementById('offline-zone').style.display = "none"; render(); })
-        .catch(() => { originalText = ""; document.getElementById('offline-zone').style.display = "block"; document.getElementById("song-content").textContent = `Seleziona il file "${fName}" manualmente.`; });
+        
+        fetch(cartellaAttiva + fName)
+            .then(res => res.text())
+            .then(txt => { 
+                originalText = txt; 
+                document.getElementById('offline-zone').style.display = "none"; 
+                
+                // PROTEZIONE CRITICA: Ritardiamo leggermente il render di 80ms 
+                // per essere sicuri che qualsiasi script esterno abbia finito di fare i suoi loop
+                setTimeout(() => {
+                    window.render(); 
+                }, 80);
+            })
+            .catch(() => { 
+                originalText = ""; 
+                document.getElementById('offline-zone').style.display = "block"; 
+                document.getElementById("song-content").textContent = `Seleziona il file "${fName}" manualmente.`; 
+            });
     }
 }
 
