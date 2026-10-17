@@ -507,11 +507,11 @@ function changeNotation(notation) {
 }
 
 // ==========================================
-// 🛠️ ALGORITMO DI RENDERING PRIVATO ED ESCLUSIVO (BLINDATO)
+// 🛠️ ALGORITMO DI RENDERING E PARSING ACCORDI INTEGRATO (BLINDATO)
 // ==========================================
 let wcagCompattatoAttivo = false; 
 
-function eseguiSmartRenderingCore() {
+window.render = function() {
     const container = document.getElementById('song-content');
     if (!container) return;
     if (!originalText) {
@@ -571,8 +571,7 @@ function eseguiSmartRenderingCore() {
     }
 
     container.innerHTML = testoElaborato;
-}
+};
 
-// Forza la mappatura anche sulla finestra globale per sicurezza
-window.eseguiSmartRenderingCore = eseguiSmartRenderingCore;
-
+// Fallback di accoppiamento per i vecchi richiami locali procedurali
+var render = window.render;
