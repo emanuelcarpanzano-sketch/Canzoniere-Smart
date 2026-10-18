@@ -513,17 +513,13 @@ window.render = function() {
     // Splitta il testo riga per riga per individuare dove si trovano gli accordi
     const righe = originalText.split('\n');
     let righeElaborate = righe.map(linea => {
-        // Se la linea è vuota, restituiscila intatta
         if (linea.trim().length === 0) return linea;
 
-        // Regex per capire se la riga contiene SOLO accordi e spazi (es: F, Em7, A7, Dm, /)
-        // Se contiene parole lunghe o testo normale, viene considerata riga di testo parole.
+        // Regex per capire se la riga contiene SOLO accordi e spazi
         const paroleStrane = linea.match(/[a-z]{4,}/g); 
         const haTestoNormale = paroleStrane && paroleStrane.some(p => !p.toLowerCase().includes("magg") && !p.toLowerCase().includes("dim"));
 
         if (!haTestoNormale) {
-            // È una riga di accordi! Isoliye i singoli token separati da spazi
-            // e li trasforma in tag span colorati mantenendo la spaziatura originale
             return linea.replace(/([^\s\/]+)/g, (match) => {
                 let accordoSeparato = match;
                 if (match.includes('/')) {
@@ -535,19 +531,21 @@ window.render = function() {
             });
         }
         
-        // È una riga di testo normale (parole della canzone)
         return linea;
     });
 
     let testoFinale = righeElaborate.join('\n');
 
+    // CORRETTO: Gestione Accessibilità WCAG Smart. Rimpicciolisce il font per schermi stretti senza tagliare nulla
     if (wcagCompattatoAttivo) {
-        testoFinale = testoFinale.split('\n').map(linea => {
-            if (linea.length > 80) return linea.substring(0, 77) + "...";
-            return linea;
-        }).join('\n');
+        container.style.fontSize = "17px";  
+        container.style.letterSpacing = "-0.8px"; 
+    } else {
+        container.style.fontSize = "21px";  
+        container.style.letterSpacing = "-0.5px"; 
     }
 
+    // Il testo viene iniettato integralmente preservando l'allineamento nativo
     container.innerHTML = testoFinale;
 };
 
@@ -555,6 +553,7 @@ window.render = function() {
 if (typeof render === 'undefined' || render !== window.render) {
     var render = window.render;
 }
+
 
 
 
