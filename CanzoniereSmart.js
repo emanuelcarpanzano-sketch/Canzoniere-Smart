@@ -10,7 +10,7 @@
 let currentNotation = 'IT';
 let originalText = ""; 
 let currentSemitoneShift = 0;
-let wcagCompattatoAttivo = false; 
+let wcagCompattatoAttivo = false;  // ri-collocato qui come richiesto
 
 
 let cartellaAttiva = "";     
