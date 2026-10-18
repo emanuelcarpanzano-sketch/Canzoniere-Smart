@@ -119,7 +119,6 @@ body.theme-liturgico .search-results-list {
     border-color: #c8a2c8;
 }
 
-/* CORRETTO: Cambiato da .search-item a .search-result-item in linea con JS */
 body.theme-liturgico .search-result-item {
     border-left: 4px solid transparent;
 }
@@ -131,35 +130,51 @@ body.theme-liturgico .search-result-item:hover {
 }
 
 /* =========================================================================
-   [NEW] TEMA ROCK / CONCERTO (COERENZA CROMATICA POP)
+   [NEW] TEMA POP / CONCERTO CON TONI PASTELLO RIPOSANTI (AZZURRO)
    ========================================================================= */
 body.theme-pop,
 .menu-container.theme-pop {
-    background-color: #2c3e50 !important; /* Grigio scuro rock */
-    color: #ecf0f1 !important;
+    background-color: #e6f2ff !important; /* Splendido azzurro pastello riposante */
+    color: #2c3e50 !important;            /* Testo scuro profondo per massima leggibilità */
 }
 
 body.theme-pop .menu-container {
-    background-color: #34495e;
-    border: 1px solid #d35400; /* Bordo arancione Ligabue */
-    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+    background-color: #ffffff;            /* Finestra bianca per far risaltare i titoli */
+    border: 1px solid #3498db;            /* Bordo azzurro coordinato */
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.15);
 }
 
 body.theme-pop .menu-container h1 {
-    color: #e67e22;
+    color: #2980b9;                       /* Titolo principale in blu aviazione scuro */
 }
 
 body.theme-pop .search-box-container input[type="text"] {
-    background-color: #2c3e50;
-    color: #fff;
-    border-color: #d35400;
+    background-color: #ffffff;
+    color: #333;
+    border-color: #3498db;
+}
+
+body.theme-pop .search-results-list {
+    border-color: #3498db;
+}
+
+body.theme-pop .search-result-item {
+    color: #2c3e50 !important;            /* CORRETTO: Visibile subito senza hover! */
+    border-bottom: 1px solid #ecf0f1;
 }
 
 body.theme-pop .search-result-item:hover {
-    background-color: #2c3e50;
-    color: #e67e22;
-    border-left: 4px solid #d35400;
+    background-color: #edf7ff;            /* Evidenziatore azzurro chiaro al passaggio */
+    color: #2980b9 !important;
+    border-left: 4px solid #3498db;
 }
+
+
+
+
+
+
+
 
 /* =========================================================================
    LOGICA DI NAVIGAZIONE E RICERCA
@@ -236,7 +251,6 @@ body.theme-pop .search-result-item:hover {
 
 
 
-
 /* =========================================================================
    LISTA RISULTATI DELLA RICERCA RAPIDA (A SCOMPARSA)
    ========================================================================= */
@@ -297,19 +311,6 @@ body.theme-pop .search-result-item:hover {
     font-size: 16px;
 }
 
-/* Modifiche specifiche per i risultati di ricerca in modalità Pop/Rock */
-body.theme-pop .search-results-list {
-    background-color: #34495e;
-    border-color: #d35400;
-}
-body.theme-pop .search-result-item {
-    color: #ecf0f1;
-    border-bottom: 1px solid #2c3e50;
-}
-body.theme-pop .search-result-item strong {
-    color: #fff;
-}
-
 /* =========================================================================
    SCHERMATA VISUALIZZAZIONE CANZONE E PANNELLO COMANDI
    ========================================================================= */
@@ -322,7 +323,7 @@ body.theme-pop .search-result-item strong {
     box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
 }
 
-/* CORRETTO: Limitato lo stile globale impattante dei bottoni */
+/* Limitato lo stile globale impattante dei bottoni */
 button {
     padding: 10px 12px;
     margin: 3px 0;
@@ -375,6 +376,13 @@ hr {
     padding-top: 10px;
 }
 
+
+
+
+
+
+
+
 /* =========================================================================
    AREA DEL BRANO (VERSIONE COMFORT - ALTA LEGGIBILITÀ)
    ========================================================================= */
@@ -391,10 +399,10 @@ hr {
     width: 100%; 
 }
 
-/* Variante colore per il titolo brano in modalità Pop/Rock */
+/* Variante colore pastello per il titolo brano in modalità Pop/Rock */
 body.theme-pop #song-title-container {
-    color: #e67e22;
-    border-bottom: 2px solid #d35400;
+    color: #2980b9;                       /* Blu profondo aviazione coordinato */
+    border-bottom: 2px solid #3498db;     /* Bordo azzurro coordinato */
 }
 
 #song-title {
@@ -408,10 +416,10 @@ body.theme-pop #song-title-container {
     color: #5d564d; 
 }
 
+/* Variante autore pastello per il tema Pop/Rock */
 body.theme-pop #song-author {
-    color: #bdc3c7;
+    color: #5a738e;                       /* Grigio fumo con punta di azzurro leggibile */
 }
-
 
 
 
@@ -437,13 +445,12 @@ pre {
     transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease; /* Aggiunto font-size ease */
 }
 
-/* Variante ad alto contrasto scuro per il tag pre in modalità Pop/Rock */
+/* Variante ad alta leggibilità per il tag pre in modalità Pop/Rock Pastello */
 body.theme-pop pre {
-    background-color: #1e272e;
-    color: #ffffff;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+    background-color: #f7f2ea;            /* Identico allo sfondo pergamena comfort per non stancare gli occhi */
+    color: #2b261f;                       /* Testo scuro nativo */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.04);
 }
-
 
 .chord {
     color: #d32f2f !important;    /* Rosso vivo indistruttibile */
@@ -452,12 +459,11 @@ body.theme-pop pre {
     margin: 0;                     /* Azzerato per non perdere l'incolonnamento nativo del .txt */
 }
 
-/* Variante ad alta visibilità neon per il tema Rock */
+/* Variante ad alta visibilità blu oltremare profondo per il tema Pop/Rock Pastello */
 body.theme-pop .chord {
-    color: #f1c40f !important;    /* Giallo Rock al buio */
-    text-shadow: 0.5px 0 0 #f1c40f;
+    color: #0d47a1 !important;    /* Blu scuro profondo ad altissimo contrasto visivo */
+    text-shadow: 0.2px 0 0 #0d47a1;
 }
-
 
 /* Media Query Responsiva per schermi smartphone stretti */
 @media (max-width: 600px) {
@@ -564,13 +570,21 @@ body.theme-pop .chord {
     background-color: #732d91; 
 }
 
-/* Adattamento pulsante scaletta in modalità Rock */
+/* Adattamento pulsante scaletta in modalità Pop/Rock pastello coordinato */
 body.theme-pop #btn-toggle-scaletta {
-    background-color: #d35400;
+    background-color: #3498db;            /* Azzurro coordinato */
 }
 body.theme-pop #btn-toggle-scaletta:active {
-    background-color: #ba4a00;
+    background-color: #2980b9;            /* Azzurro scuro al tocco */
 }
+
+
+
+
+
+
+
+
 
 /* =========================================================================
    🛡️ LOGICA GRAFICA PER SCUDO DI SICUREZZA LIVE LOCK 
@@ -618,11 +632,11 @@ body.theme-pop #btn-toggle-scaletta:active {
     transition: all 0.3s ease;
 }
 
-/* Variante sidebar per il tema Concerto Rock */
+/* Variante sidebar per il tema Concerto Rock Pastello */
 body.theme-pop .scaletta-sidebar {
-    background-color: #34495e;
-    border-left: 3px solid #d35400;
-    color: #fff;
+    background-color: #ffffff;            /* Convertito in bianco pulito riposanti */
+    border-left: 3px solid #3498db;        /* Richiamo azzurro coordinato */
+    color: #333;
 }
 
 .scaletta-list {
@@ -642,17 +656,18 @@ body.theme-pop .scaletta-sidebar {
     transition: all 0.2s ease;
 }
 
+/* Sincronizzazione bottoni scaletta rock in modalità pastello */
 body.theme-pop .btn-scaletta-item {
-    background-color: #2c3e50;
-    border-color: #455a64;
-    color: #fff;
+    background-color: #ffffff;
+    border-color: #ddd;
+    color: #333;
 }
 
 .btn-scaletta-item:hover {
     background-color: #f1f3f5;
 }
 body.theme-pop .btn-scaletta-item:hover {
-    background-color: #415b76;
+    background-color: #edf7ff;            /* Al passaggio diventa azzurro chiarissimo */
 }
 
 .tempo-label {
@@ -665,9 +680,9 @@ body.theme-liturgico .tempo-label {
     color: #8e44ad; 
 }
 
-/* Variante etichetta tempo per il tema Pop/Rock concerto */
+/* Variante etichetta tempo per il tema Pop/Rock concerto pastello */
 body.theme-pop .tempo-label {
-    color: #e67e22; 
+    color: #3498db;                       /* Numeri di traccia in azzurro */
 }
 
 .titolo-label {
@@ -675,7 +690,7 @@ body.theme-pop .tempo-label {
     color: #333;
 }
 body.theme-pop .titolo-label {
-    color: #ecf0f1;
+    color: #333333;                       /* Testo scuro nitido e leggibile */
 }
 
 .tempo-selezionato {
@@ -690,12 +705,12 @@ body.theme-liturgico .tempo-selezionato {
     box-shadow: 0 0 5px rgba(200, 162, 200, 0.6);
 }
 
-/* Variante selezione brano attivo per il tema Pop/Rock */
+/* Variante selezione brano attivo per il tema Pop/Rock Pastello */
 body.theme-pop .tempo-selezionato {
-    background-color: #d35400 !important;
-    border-color: #e67e22 !important;
-    box-shadow: 0 0 5px rgba(211, 84, 0, 0.6);
-    color: #fff !important;
+    background-color: #edf7ff !important; /* Sfondo pastello carta da zucchero morbido */
+    border-color: #3498db !important;     /* Bordo azzurro coordinato */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    color: #2980b9 !important;            /* Testo evidenziato in azzurro scuro */
 }
 
 /* =========================================================================
@@ -727,7 +742,6 @@ body.theme-pop .tempo-selezionato {
     animation: slideUpLastMinute 0.25s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
 }
 
-/* CORRETTO: Aggiunta la definizione Keyframes mancante per evitare il blocco animazione */
 @keyframes slideUpLastMinute {
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
@@ -745,9 +759,8 @@ body.theme-pop .tempo-selezionato {
 }
 
 body.theme-pop .highlight-momento {
-    background-color: #d35400;
+    background-color: #3498db;            /* Badge azzurro nel modulo di sostituzione */
 }
-
 
 
 
@@ -768,9 +781,10 @@ body.theme-pop .highlight-momento {
     -webkit-overflow-scrolling: touch; 
 }
 
-/* Adattamento sfondo risultati picker in modalità Pop/Rock */
+/* Adattamento sfondo risultati picker in modalità Pop/Rock Pastello */
 body.theme-pop #picker-results-list {
-    background: #2c3e50;
+    background: #ffffff;                  /* Sfondo bianco pulito e riposante */
+    border: 1px solid #ddd;
 }
 
 /* Pulsante/Riga del singolo brano trovato nel catalogo */
@@ -782,9 +796,10 @@ body.theme-pop #picker-results-list {
     transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
+/* Sincronizzazione riga picker per tema pastello */
 body.theme-pop .picker-result-row {
-    border-bottom: 1px solid #34495e;
-    color: #fff;
+    border-bottom: 1px solid #edf2f7;
+    color: #333333;                       /* Testo scuro immediatamente visibile */
 }
 
 .picker-result-row:last-child {
@@ -795,7 +810,7 @@ body.theme-pop .picker-result-row {
     background-color: #f1f3f5;
 }
 body.theme-pop .picker-result-row:hover {
-    background-color: #415b76;
+    background-color: #edf7ff;            /* Evidenziatore azzurro leggero */
 }
 
 /* Feedback visivo immediato al tocco del dito sul brano (Evita tocchi fantasma) */
@@ -804,7 +819,8 @@ body.theme-pop .picker-result-row:hover {
     transform: scale(0.99);
 }
 body.theme-pop .picker-result-row:active {
-    background-color: #d35400 !important; 
+    background-color: #3498db !important; /* Feedback azzurro intenso al tocco */
+    color: #ffffff !important;
 }
 
 /* Coerenza del Bottom Sheet sotto tema liturgico */
@@ -815,14 +831,14 @@ body.theme-liturgico #picker-search-input:focus {
     box-shadow: 0 0 8px rgba(200, 162, 200, 0.5) !important;
 }
 
-/* [NEW] Coerenza del Bottom Sheet sotto tema Pop/Rock */
+/* Coerenza del Bottom Sheet sotto tema Pop/Rock Pastello */
 body.theme-pop #picker-search-input {
-    background-color: #2c3e50;
-    color: #fff;
-    border-color: #d35400 !important;
+    background-color: #ffffff;            /* Sfondo bianco riposante */
+    color: #333333;
+    border-color: #3498db !important;     /* Bordo azzurro coordinato */
 }
 body.theme-pop #picker-search-input:focus {
-    box-shadow: 0 0 8px rgba(211, 84, 0, 0.5) !important;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.4) !important;
 }
 
 /* Ottimizzazione pulsante modifica "✏️" nella barra della scaletta */
@@ -855,11 +871,11 @@ body.theme-pop #picker-search-input:focus {
     box-sizing: border-box;
 }
 
-/* Adattamento pannello controlli sinistro per modalità rock */
+/* Adattamento pannello controlli sinistro per modalità rock pastello */
 body.theme-pop #controls-panel {
-    background-color: #34495e;
-    border-right: 2px solid #2c3e50;
-    color: #fff;
+    background-color: #ffffff;            /* Sfondo bianco coordinato */
+    border-right: 2px solid #3498db;      /* Linea di divisione azzurra */
+    color: #2c3e50;
 }
 
 #scaletta-panel {
