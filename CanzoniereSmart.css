@@ -444,12 +444,12 @@ body.theme-pop pre {
     box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
 }
 
+
 .chord {
     color: #d32f2f !important;    /* Rosso vivo indistruttibile */
     font-weight: bold !important;  /* Grassetto forzato */
     text-shadow: 0.3px 0 0 #d32f2f; 
-    margin: 0 2px;                 /* Spazio di sicurezza laterale */
-    display: inline-block !important;
+    margin: 0;                     /* Azzerato per non perdere l'incolonnamento nativo del .txt */
 }
 
 /* Variante ad alta visibilità neon per il tema Rock */
