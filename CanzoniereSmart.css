@@ -445,16 +445,19 @@ body.theme-pop pre {
 }
 
 .chord {
-    color: #d32f2f !important; /* Forza il rosso vivo */
-    font-weight: bold !important;
-    display: inline-block;
+    color: #d32f2f !important;    /* Rosso vivo indistruttibile */
+    font-weight: bold !important;  /* Grassetto forzato */
+    text-shadow: 0.3px 0 0 #d32f2f; 
+    margin: 0 2px;                 /* Spazio di sicurezza laterale */
+    display: inline-block !important;
 }
 
-/* Variante accordi per il tema Pop/Rock (Giallo/Arancio neon ad alta visibilità al buio) */
+/* Variante ad alta visibilità neon per il tema Rock */
 body.theme-pop .chord {
-    color: #f1c40f;
-    text-shadow: 0.3px 0 0 #f1c40f;
+    color: #f1c40f !important;    /* Giallo Rock al buio */
+    text-shadow: 0.5px 0 0 #f1c40f;
 }
+
 
 /* Media Query Responsiva per schermi smartphone stretti */
 @media (max-width: 600px) {
