@@ -948,3 +948,17 @@ pre, #song-title-container, .offline-picker {
     pointer-events: none !important;
 }
 
+/* =========================================================================
+   FIX FINALE: UNIFORMAZIONE TASTO CONCERTO NELLA SPLASH (RIMOSSOROSSO)
+   ========================================================================= */
+#btn-load-scaletta-concerto {
+    background-color: #f8f9fa !important; /* Grigio chiaro nativo riposante */
+    color: #333333 !important;            /* Testo antracite leggibile */
+    border: 2px solid #ddd !important;
+}
+
+#btn-load-scaletta-concerto:hover {
+    background-color: #007bff !important; /* Diventa blu al passaggio come gli altri */
+    color: #ffffff !important;
+    border-color: #007bff !important;
+}
