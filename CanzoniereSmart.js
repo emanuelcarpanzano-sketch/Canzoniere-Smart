@@ -342,15 +342,12 @@ function selezionaBranoDaScalettaPerTitolo(titolo) {
             .then(txt => { 
                 originalText = txt; 
                 document.getElementById('offline-zone').style.display = "none"; 
-        
-                // BILINDATURA LINEA 277: Esegue il render in sicurezza se esiste, altrimenti attende un attimo
+    
+                // Controlla se la funzione è pronta prima di lanciarla, evitando l'undefined
                 if (typeof window.render === 'function') {
                     window.render();
                 } else {
-                    console.warn("Render temporaneamente non definito, riprovo tra 50ms...");
-                    setTimeout(() => {
-                        if (typeof window.render === 'function') window.render();
-                    }, 50);
+                    setTimeout(() => { if (typeof window.render === 'function') window.render(); }, 50);
                 }
             })
             .catch(() => { 
