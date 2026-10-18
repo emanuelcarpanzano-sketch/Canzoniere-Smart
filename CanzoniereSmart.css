@@ -434,7 +434,7 @@ pre {
     margin-top: 20px;
     width: 100%; 
     box-sizing: border-box;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease; /* Aggiunto font-size ease */
 }
 
 /* Variante ad alto contrasto scuro per il tag pre in modalità Pop/Rock */
