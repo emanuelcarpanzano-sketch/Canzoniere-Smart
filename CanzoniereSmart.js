@@ -466,7 +466,7 @@ function changeNotation(notation) {
 }
 
 // ==========================================
-// 🛠️ INTERMEDIO DI RENDERING INTEGRATO ED ALTO CONTRASTO
+// 🛠️ ALGORITMO DI RENDERING INTELLIGENTE PER RIGHE DI ACCORDI (SENZA PARENTESI)
 // ==========================================
 window.render = function() {
     const container = document.getElementById('song-content');
@@ -510,30 +510,52 @@ window.render = function() {
         return notaConvertita + alterazione + estensione;
     }
 
-    let testoElaborato = originalText.replace(/\[([^\]]+)\]/g, (match, accordo) => {
-        let accordoFinale = accordo;
-        if (accordo.includes('/')) {
-            accordoFinale = accordo.split('/').map(elaboraAccordo).join('/');
-        } else {
-            accordoFinale = elaboraAccordo(accordo);
+    // Splitta il testo riga per riga per individuare dove si trovano gli accordi
+    const righe = originalText.split('\n');
+    let righeElaborate = righe.map(linea => {
+        // Se la linea è vuota, restituiscila intatta
+        if (linea.trim().length === 0) return linea;
+
+        // Regex per capire se la riga contiene SOLO accordi e spazi (es: F, Em7, A7, Dm, /)
+        // Se contiene parole lunghe o testo normale, viene considerata riga di testo parole.
+        const paroleStrane = linea.match(/[a-z]{4,}/g); 
+        const haTestoNormale = paroleStrane && paroleStrane.some(p => !p.toLowerCase().includes("magg") && !p.toLowerCase().includes("dim"));
+
+        if (!haTestoNormale) {
+            // È una riga di accordi! Isoliye i singoli token separati da spazi
+            // e li trasforma in tag span colorati mantenendo la spaziatura originale
+            return linea.replace(/([^\s\/]+)/g, (match) => {
+                let accordoSeparato = match;
+                if (match.includes('/')) {
+                    accordoSeparato = match.split('/').map(elaboraAccordo).join('/');
+                } else {
+                    accordoSeparato = elaboraAccordo(match);
+                }
+                return '<span class="chord">' + accordoSeparato + '</span>';
+            });
         }
-        return '<span class="chord">' + accordoFinale + '</span>';
+        
+        // È una riga di testo normale (parole della canzone)
+        return linea;
     });
 
+    let testoFinale = righeElaborate.join('\n');
+
     if (wcagCompattatoAttivo) {
-        testoElaborato = testoElaborato.split('\n').map(linea => {
+        testoFinale = testoFinale.split('\n').map(linea => {
             if (linea.length > 80) return linea.substring(0, 77) + "...";
             return linea;
         }).join('\n');
     }
 
-    container.innerHTML = testoElaborato;
+    container.innerHTML = testoFinale;
 };
 
-// ACCOPPIAMENTO CRITICO: Forza la coesistenza visiva agganciando i vecchi richiami
+// ACCOPPIAMENTO CRITICO
 if (typeof render === 'undefined' || render !== window.render) {
     var render = window.render;
 }
+
 
 
 
