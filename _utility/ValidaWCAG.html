@@ -1,1 +1,176 @@
+<!-- 
+File di servizio all'applicazione Canzoniere Smart di Emanuele Carpanzano
+Segnala e preformatta i files txt allo standard WCAG 80.
+fornisce una riga ti testo da inserire nel file "Preformattati.txt" per tenerne la memoria.
+-->
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validator & Pre-Formatter WCAG 80</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f6f9; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
+        .control-zone { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; background: #eef2f7; padding: 15px; border-radius: 8px; flex-wrap: wrap; }
+        .status-badge { padding: 8px 16px; border-radius: 20px; font-weight: bold; display: inline-block; }
+        .status-pass { background-color: #2ecc71; color: white; }
+        .status-fail { background-color: #e74c3c; color: white; }
+        .btn-action { padding: 10px 20px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; background-color: #3498db; color: white; }
+        .btn-action:hover { background-color: #2980b9; }
+        .log-zone { width: 100%; background: #fff9e6; border: 1px solid #ffe0b2; padding: 15px; border-radius: 6px; margin-top: 10px; box-sizing: border-box; display: none; }
+        .log-text { font-family: monospace; background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; display: block; overflow-x: auto; font-size: 14px; color: #e65100; }
+        pre { font-family: "SFMono-Regular", Menlo, "Roboto Mono", Consolas, monospace; font-size: 16px; font-weight: 600; line-height: 1.4; background-color: #f7f2ea; color: #2b261f; padding: 20px; border-radius: 8px; white-space: pre; overflow-x: auto; border: 1px solid #ddd; }
+        .error-line { background-color: #ffcccc !important; color: #b71c1c; display: block; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔍 Pre-Formattatore WCAG 80 - Canzoniere Smart</h1>
+    <p>Seleziona un file .txt dal tuo catalogo per valutarlo, trattarlo e generare la nota per il file di registro.</p>
+    
+    <div class="control-zone">
+        <input type="file" id="file-input" accept=".txt">
+        <div id="status-container" style="display: none;">
+            Stato WCAG: <span id="status-label" class="status-badge">Valutazione...</span>
+        </div>
+        <button id="btn-fix-save" class="btn-action" style="display: none;">⚙️ Tratta e Salva File</button>
+        
+        <!-- Box per copia rapida nel registro Preformattati.txt -->
+        <div id="log-box" class="log-zone">
+            <strong>📋 Copia questa riga e incollala nel tuo file <u>Preformattati.txt</u>:</strong>
+            <span id="log-string" class="log-text"></span>
+        </div>
+    </div>
+
+    <h3 id="preview-title" style="display: none;">Visualizzazione Righe Rilevate:</h3>
+    <pre id="file-preview" style="display: none;"></pre>
+</div>
+
+<script>
+let currentFileName = "";
+let loadedText = "";
+let isWcagCompliant = true;
+
+document.getElementById('file-input').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    currentFileName = file.name;
+    const reader = new FileReader();
+    
+    reader.onload = function(evt) {
+        loadedText = evt.target.result;
+        document.getElementById('log-box').style.display = "none"; // Reset box log ad ogni nuovo caricamento
+        analizzaEVisualizzaTesto(loadedText);
+    };
+    reader.readAsText(file);
+});
+
+function analizzaEVisualizzaTesto(testo) {
+    const righe = testo.split('\n');
+    const previewContainer = document.getElementById('file-preview');
+    const statusContainer = document.getElementById('status-container');
+    const statusLabel = document.getElementById('status-label');
+    const btnFixSave = document.getElementById('btn-fix-save');
+    
+    previewContainer.innerHTML = "";
+    isWcagCompliant = true;
+    
+    righe.forEach((linea, index) => {
+        const spanLinea = document.createElement('span');
+        spanLinea.textContent = linea + (index < righe.length - 1 ? '\n' : '');
+        
+        if (linea.length > 80) {
+            spanLinea.className = "error-line";
+            spanLinea.title = `Rilevati ${linea.length} caratteri (Massimo consentito: 80)`;
+            isWcagCompliant = false;
+        }
+        previewContainer.appendChild(spanLinea);
+    });
+    
+    statusContainer.style.display = "block";
+    document.getElementById('preview-title').style.display = "block";
+    previewContainer.style.display = "block";
+    
+    if (isWcagCompliant) {
+        statusLabel.textContent = "✅ Righe a norma (max 80 ch)";
+        statusLabel.className = "status-badge status-pass";
+        btnFixSave.style.display = "none";
+    } else {
+        statusLabel.textContent = "❌ Fuori Parametri (Righe > 80 ch)";
+        statusLabel.className = "status-badge status-fail";
+        btnFixSave.style.display = "inline-block";
+    }
+}
+
+document.getElementById('btn-fix-save').addEventListener('click', function() {
+    const risposta = confirm("Il file presenta righe fuori norma WCAG. Vuoi che l'algoritmo effettui un wrapping intelligente e salvi la nuova versione modificata?");
+    if (!risposta) return;
+    
+    const testoTrattato = applicaWordWrapIntelligente(loadedText);
+    scaricaFile(testoTrattato, currentFileName);
+    
+    // Genera la stringa di log per il file Preformattati.txt
+    const titoloPulito = currentFileName.replace('.txt', '');
+    const dataOggi = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const oraOggi = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    
+    const stringaLog = `${titoloPulito} - Trattato il ${dataOggi} alle ${oraOggi} [OK]`;
+    
+    document.getElementById('log-string').textContent = stringaLog;
+    document.getElementById('log-box').style.display = "block";
+});
+
+function applicaWordWrapIntelligente(testo) {
+    const righe = testo.split('\n');
+    let output = [];
+    
+    for (let i = 0; i < righe.length; i++) {
+        let linea = righe[i];
+        
+        if (linea.length <= 80) {
+            output.push(linea);
+            continue;
+        }
+        
+        let lineaSuccessiva = righe[i + 1] || "";
+        
+        if (isRigaAccordi(linea) && lineaSuccessiva.length > 0 && !isRigaAccordi(lineaSuccessiva)) {
+            output.push(linea.substring(0, 75));
+            output.push(lineaSuccessiva.substring(0, 75));
+            
+            output.push(linea.substring(75));
+            output.push(lineaSuccessiva.substring(75));
+            
+            i++; 
+        } else {
+            let stringaTagliata = linea.substring(0, 78) + "\n   " + linea.substring(78);
+            output.push(stringaTagliata);
+        }
+    }
+    return output.join('\n');
+}
+
+function isRigaAccordi(linea) {
+    if (linea.trim().length === 0) return false;
+    const paroleStrane = linea.match(/[a-z]{4,}/g); 
+    return !(paroleStrane && paroleStrane.some(p => !p.toLowerCase().includes("magg") && !p.toLowerCase().includes("dim")));
+}
+
+function scaricaFile(contenuto, nomeFile) {
+    const blob = new Blob([contenuto], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = nomeFile;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+</script>
+
+</body>
+</html>
 
