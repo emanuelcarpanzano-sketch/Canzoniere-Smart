@@ -1,1 +1,15 @@
-Almeno credo
+=========================================================================
+📝 REGISTRO DEI BRANI PRE-FORMATTATI WCAG 80 - CANZONIERE SMART
+=========================================================================
+Questo file traccia gli spartiti TxT analizzati con l'utility "ValidaWCAG.html".
+I brani elencati di seguito sono stati portati al limite massimo di 80 caratteri
+per riga, garantendo l'incolonnamento nativo degli accordi e l'accessibilità.
+-------------------------------------------------------------------------
+
+[🎸 REPERTORIO POP / ROCK]
+-------------------------------------------------------------------------
+Yesterday - Trattato il 18/10/2026 alle 17:30 [OK]
+
+
+[⛪ REPERTORIO LITURGICO]
+-------------------------------------------------------------------------
