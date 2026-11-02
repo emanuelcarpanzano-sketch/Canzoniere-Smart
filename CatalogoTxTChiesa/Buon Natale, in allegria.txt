@@ -1,9 +1,13 @@
-   F                                                                        Adim
-1. La città si desta col vestito di gran festa, mentre candida la neve scende giù.
+   F                                                                       
+1. La città si desta col vestito di gran festa, mentre candida la neve
+   Adim
+scende giù.
 A#                                                                    Ddim
 Suonan le campane, le vetrine sono piene mille luci si riflettono quaggiù.
-Dm7              Gm    Dm7              Gm     Dm7              Gm    F
-Nelle strade, nei porton, in caserma ed in stazion, gridan tutti con soddisfazion:
+Dm7              Gm    Dm7              Gm     Dm7              Gm
+Nelle strade, nei porton, in caserma ed in stazion, gridan tutti con
+   F
+   soddisfazion:
 
 F     A#   C              F     A#     C
 Buon Natale, in allegria! Buon Natale, in compagnia!
@@ -29,8 +33,12 @@ F                                                 A#     C           F
 "Jingle bells! Jingle bells! Jingle all the way". Oggi a Londra suoneran.
 F                         A#     C           F
 "Tu scendi dalle stelle". Gli italiani canteran.
-F                              Gm     C      F             A#       C       F
-"Stille Nacht, heilige Nacht! Alles schläft, einsam wacht". In Germania pregheran!
+
+F                              Gm     C      F             A#
+"Stille Nacht, heilige Nacht! Alles schläft, einsam wacht".
+       C         F
+In Germania pregheran!
+
 F    Dm          A#      C           A#    C         F
 "I'm dreaming of a White Christmas". Da New York ci giungerà!
 
