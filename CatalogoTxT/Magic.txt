@@ -1,4 +1,4 @@
-INTRO: 
+Intro: 
 D   A        E    A
 
         D      A       E         A       D      A             E
@@ -8,7 +8,7 @@ And I just got broken, broken into two
       A         D            A           E       A
 Still I call it magic,  when I'm next to you
 
-RIT:
+Rit.:
       D                                                 A
 And I don't and I don't and I don't and I don't   No, I don't it's true
   E                                                       A
@@ -29,7 +29,7 @@ And I can't get over   can't get over you
         A       D               A       E           A
 Still I call it magic   such a precious truth
 
-RIT:
+Rit.
 
        D        A     E               D      A      E
 Wanna fall, I fall so far   I want to fall, fall so hard
@@ -40,8 +40,10 @@ I call it maaaaaaa-aa-gic    Oououh     Oououh          Oououh    Oououh
 
            A       D                      A            E
 And if you were to ask me  After all that we've been through
-       A         D               A      E       A      D      A    E      A       D         A       E
-"Still believe in magic?"   Well yes, I do   Oh yes, I do   Yes, I do   Oh yes, I do    Of course I do.
+       A         D               A      E       A      D      A    E      A
+"Still believe in magic?"   Well yes, I do   Oh yes, I do   Yes, I do   Oh 
+       D         A       E
+yes, I do    Of course I do.
 
-OUTTRO: 
+Outro: 
 D   A        E    A

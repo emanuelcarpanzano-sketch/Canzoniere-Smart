@@ -3,8 +3,10 @@ Originale in F# (Capo 1) per me meglio in C (Do)
 Intro:
 Dm  A#  Dm  C A#  Dm
 
-     C                        A#                                            Dm
-1. Difendimi dalle forze contrarie, la notte, nel sonno, quando non sono cosciente.
+     C                        A#                                           
+1. Difendimi dalle forze contrarie, la notte, nel sonno, quando non sono
+ Dm
+cosciente.
  C               A#             Dm     C          A#     Dm
 Quando il mio percorso si fa incerto, e non abbandonarmi mai
 C             A#    Dm   A#  Dm
@@ -17,8 +19,9 @@ E' tempo di lasciare questo ciclo di vite, e non abbandonarmi mai
 C             A#    Dm 
 Non mi abbandonare mai.
  
-         C                  A#                      F                Dm
-Bridge: Perché le gioie del più profondo affetto, o dei più lievi aneliti del cuore
+Bridge:
+ C                  A#                      F                Dm
+Perché le gioie del più profondo affetto, o dei più lievi aneliti del cuore.
 D#                       Dm
 Sono solo l'ombra della luce!
 
@@ -32,6 +35,7 @@ C             A#    Dm
 Non mi abbandonare mai.
  
          C                  A#                      F                Dm
-Bridge: Perché la pace che ho sentito in certi monasteri, o la vibrante intesa di tutti i sensi in festa
+Bridge: Perché la pace che ho sentito in certi monasteri, o la vibrante intesa
+    di tutti i sensi in festa
 D#                       Dm
 Sono solo l'ombra della luce.

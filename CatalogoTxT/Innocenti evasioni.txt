@@ -1,15 +1,16 @@
-Intro:
-Em/B   F/A   Em/B   F/A       Em/B   F/A   Em/B   F/A        Em/B   F/A   Em/B   F/A
+Intro:                 (x3)
+Em/B   F/A   Em/B   F/A
 
 G                 F/G          G                F/G 
 Che sensazione di leggera follia, sta colorando l'anima mia
 G           F/G                Cmaj7   Cmaj7/B Cmaj7/A Cmaj7/B 
 immaginando preparo il cuscino qualcuno
                 F      Dm  F  Dm       G         F/G
-e' gia' nell'aria qualcuno      sorriso ingenuo e profumo.
+è già nell'aria qualcuno      sorriso ingenuo e profumo.
 
 G                F/G              G                                   F/G 
-Il giradischi le luci rosse e poi, champagne ghiacciato e l'avventura puo' iniziare ormai,
+Il giradischi le luci rosse e poi, champagne ghiacciato e l'avventura può
+   iniziare ormai,
 G                  F/G               Cmaj7  Cmaj7/B Cmaj7/A  Cmaj7/B 
 accendo il fuoco e mi siedo vicino qualcuno 
                F   Dm  F  Dm                   G
@@ -28,17 +29,18 @@ e poca luce per sognarti, no!
 
 G                   F/G          G                    F/G
 Siediti qui accanto anima mia ed abbandona la tua gelosia se puoi 
-G                  F/G                       Cmaj7   Cmaj7/B Cmaj7/A Cmaj7/B
+G                  F/G                     Cmaj7   Cmaj7/B Cmaj7/A Cmaj7/B
 combinazione ho un po' di champagne  se vuoi amore
                F     Dm F   Dm        G       F
 come sei bella amore        sorridi e lasciati andare.
  
 G                       F/G           G                      F/G
-Chi puo' bussare a quest'ora di sera, sara' uno scherzo o un amico e chi lo sa 
-G                        F                 Cmaj7    Cmaj7/B Cmaj7/A  Cmaj7/B
-no, non alzarti chiunque sia si stanchera' amore
+Chi può bussare a quest'ora di sera, sarà uno scherzo o un amico e chi lo sà
+    
+G                        F              Cmaj7    Cmaj7/B Cmaj7/A  Cmaj7/B
+no!, non alzarti chiunque sia si stancherà, amore
                F     Dm  F   Dm                      G
 come sei bella amore         ho ancora un brivido in cuore.
 
 (ad libitum sfumando)
-Dm7 G7 C C/B C/A C/B 
+Dm7   G7   C   C/B   C/A   C/B 
