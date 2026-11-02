@@ -4,10 +4,14 @@ F#m   D   D   E A   D   C#7
 (keys line walk down pickup C# B A)
  
 [Verse]
-F#m                Bm                 E     A        D                       C#7
-    The moment I wake up Before I put on my makeup I say a little (prayer for you)
-F#m                      Bm                             E        A           D                      C#7
-    And while combing my hair, now, And wondering what dress to wear, now, I say a little prayer for you
+F#m                Bm                 E     A        D                     
+    The moment I wake up Before I put on my makeup I say a little 
+         C#7
+(prayer for you)
+F#m                      Bm                             E        A         
+    And while combing my hair, now, And wondering what dress to wear, now, 
+  D                      C#7
+I say a little prayer for you
  
 [Chorus]
    D        E            C#m         F#m             E
@@ -20,10 +24,13 @@ Together, together, that's how it must be  To live without you
 Would only be heartbreak for me.
 
 [Verse]
-F#m                Bm                       E       A           D                       C#7
-    I run for the bus, dear, While riding I think of us, dear, I say a little prayer for you.
+F#m                Bm                       E       A        
+    I run for the bus, dear, While riding I think of us, dear, 
+       D            C#7
+I say a little prayer for you.
 F#m                    Bm                            E       A
-    And at work I just take time And all through my coffee break-time, (break-time!)
+    And at work I just take time And all through my coffee break-time,
+    (break-time!)
   D                       C#7
 I say a little prayer for you.
  
@@ -35,7 +42,8 @@ Forever, forever, we never will part Oh, how I'll love you
   D         E              C#m         F#m          E
 Together, together, that's how it must be  To live without you
       D D  D  D/E  D/E   D   C#7
-Would only be heartbreak for me.    (Nobody but me)    x2 (Ooooh-oo-oo-oooh)
+Would only be heartbreak for me.    (Nobody but me)    x2 
+(Ooooh-oo-oo-oooh)   
 
 [Bridge]
 F#m             Bm              E
@@ -45,4 +53,5 @@ But you.  Please love, be true. I'm in love with you.
 A
 (Answer my prayer) Answer my prayer, baby (answer my prayer)
 A
-Say you love me too (this is my prayer) Answer my prayer, baby (answer my prayer)
+Say you love me too (this is my prayer) Answer my prayer, baby 
+   (answer my prayer)

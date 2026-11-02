@@ -2,39 +2,51 @@ Intro:
 E B/D# C#m F#7/A# A
 
 [Verse 1]
-E     B/D#        C#m            F#7/A#       A                     E/G#         D             B7
-Vivo   mi piace la notte e ci vivo con le mie sigarette e il piatto che gira e dietro i vetri la citta.
-E      B/D#            C#m             F#7/A#          A                  E/G#             D
-Strano il microfono e' come un bambino gli parlo e non so se dorme o mi ascolta la luce e' sciolta nel caffe'.
+E     B/D#        C#m            F#7/A#       A                     E/G#   
+Vivo   mi piace la notte e ci vivo con le mie sigarette e il piatto che
+        D             B7
+gira e dietro i vetri la città.
+E      B/D#            C#m             F#7/A#          A
+Strano il microfono è come un bambino gli parlo e non so se dorme o mi
+E/G#             D
+ascolta la luce è sciolta nel caffè.
 
 [Chorus 1]
               G           A               D
-E ogni notte cosi' questa radio e' il mio mondo
+E ogni notte così questa radio è il mio mondo
                 G                 A       D
 coi dischi i giornali e gli scontrini del bar.
       A                  E/G#        A      B/A        E/G#
-Senti senti il telefono ancora e' la solita signora, oh no!
+Senti senti il telefono ancora è la solita signora, oh no!
                A          B      E                      A           B     E
 Ed invece sei tu ma senti che sorpresa due giorni e due notti per dimenticarti
-                   A            B      E                G                   B
-metto un disco per te poi vattene a dormire no, scusa, aspetta, dimmi dove sei.
+                   A            B      E                G                  
+metto un disco per te poi vattene a dormire no, scusa, aspetta, dimmi dove 
+ B
+sei.
 
 [Verse 2]
-E     B/D#           C#m          F#7/A#     A                      E/G#              D
-Dimmi stasera sei in casa da sola o parli nascosta fra coperte e cuscino  la radio e' li' vicino a te
+E     B/D#           C#m          F#7/A#     A                      E/G#   
+Dimmi stasera sei in casa da sola o parli nascosta fra coperte e cuscino
+           D
+la radio è lì vicino a te
 
 [Chorus 2]
-              G             A    D
-E addosso cos'hai voglio saperti tutta
-             G         A      D
-ti voglio sentire come stando li'.
+              G             A    D                 G         A      D
+E addosso cos'hai voglio saperti tutta ti voglio sentire come stando lì.
        A                E/G#           A      B/A       E/G#
 Senti, senti, volevi pensarci e allora ci hai pensato o no.
-                   A           B       E                 A             B      E
-Metto un disco per te e fra pensieri e suono mi torna la voglia di due giorni fa.
-                 A                  B     E               G                 B
-Parla ancora con me l'antenna e' un'ombra bruna contro la luna e sopra la citta'.
+                   A           B       E                 A  
+Metto un disco per te e fra pensieri e suono mi torna la voglia di due
+B       E
+giorni fa.
+                 A                  B     E               G                
+Parla ancora con me l'antenna è un'ombra bruna contro la luna e sopra la
+ B
+città.
 
 [Outro]
-E      B/D#      C#m            F#7/A#     A                    E/G#            D
-L'alba dietro le case si scalda e questo momento in diretta nel vento lo voglio dedicare a te.
+E      B/D#      C#m            F#7/A#     A                    E/G#
+L'alba dietro le case si scalda e questo momento in diretta nel vento lo
+     D
+voglio dedicare a te.
