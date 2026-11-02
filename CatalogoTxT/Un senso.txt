@@ -1,45 +1,49 @@
 Intro:
 G Em F D
 
-[Chorus]
 G      Em                              F           D9
-Voglio trovare un senso a questa sera, Anche se questa sera un senso non ce l'ha
+Voglio trovare un senso a questa sera, Anche se questa sera un senso non cel'ha
 G      Em                              F           D9
-Voglio trovare un senso a questa vita, Anche se questa vita un senso non ce l'ha
-Eb     F          Bb             Cm      Eb              F         Bb           Cm
-Voglio trovare un senso a questa storia, Anche se questa storia un senso non ce l'ha
-Eb     F          Bb             Cm      Eb              F         G
-Voglio trovare un senso a questa voglia, Anche se questa voglia un senso non ce l'ha
+Voglio trovare un senso a questa vita, Anche se questa vita un senso non cel'ha
+Eb     F          Bb             Cm
+Voglio trovare un senso a questa storia,
+Eb              F         Bb            Cm   Eb     F          Bb
+Anche se questa storia un senso non ce l'ha. Voglio trovare un senso a questa
+Cm      Eb              F         G
+voglia, Anche se questa voglia un senso non ce l'ha.
 
-[Verse]
-G                    Em                     F                   D9
-Sai che cosa penso? Che se non ha un senso, Domani arrivera'... Domani arrivera' lo stesso
+G                    Em                     F
+Sai che cosa penso? Che se non ha un senso, Domani arriverà...
+D9
+Domani arriverà lo stesso.
 G                   Em                     Eb              F            G
-Senti che bel vento Non basta mai il tempo Domani un altro giorno arrivera'...
-
-[Chorus]
+Senti che bel vento Non basta mai il tempo Domani un altro giorno arriverà...
+   
 G              Em                            F                          D
-Voglio trovare un senso a questa situazione, Anche se questa situazione un senso non ce l'ha
-Eb     F          Bb      Cm                 Eb              F             G
-Voglio trovare un senso a questa condizione, Anche se questa condizione un senso non ce l'ha
+Voglio trovare un senso a questa situazione, Anche se questa situazione un
+                   Eb     F          Bb      Cm
+senso non ce l'ha. Voglio trovare un senso a questa condizione,
+Eb              F              G
+Anche se questa condizione un senso non ce l'ha.
 
-[Verse]
-G                    Em                     F                   D9
-Sai che cosa penso? Che se non ha un senso, Domani arrivera'... Domani arrivera' lo stesso
+G                    Em                     F
+Sai che cosa penso? Che se non ha un senso. Domani arriverà... 
+D9
+Domani arriverà lo stesso.
 G                   Em                     Eb              F            G
-Senti che bel vento Non basta mai il tempo Domani e' un altro giorno ormai e' qua...
+Senti che bel vento, non basta mai il tempo, domani è un altro giorno ormai è 
+   qua...
 
-[Chorus]
-G                 F                  C                             Eb                   F G
-Voglio trovare un senso a tante cose, Anche se queste tante cose un senso non ce l'han
+G                 F                  C                             Eb      
+Voglio trovare un senso a tante cose, Anche se queste tante cose un senso
+             F G
+non ce l'han.
 
-[Verse]
 G        Em         F                   D9
-La la la la la la, Domani arrivera'... Domani arrivera' lo stesso
-G                   Em                     Eb                F      G        Em
-Senti che bel vento Non basta mai il tempo Domani e' un altro giorno arrivera'
-Eb                F      G        Em  Eb                F 
-Domani e' un altro giorno arrivera'     Domani e' un altro giorno.
-
-[Outro]
-G        Em
+La la la la la la, Domani arriverà... Domani arriverà lo stesso.
+G                   Em    
+Senti che bel vento Non basta mai il tempo.
+Eb                F      G     Em
+Domani è un altro giorno arriverà.
+Eb                F      G        Em  Eb                F         G   Em
+Domani è un altro giorno arriverà.     Domani è un altro giorno.

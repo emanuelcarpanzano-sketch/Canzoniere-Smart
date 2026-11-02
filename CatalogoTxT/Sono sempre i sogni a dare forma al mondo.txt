@@ -1,33 +1,48 @@
 INTRO:
 C  D      C  D
 
-C      D      G                    D                             C            D        Em 
-Io non lo so, quanto tempo abbiamo, quanto ne rimane.  Io non lo so, che cosa ci puo' stare.
-C      D      G                         D                    C           D         Am        C      D         G
-Io non lo so, chi c'e' dall'altra parte non lo so per certo. So che ogni nuvola e' diversa, so che nessuna e' come te.
+C      D      G                    D                             C         
+Io non lo so, quanto tempo abbiamo, quanto ne rimane.  Io non lo so,
+         D        Em 
+che cosa ci può stare.
+C      D      G                         D                    C
+Io non lo so, chi c'è dall'altra parte non lo so per certo. So che ogni
+ D        Am        C      D         G
+nuvola è diversa, so che nessuna è come te.
 
-C       D     G                      Bm                 C                 D          Em
-Io non lo so, se e' cosi' sottile il filo che ci tiene. Io non lo so che cosa man_ca an_cora.
-C        D              G                  Bm             C           D          Am       C      D          G
-Io non lo so  se sono dentro o fuori se mi metto in pari. So che ogni lacrima e' diversa, so che nessuna e' come te.
+C       D     G                      Bm
+Io non lo so, se è così sottile il filo che ci tiene.
+  C                 D          Em
+Io non lo so che cosa man_ca an_cora.
+C        D              G                  Bm             C           D    
+Io non lo so  se sono dentro o fuori se mi metto in pari. So che ogni lacrima
+      Am       C      D          G
+ è diversa, so che nessuna è come te.
 
-
-RIT:
+Rit.:
 C             D            G     D         C           D                 Em
-Sono sempre i sogni a dare forma al mondo, sono sempre i sogni a fare la realta'.
-C             D            G      D        C            D               Am     C            D                    G
-Sono sempre i sogni a dare forma al mondo e sogna chi ti dice che non e' cosi' e sogna chi non crede che sia tutto qui.
+Sono sempre i sogni a dare forma al mondo, sono sempre i sogni a fare la realtà.
+C             D            G      D        C            D               Am 
+Sono sempre i sogni a dare forma al mondo e sogna chi ti dice che non è così
+  C            D                    G
+ e sogna chi non crede che sia tutto qui.
 
-
-C       D         G                    Bm                            C     D             Em
-Io non lo so, se e' gia' tutto scritto, come e' stato scritto.  Io non lo so, che cosa viene dopo.
-C       D        G                Bm                    C       D           Am       C      D          G
-Io non lo so, se ti tieni stretto ogni tuo diritto. So che ogni attimo e' diverso, so che nessuna e' come te.
+C       D         G                    Bm                            C   D  
+Io non lo so, se è già tutto scritto, come è stato scritto.  Io non lo so,
+            Em
+che cosa viene dopo.
+C       D        G                Bm                    C       D          
+Io non lo so, se ti tieni stretto ogni tuo diritto. So che ogni attimo è
+ Am       C      D          G
+diverso, so che nessuna è come te.
 
      C       D         Em        Bm         C      Bm              Em     D
-E a giornata finita, a stanchezza salita, a salute brindata, provi a fare i conti.
-    C      D       Em        Bm        C         Bm            Em          D
-A giornata finita, alla fine capita, a preghiera pensata, tu ti prendi, il tempo che...
+E a giornata finita, a stanchezza salita, a salute brindata, provi a fare i 
+   conti.
+    C      D       Em        Bm        C         Bm            Em          
+A giornata finita, alla fine capita, a preghiera pensata, tu ti prendi, il 
+D
+tempo che...
 
-RIT + Outro:
+Rit. + Outro:
 C   D   Em   D C  Bm  Em  D

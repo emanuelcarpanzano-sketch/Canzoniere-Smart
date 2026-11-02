@@ -1,54 +1,62 @@
 Intro:
-Em    D      Cmaj7    Bm7
+Em  D   Cmaj7   Bm7
 
-Em                D        Cmaj7              Bm7/E    Em    D           Cmaj7      Bm7/E
-Sogno un cimitero di campagna e io la',    all'ombra di un ciliegio in fiore senza eta'.
-      Em              D                  Cmaj7          Bm7/E  Em            D                    Cmaj7        Bm7/E
-Per riposare un poco, due o trecento anni            giusto per capir di piu' e placar gli affanni.
+   Em                D        Cmaj7              Bm7/E    Em    D
+1. Sogno un cimitero di campagna e io là,    all'ombra di un ciliegio in
+Cmaj7      Bm7/E        Em              D                  Cmaj7
+fiore senza età.  Per riposare un poco, due o trecento anni
+   Bm7/E  Em            D                    Cmaj7        Bm7/E
+giusto per capir di più e placar gli affanni.
 
 Em  D   Cmaj7  Bm7  
 x2
 
-Em                    D             Cmaj7          Bm7/E     Em                  D              Cmaj7     Bm7/E
-Sogno al mio risveglio di trovarti accanto,         intatta con le stesse mutandine rosa.
-       Em                        D            Cmaj7     Bm7/E   Em               D              Cmaj7  Bm7/E
-Non piu' bandiera di un vivissimo tormento,       ma solo l'ornamento di una bella sposa.
+   Em                    D             Cmaj7          Bm7/E     Em            
+2. Sogno al mio risveglio di trovarti accanto,         intatta con le stesse
+      D              Cmaj7     Bm7/E
+mutandine rosa.
+       Em                        D            Cmaj7     Bm7/E   Em         
+Non più bandiera di un vivissimo tormento,       ma solo l'ornamento di un
+      D              Cmaj7  Bm7/E
+a bella sposa.
 
-Em                        D Cmaj7                  Bm7   Em                      D  Cmaj7                Bm7
-    Ma che colore ha   una giornata uggiosa?    Ma che sapore ha    una vita mal spesa?    x2
+Rit.:
+Em                       D Cmaj7                  Bm7   Em
+  Ma che colore ha,  una giornata uggiosa?    Ma che sapore ha
+          D  Cmaj7       Bm7
+una vita mal spesa?    x2
 Em  D   Cmaj7  Bm7  
 x3
 
-Em                D               Cmaj7        Bm7/E
-Sogno di abbracciare un amico vero
-               Em                           D                           Cmaj7           Bm7/E
+   Em                D               Cmaj7        Bm7/E
+3. Sogno di abbracciare un amico vero
+               Em                           D                Cmaj7    Bm7/E
 che non voglia vendicarsi su di me di un suo momento amaro
-    Em                    D          Cmaj7          Bm7/E      Em            D                 Cmaj7    Bm7/E
-e gente giusta che rifiuti di esser preda             di facili entusiasmi e ideologie alla moda.
+    Em                    D          Cmaj7          Bm7/E      Em          
+e gente giusta che rifiuti di esser preda             di facili entusiasmi 
+  D                 Cmaj7    Bm7/E
+e ideologie alla moda.
 
-Em                        D Cmaj7                  Bm7   Em                      D  Cmaj7                Bm7
-    Ma che colore ha   una giornata uggiosa?    Ma che sapore ha    una vita mal spesa?    x2
+Rit.
 
-Em  D   Cmaj7  Bm7  
-x2 
+Em      D    Cmaj7     Bm7    Em  D             Cmaj7             Bm7
+Coro:  Ma che colore ha             Ma che colore ha       Ma che colore ha.
 
-Em                  D    Cmaj7       Bm7      Em                      D                      Cmaj7          Bm7                            
-                    Coro:  Ma che colore ha                                   Ma che colore ha       Ma che colore ha
+   Em                D               Cmaj7      Bm7/E       Em                
+4. Sogno il mio paese infine dignitoso          e un fiume con i pesci vivi a 
+      D                  Cmaj7      Bm7/E
+un'ora dalla casa,
+Coro:  Ma che colore ha                 Ma che colore ha
+    Em                  D             Cmaj7      Bm7/E             Em      
+di non sognare la Nuovissima Zelanda             per fuggire via da te,
+        D              Cmaj7      Bm7/E
+Brianza velenosa.
+            Coro:  Ma che colore ha. 
+Rit.
+            Coro:  Ma che colore ha          Ma che sapore ha
 
-Em                D               Cmaj7      Bm7/E       Em                      D                  Cmaj7      Bm7/E
-Sogno il mio paese infine dignitoso          e un fiume con i pesci vivi a un'ora dalla casa,
-                                     Coro:  Ma che colore ha                                                  Ma che colore ha
-    Em                  D             Cmaj7      Bm7/E             Em              D              Cmaj7      Bm7/E
-di non sognare la Nuovissima Zelanda             per fuggire via da te, Brianza velenosa.
-                                            Coro:  Ma che colore ha 
-Coda:
-Em              D Cmaj7            Bm7                Em              D Cmaj7          Bm7
-  Ma che colore ha        una giornata uggiosa?    Ma che sapore ha  una vita mal spesa?    x2
-                    Coro:  Ma che colore ha                                   Ma che sapore ha
-
-Em  D   Cmaj7  Bm7  
-x2 
-
- Em                  D    Cmaj7       Bm7      Em                      D                      Cmaj7          Bm7
-  Ma che colore ha?                            Ma che sapore ha                                                x2
-                    Coro:  Ma che colore ha                                   Ma che sapore ha
+ Em                  D    Cmaj7       Bm7      Em                D   
+  Ma che colore ha?                            Ma che sapore ha?            
+                         Cmaj7          Bm7
+                           x2
+            Coro:  Ma che colore ha?    Ma che sapore ha?
