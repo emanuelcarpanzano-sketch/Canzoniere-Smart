@@ -3,7 +3,8 @@ C#m7 Cm7 Bm7 Bbm7     C#m7 Cm7 Bm7 Bbm7     C#m7 Cm7 Bm7 Bbm7
 E7 A7    E7 A7
  
                E7 A7                        E7                       A7
-1. Ma che te ne fotte,  e quanno good good Cchiù nero d'a notte nun po' venì,
+1. Ma che te ne fotte, e quanno good good Cchiù nero d'a notte nun pò venì,
+   
          E7      A7  E7      A7
 E nun sta'accussì.      Oggi è solo lunedì.
 
@@ -16,10 +17,11 @@ A7  F#m7 G#7
  
 [Chorus]
  
-      C#m7                  F#m7    G#7  C#m7         Cm7 Bm7       E7 Amaj7
+      C#m7                  F#m7    G#7  C#m7         Cm7 Bm7      E7 Amaj7
 Rit.: Chi t'ha ditto ca nun può scassà   Tutto chello ca te fà 'ncazzà
                         F#m7                    G#7
-Chi t'ha ditto ca è fernuto  Ca nun ci capimmo cchiù I' parlavo sulo 'e chello ca mò nun faje cchiù.
+Chi t'ha ditto ca è fernuto  Ca nun ci capimmo cchiù I' parlavo sulo 'e chello
+ca mò nun faje cchiù.
 
 C#m7 Cm7 Bm7 Bbm7     C#m7 Cm7 Bm7 Bbm7     C#m7 Cm7 Bm7 Bbm7
 E7 A7    E7 A7
