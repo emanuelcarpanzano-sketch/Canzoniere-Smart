@@ -1,27 +1,47 @@
 INTRO:
 E B G#m A C#m B A E
  
-E                   B                G#m                A       C#m                     B                          A
-Un conto e' volere, vedere le stelle un conto e' farsi guidare. Un conto e' saperle la' in alto e lasciarle un po' fare. 
-E                   B                G#m                A       C#m                     B                          A
-Un conto e' la rabbia che provi a vent'anni un conto e' la rabbia a quaranta. Un conto che intanto non sembra cambiare mai niente.
+E                   B                G#m                A       C#m        
+Un conto è volere, vedere le stelle un conto è farsi guidare. Un conto è
+             B                          A
+ saperle là in alto e lasciarle un pò fare. 
+E                   B                G#m                A       C#m        
+Un conto è la rabbia che provi a vent'anni un conto è la rabbia a quaranta.
+             B                          A
+Un conto che intanto non sembra cambiare mai niente.
 
-         E     B        G#m   A       C#m      B             A             E
-Sai che, Ora e allora e ancora cosi', a rubare l'amore che si fa rubare.   (Stacco)
+         E     B        G#m   A       C#m      B             A   
+Sai che, Ora e allora e ancora così, a rubare l'amore che si fa rubare.   
+  E
+(Stacco)
 
-E                   B                G#m                A             C#m                     B                    A
-Un conto e' la mappa, di tutti i locali un conto e' dovere star fuori. Un conto e' sentire, che riesci a lasciarti dormire.
-E                   B                G#m                A             C#m                     B                    A
-Un conto e' svegliarti e sentirti gia' stanco un conto e' trovarla di fianco. Un conto e' sentire che il fuoco non e' ancora spento.
+E                   B                G#m                A            C#m  
+Un conto è la mappa, di tutti i locali un conto è dovere star fuori. Un
+                   B                    A
+conto è sentire, che riesci a lasciarti dormire.
+E                   B                G#m                A             C#m  
+Un conto è svegliarti e sentirti già stanco un conto è trovarla di fianco.
+                   B                    A
+ Un conto è sentire che il fuoco non è ancora spento.
 
-       E        B          G#m   A          C#m    B            A          E        B      G#m       A              C#m      B             A          E
-Tanto, Ora e allora e ancora cosi',   a rubare l'amore che si fa rubare... Ora e allora e quando sara', su una fune sottile con il proprio stile.    (Stacco)
+       E        B          G#m   A          C#m    B            A          
+Tanto, Ora e allora e ancora così,   a rubare l'amore che si fa rubare... 
+E        B      G#m       A              C#m      B             A
+Ora e allora e quando sarà, su una fune sottile con il proprio stile.
+  E
+(Stacco)
 
-E                   B                G#m                A       C#m                     B                          A
-Un conto e' la vita che imposta il suo gioco  un conto e' averlo capito. Un conto e' ripeterti spesso che sei fortunato.  
+E                   B                G#m                A       C#m        
+Un conto è la vita che imposta il suo gioco  un conto è averlo capito. Un
+             B                          A
+ conto è ripeterti spesso che sei fortunato.  
 
-       E        B          G#m   A          C#m    B            A          E        B      G#m       A              C#m      B             A          E
-Tanto, Ora e allora e ancora cosi',   a rubare l'amore che si fa rubare... Ora e allora e quando sara', su una fune sottile con il proprio stile.    (Stacco)
+       E        B          G#m   A          C#m    B            A          
+Tanto, Ora e allora e ancora così,   a rubare l'amore che si fa rubare... 
+E        B      G#m       A              C#m      B             A
+Ora e allora e quando sarà, su una fune sottile con il proprio stile.
+  E
+(Stacco)
 
 E B G#m A C#m B A           E B G#m A
 (Stacco)                      (Fine)

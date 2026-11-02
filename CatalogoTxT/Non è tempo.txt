@@ -7,43 +7,60 @@ E calendari a chiederci se stiamo prendendo abbastanza, abbastanza
 se per ogni sbaglio avessi mille lire che vecchiaia che passerei
 
 [Verse]
- C                         D                           G              D         Em7
-Strade troppo strette e diritte per chi vuol cambiar rotta oppure sdraiarsi un po'
+ C                         D                           G              D    
+Strade troppo strette e diritte per chi vuol cambiar rotta oppure sdraiarsi
+     Em7
+ un po'
     C                 D                G        D     Em7
-che andare va bene pero' a volte serve un motivo, un motivo
+che andare va bene però a volte serve un motivo, un motivo
  C                                  D   C                       D
-certi giorni ci chiediamo: e' tutto qui? E la risposta e' sempre si
+certi giorni ci chiediamo: è tutto qui? E la risposta è sempre sì
 
 [Chorus]
-     G           D             C            Em          G       D            C            Em
-Non e' tempo per noi, che non ci svegliamo mai  abbiam sogni pero', troppo grandi e belli sai
+     G           D             C            Em          G       D          
+Non è tempo per noi, che non ci svegliamo mai  abbiam sogni però, troppo 
+  C            Em
+grandi e belli sai
           C             D        Em               A
-belli o brutti abbiam facce che pero' non cambian mai
-       C         D           F            G        G D C Em  G D C Em  C D Em A  C D F G
-non e' tempo per noi e forse non lo sara' mai
+belli o brutti abbiam facce che però non cambian mai
+       C         D           F            G        
+non è tempo per noi e forse non lo sarà mai.
+G D C Em  G D C Em  C D     Em A  C D F G
 
 [Verse]
   C                       D                          G       D         Em7
 Se un bel giorno passi di qua, lasciati amare e poi scordati svelta di me
   C                         D                        G   D          Em7
-che quel giorno e' gia' buono per amare qualchedun'altro, qualche altro
+che quel giorno è già buono per amare qualche d'un altro, qualche altro
   C                         D                C                      D
 dicono che noi ci stiamo buttando via, be noi siam bravi a raccoglierci
 
 [Chorus]
-        G        D           C          Em          G          D             C            Em
-Non e' tempo per noi, che non ci adeguiamo mai fuori moda, fuori posto, insomma sempre fuori dai
-         C         D           Em            A            C       D             F          G
-abbiam donne pazienti, rassegnate ai nostri guai non e' tempo per noi, e forse non lo sara' mai
+        G        D           C          Em          G          D           
+Non è tempo per noi, che non ci adeguiamo mai fuori moda, fuori posto,
+  C            Em
+insmma sempre fuori dai
+         C         D           Em            A            C       D        
+abbiam donne pazienti, rassegnate ai nostri guai non è tempo per noi, e
+     F          G
+fose non lo sarà mai.
 
 [Chorus]
-     G           D             C          Em        G           D             C           Em
-Non e' tempo per noi, che non vestiamo come voi non ridiamo, non piangiamo, non amiamo come voi
-        C          D             Em        A          C        D            F          G
-forse ingenui o testardi, poco furbi casomai  non e' tempo per noi e forse non lo sara' mai
+     G           D             C          Em        G           D          
+Non è tempo per noi, che non vestiamo come voi non ridiamo, non piangiamo,
+   C           Em
+ non amiamo come voi
+        C          D             Em        A          C        D           
+forse ingenui o testardi, poco furbi casomai  non è tempo per noi e forse 
+ F          G
+non lo sarà mai.
 
 [Chorus]
-       G        D             C          Em         G       D            C            Em
-Non e' tempo per noi, che non ci svegliamo mai abbiam sogni pero' troppo grandi e belli sai
-         C              D        Em               A         C          D            F           G
-belli o brutti abbiam facce che pero' non cambian mai non e' tempo per noi, e forse non lo sara' mai.
+       G        D             C          Em         G       D
+Non è tempo per noi, che non ci svegliamo mai abbiam sogni però troppo
+C           Em
+grandi e belli sai
+         C              D        Em               A         C          D   
+belli o brutti abbiam facce che però non cambian mai non è tempo per noi,
+         F           G
+ e forse non lo sarà mai.

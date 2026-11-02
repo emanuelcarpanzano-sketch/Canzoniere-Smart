@@ -2,35 +2,53 @@ Introduzione: [Intro]
  C Gmaj7    C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7 
  C Gmaj7    C  Gmaj7   
 
-                  Gmaj7                          F#m7           B7         Em
-Quaccosa nun va cchiu',  e' gia' tutto scontato,  comme si nun fosse i'...
-           F9                            G                    Am7        D7       C/F  G
-ma nun ce sta piacere, e nun ce sta piacere, nemmeno a sta' buono 'na sera.  Mm, boo
+                  Gmaj7                          F#m7           B7    Em     
+Quaccosa nun va cchiù,  è già tutto scontato,  comme si nun fosse ì...
+           F9                            G                    Am7        D7
+ma nun ce sta piacere, e nun ce sta piacere, nemmeno a stà buono 'na sera.
+       C/F  G
+  Mm, boo
+                  Gmaj7                          F#m7           B7   Em      
+Quaccosa nun va cchiù, te 'nviente pure Dio, p'essere o' vero...
+           F9                            G                    Am7        D7
+ma nun ce sta piacere, e nun ce sta piacere, nemmeno a stà 'nzieme 'na sera.
+     C/F  G
+ Ho, ho huo.
 
-                  Gmaj7                          F#m7           B7         Em
-Quaccosa nun va cchiu', te 'nviente pure Dio, p'essere overo...
-           F9                            G                    Am7        D7       C/F  G
-ma nun ce sta piacere, e nun ce sta piacere, nemmeno a sta' 'nzieme 'na sera. Ho, ho huo.
+Inciso/Fill:
+ C Gmaj7     C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7
+ C Gmaj7     C Gmaj7
 
-Inciso:
- C Gmaj7     C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7   C Gmaj7    C Gmaj7
-
-C                  Bm7                                   Am7                   Em
-Ah! cull'uocchie astritte e chino e suonno te resta 'o munno 'mmano e po', l'haje supporta',
-C                 Bm7                                   Am7                   Em7
-  cull'uocchie astritte e o' viento attuorno, te vieste e nun saje cchiu', che cosa haje raccunta',
-           F9                            G                    Am7        D7       C/F  G
-E nun ce sta piacere e nun ce sta piacere nemmeno a ghi' a fa' 'nculo 'na sera. hu huo.
+C                  Bm7                                   Am7               
+Ah! cull'uocchie astritte e chino e suonno te resta 'o munno 'mmano e pò, 
+    Em
+l'haje supportà,
+C                 Bm7                                   Am7                
+  cull'uocchie astritte e ò viento attuorno, te vieste e nun saje cchiù, 
+   Em7
+che cosa haje raccuntà,
+           F9                            G                    Am7
+E nun ce sta piacere e nun ce sta piacere nemmeno a ghì a fà 'nculo 'na
+D7       C/F  G
+sera. Hu huo.
 
 A solo:
-C Gmaj7     C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7   C Gmaj7    C Gmaj7
+C Gmaj7     C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7   
+C Gmaj7     C Gmaj7
 
-C                  Bm7                                   Am7                   Em
-Ah! cull'uocchie astritte e chino e suonno te resta 'o munno 'mmano e po', l'haje supporta',
-C                 Bm7                                   Am7                   Em7
-  cull'uocchie astritte e o' viento attuorno, te vieste e nun saje cchiu', che cosa haje raccunta',
-           F9                            G                    Am7        D7       C/F  G
-E nun ce sta piacere e nun ce sta piacere nemmeno a ghi' a fa' 'nculo 'na sera. hu huo.
+C                  Bm7                                   Am7               
+Ah! cull'uocchie astritte e chino e suonno te resta 'o munno 'mmano e pò, 
+    Em
+l'haje supportà,
+C                 Bm7                                   Am7                
+  cull'uocchie astritte e ò viento attuorno, te vieste e nun saje cchiù, 
+   Em7
+che cosa haje raccuntà,
+           F9                            G                    Am7
+E nun ce sta piacere e nun ce sta piacere nemmeno a ghì a fà 'nculo 'na
+D7       C/F  G
+sera. Hu huo.
 
-Outro:
-C Gmaj7     C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7   C Gmaj7    C Gmaj7
+Fine/Outro:
+C Gmaj7     C Gmaj7    C  D7  Gmaj7  G/F  Cmaj7 Bm Em  G# G Am  D7
+C Gmaj7     C Gmaj7

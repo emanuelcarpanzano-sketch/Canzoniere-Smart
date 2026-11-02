@@ -8,8 +8,9 @@ there's a land that i've heard of, once in a lullaby.
 F   Fm    C           Cmaj7     Dm        G7        C
 and the dreams that you dare to dream really do come true.
  
-        C                              Fm                                   Fmaj7
-Bridge: Someday I'll wish upon a star, wake up where the clouds are far behind... me.
+Bridge:
+    C                              Fm                                   Fmaj7
+Someday I'll wish upon a star, wake up where the clouds are far behind... me.
       C                                B7
 Where troubles melts like lemon drops, A way above the chimney tops,
        G     Bm    Dm   G7

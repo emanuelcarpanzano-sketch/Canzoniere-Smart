@@ -27,7 +27,8 @@ Gm           C            F         F  A#
 No alarms and no surprises please
 
 [Interlude]
-C    Csus   A#      A#7     C      Csus   A#      A#7     Gm        Gm     F      F     A#     
+C    Csus   A#      A#7     C      Csus   A#      A#7     Gm        
+Gm     F      F     A#     
 
 [Verse 2]
 F                  A#/D       

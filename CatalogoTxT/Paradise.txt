@@ -1,14 +1,17 @@
 INTRO: 
 Gm   C   Dm   F      Gm   C   Dm   F       Gm   C   Dm   F
 Bb   F   C/E         Bb   F   C/E
-Gm   Bb   F   C      Gm   Bb   F   C       Gm   Bb   F   C       Gm   Bb   F   C
+Gm   Bb   F   C      Gm   Bb   F   C
+Gm   Bb   F   C      Gm   Bb   F   C
 
 Dm            Bb          F                C
 When she was just a girl, she expected the world,
 Dm               Bb                     F               C
 But it flew away from her reach, so she ran away in her sleep.
-           Gm        Bb              F         C    Gm        Bb            F                         C
-Dreamed of para-para-paradise, para-para-paradise, Para-para-paradise, every time she closed her eyes.
+           Gm        Bb              F         C    Gm        Bb           
+Dreamed of para-para-paradise, para-para-paradise, Para-para-paradise,
+        F                         C
+ every time she closed her eyes.
 
 Gm   Bb   F    C           Gm   Bb   F    C
 
@@ -25,16 +28,18 @@ In the night, the stormy night, she closed her eyes.
        Bb         F                    C
 In the night, the stormy night, away she flied.
 
-               Gm        Bb                       F         C
+               Gm        Bb                       F    C
 [And dreamed of para-para-paradise, para-para-paradise,
 Gm        Bb               F           C
 Para-para-paradise, whoa-oh-oh oh-oooh oh-oh-oh.] (x2)
 
-Gm   C   Dm   F             Gm   C   Dm   F          Gm   C   Dm   F        Gm   C   Dm   F
+Gm   C   Dm   F        Gm   C   Dm   F          
+Gm   C   Dm   F        Gm   C   Dm   F
 
-      Bb          C               F                    Bb          C                           F
-Still lying underneath the stormy skies, she said oh-oh-oh-oh-oh-oh. I know the sun's set to rise.
-
+      Bb          C               F                    Bb          C       
+Still lying underneath the stormy skies, she said oh-oh-oh-oh-oh-oh. I know
+                    F
+ the sun's set to rise.
 
                Gm        Bb                 F         C
 [And dreamed of para-para-paradise, para-para-paradise,
