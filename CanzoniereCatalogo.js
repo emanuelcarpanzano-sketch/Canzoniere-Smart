@@ -4,7 +4,7 @@ window.catalogoPopRock = [
     { titolo: "29 Settembre", autore: "Lucio Battisti" },
 
     { titolo: "A day in The Life", autore: "The Beatles" },
-    { titolo: "A me me piace o blues", autore: "Pino Daniele da 'Nero a metà' 1980" },
+    { titolo: "A mé me piace o'blues", autore: "Pino Daniele da 'Nero a metà' 1980" },
     { titolo: "A rush of blood to the head", autore: "Coldplay da 'A Rush of blood to the head' 2002" },
     { titolo: "A te", autore: "Jovanotti da 'Safari' 2008" },
     { titolo: "A testa in giu", autore: "Pino Daniele da  'Nero a metà' 1980" },
