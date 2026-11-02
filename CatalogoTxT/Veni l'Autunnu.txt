@@ -2,33 +2,37 @@ Introduzione: [Intro] (Maestoso)
 B A     B A    E
 
 F#m      E        B   Emaj7 F#m      E     G   G7
-Stamu un pocu all'ummra,    Ca c'e' troppu suli
+Stamu un pocu all'ummra,    Ca c'è troppu suli
 
 Inciso:
 C G    F Am   C Dm Am  F  C
 
-E        B      A              E     A       B                  A    E        A
-Veni l'autunnu, scura cchiu' prestu l'albiri peddunu i fogghi e accumincia 'a scola
+E        B      A              E     A       B                  A    E     
+Veni l'autunnu, scura cchiù prestu l'albiri peddunu i fogghi e accumincia 
+   A
+'a scola
     A6           B            E           A            B            E
-da' mari gia' si sentunu i riuturi e a' mari gia' si sentunu i riuturi.
+dà mari già si sentunu i riuturi e à mari già si sentunu i riuturi.
 
 C               G          F Em    Dm            Am        Esus4     E
-Mo patri m'insignau lu muraturi    pi nan sapiri leggiri e scriviri.
+Mò patri m'insignau lu muraturi    pi nan sapiri leggiri e scriviri.
     C           G               F Em  Dm             Am            Em G7
-E' inutili ca 'ntrizzi e fai cannola, lu santu e' di mammuru e nan sura.
+È inutili ca 'ntrizzi e fai cannola, lu santu è di mammuru e nan sura.
 
 Inciso:
 C G    F Am   C Dm Am  F  C
 
-E        B      A              E     A       B                  A    E        A
-Sparunu i bummi supra a Nunziata 'n cielu fochi di culuri 'n terra aria bruciata
+E        B      A              E     A       B                  A    E     
+Sparunu i bummi supra a Nunziata 'n cielu fochi di culuri 'n terra aria
+     A
+bruciata
     A6           B            E           A            B            E
 e tutti appressu o santu 'nda vanedda, Sicilia bedda mia, Sicilia bedda.
 
 C               G          F Em    Dm            Am        Esus4     E
 Chi stranu e cumplicatu sintimentu gnonnu ti l'aja ddiri li mo peni,
     C           G            F Em  Dm             Am            Em G7
-cu sapi si ssi' in gradu di capiri no sacciu comu mai ti uogghiu beni.
+cu sàpi si ssì in gradu di capiri, no sacciu comu mai ti uogghiu beni.
 
 C     G  F     C       F        G        Dm     Em  F
 Messmuka issmi Khalifa adrussu 'allurata al 'arabiata
@@ -39,4 +43,4 @@ Outro:
 E B    A E   A B    A E A
 
 A              B      E    A              B      E
-Likulli helm muthabir amal likulli helm muthabir amal.
+Likulli helm muthabir amal. Likulli helm muthabir amal.
