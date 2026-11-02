@@ -1,26 +1,36 @@
 A                C#m          F#m  E
 
-  A                C#m          F#m  E    A              C#m                D  F#7  Bm
-1. Quanto sei bella Roma quand'è sera.  Quanno la luna se specchia dentro ar fontanone 
+  A                C#m          F#m  E    A              C#m               
+1. Quanto sei bella Roma quand'è sera.  Quanno la luna se specchia dentro
+ D  F#7  Bm
+ar fontanone 
         E7   C#m        F#m      A            E          D         
 e le coppiette se ne vanno via, quanto sei bella Roma quanno piove.
 
 A    C#m    F#m   E
 
-  A                C#m          F#m     E       A          C#m                  D  F#7  Bm
-2. Quanto sei bella Roma quand'è er tramonto. Quando l'arancia rosseggia ancora sui sette colli 
-        E7   C#m          F#m      A              E          D        A E             D
-e le finestre so' tanti occhi, che te sembrano dì quanto sei bella, ah ah, quanto sei bella. 
+  A                C#m          F#m     E       A          C#m             
+2. Quanto sei bella Roma quand'è er tramonto. Quando l'arancia rosseggia
+     D  F#7  Bm
+ancora sui sette colli 
+        E7   C#m          F#m      A              E          D        A E  
+e le finestre so' tanti occhi, che te sembrano dì quanto sei bella, ah ah, 
+           D
+quanto sei bella. 
 
         A      B7      A                   B7   E7
 Bridge: Oggi me sembra che, er tempo se sia fermato qui. 
 
 + 2 semitoni
 
-  B           D#m         G#m    F#       B           D#m                E    G#7 C#m
-3. Na carrozzella va co du stranieri, un robivecchi te chiede un po' de stracci. 
-        F#7    D#m  G#m     B              F#               E           B  F#            E
-Li passeracci, so' usignoli, io ce so' nato a Roma, io t'ho scoperta stamattina, io t'ho scoperta.  
+  B           D#m         G#m    F#       B           D#m
+3. Na carrozzella va co du stranieri, un robivecchi te chiede un po' de
+ E    G#7 C#m
+stracci. 
+        F#7    D#m  G#m     B              F#               E
+Li passeracci, so' usignoli, io ce so' nato a Roma, io t'ho scoperta
+   B    F#            E
+stamattina, io t'ho scoperta.  
 
         B     C#7       E   B                C#7    F#7
 Bridge: Oggi me sembra che, er tempo se sia fermato qui. 

@@ -1,43 +1,69 @@
 Intro:  I   VI    IV     V    V
         C   Am    F     G2   G7
 
-C                           Am                      F                        G2           G7
-Quando finisce un amore, cosi' com'e' finito il mio senza una ragione ne' un motivo, senza niente
-C                           Am                             F                        G2           G7
-ti senti un nodo nella gola, ti senti un buco nello stomaco ti senti vuoto nella testa e non capisci niente.      (+3 Semitoni)
+C                           Am                      F                      
+Quando finisce un amore, così com'è finito il mio senza una ragione nè
+  G2           G7
+un motivo, senza niente
+C                           Am                             F               
+ti senti un nodo nella gola, ti senti un buco nello stomaco ti senti vuoto 
+         G2           G7
+nella testa e non capisci niente.      (+3 Semitoni)
 
-Eb                         Cm                              Ab                                Bb
-e non ti basta piu' un amico e non ti basta piu' distrarti e non ti basta bere da ubriacarti, e non ti basta ormai piu' niente        (+3 Semitoni)
+Eb                         Cm                              Ab              
+e non ti basta più un amico e non ti basta più distrarti e non ti basta
+                  Bb
+bere da ubriacarti, e non ti basta ormai più niente        (+3 Semitoni)
 
-Gb                                  Ebm                                      B                            Db7
-e in fondo, pensi, ci sara' un motivo, e cerchi a tutti i costi una ragione eppure non c'e' mai una ragione perche' un amore debba finire     (+3 Semitoni)
+Gb                                  Ebm                                    
+e in fondo, pensi, ci sarà un motivo, e cerchi a tutti i costi una ragione
+  B                            Db7
+ eppure non c'è mai una ragione perché un amore debba finire     (+3 Semitoni)
 
-A                         F#m                           D                       E2             E7         F#
-e vorresti cambiare faccia e vorresti cambiare nome e vorresti cambiare aria e vorresti cambiare vita e vorresti cambiare il mondo   (+2 Semitoni)
+A                         F#m                           D                  
+e vorresti cambiare faccia e vorresti cambiare nome e vorresti cambiare aria
+     E2             E7         F#
+ e vorresti cambiare vita e vorresti cambiare il mondo   (+2 Semitoni)
    B9                    G#m                                   E
-ma sai perfettamente, che non ti servirebbe a niente  perche' c'e' lei, perche' c'e' lei,
+ma sai perfettamente, che non ti servirebbe a niente  perché c'è lei, perché
+ c'è lei,
+    B                                       G#m                            
+perché c'è lei nelle tue ossa, perché c'è lei nella mia mente, perché 
+      E                        F#
+c'è lei nella tua vita e non potresti più mandarla via.        (+3 Semitoni)
 
-    B                                       G#m                                  E                        F#
-perche' c'e' lei nelle tue ossa, perche' c'e' lei nella mia mente, perche' c'e' lei nella tua vita e non potresti piu' mandarla via.        (+3 Semitoni)
-
-D                          Bm                             G6                       A2                A7        B7
-Nemmeno se cambiassi faccia, nemmeno se cambiassi nome, nemmeno se cambiassi aria, nemmeno se cambiassi vita, nemmeno se cambiassi il mondo.  
+D                          Bm                             G6               
+Nemmeno se cambiassi faccia, nemmeno se cambiassi nome, nemmeno se cambiassi
+        A2                A7        B7
+ aria, nemmeno se cambiassi vita, nemmeno se cambiassi il mondo.  
 
 (giro +2 Semitoni) 
 E    C#m    A      B7
  
-E                          C#m                           A                       B7
-Pero', se potessi ragionarci sopra, saprei perfettamente che domani sara' diverso, lei non sara' piu' lei
+E                          C#m                           A                 
+Però, se potessi ragionarci sopra, saprei perfettamente che domani sarà
+      B7
+diverso, lei non sarà più lei
 E                             C#m                           A
-io, non saro' lo stesso uomo, magari l'avro' gia' dimenticata, magari,
-B                        E C#m                      A A6      B           Db7
-se potessi ragionarci sopra, se potessi ragionarci sopra,   ma non posso, perche',   (+2 Semitoni)
+io, non sarò lo stesso uomo, magari l'avrò già dimenticata, magari,
+B                        E C#m                      A A6      B
+se potessi ragionarci sopra, se potessi ragionarci sopra,   ma non posso,
+Db7
+perché,   (+2 Semitoni)
 
-Gb                      Ebm                         B                            Db7
-quando finisce un amore, cosi' com'e' finito il mio senza una ragione ne' un motivo, senza niente
-   Gb                      Ebm                              B                         Db7
-ti senti un nodo nella gola, ti senti un buco nello stomaco ti senti vuoto nella testa e non capisci niente
-Gb                          Ebm                              B                                 Db7
-e non ti basta piu' un amico e non ti basta piu' distrarti e non ti basta bere da ubriacarti, e non ti basta ormai piu' niente
-     Gb                            Ebm                                      B                             Db7                       Gb Ebm B Db7
-e in fondo, pensi, ci sara' un motivo, e cerchi a tutti i costi una ragione eppure non c'e' mai una ragione perche' un amore debba finire..       - giro -
+Gb                      Ebm                         B                      
+quando finisce un amore, così com'è finito il mio senza una ragione nè
+      Db7
+un motivo, senza niente
+   Gb                      Ebm                              B              
+ti senti un nodo nella gola, ti senti un buco nello stomaco ti senti vuoto 
+           Db7
+nella testa e non capisci niente
+Gb                          Ebm                              B             
+e non ti basta più un amico e non ti basta più distrarti e non ti basta
+                    Db7
+bere da ubriacarti, e non ti basta ormai più niente
+     Gb                            Ebm                                     
+e in fondo, pensi, ci sarà un motivo, e cerchi a tutti i costi una ragione
+ B                             Db7                       Gb Ebm B Db7
+ eppure non c'è mai una ragione perché un amore debba finire!       - giro -

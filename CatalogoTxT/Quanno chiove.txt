@@ -1,20 +1,26 @@
 Introduzione: [Intro] 
 C   Cmaj7   C7   F     Em7    Dm7
 
-C                 Cmaj7            C7             F          Em7                   Dm7         
-E te sento quanno scinne 'e scale 'e corza senza guarda' e te veco tutt'e juorne ca ridenno vaje a fatica'
-                        C        Cmaj7             C7             F        Em7      Dm7        
-ma mo nun ride cchiu' e luntano se ne va tutta 'a vita accussi' e t'astipe pe nun muri'
+C                 Cmaj7            C7             F          Em7           
+E te sento quanno scinne 'e scale 'e corza senza guardà e te veco tutt'e
+        Dm7         
+juorne ca ridenno vaje a faticà
+                        C        Cmaj7             C7             F        
+ma mo nun ride cchiù e luntano se ne va tutta 'a vita accussì e t'astipe 
+Em7      Dm7        
+pe nun murì
 
-Ritornello: 
+Rit.: 
     Am           Em7 Fmaj7               Am7      Abmaj7             C   E7
-E aspietta che chiove,   l'acqua te 'nfonne e va   tanto l'aria s'adda cagna'
+E aspietta che chiove,   l'acqua te 'nfonne e va   tanto l'aria s'adda cagnà
    Am          Em Fmaj7         Am7        Abmaj7    C   Cmaj7 F  Em7  Dm7
-ma po quanno chiove, l'acqua te 'nfonne e va   tanto l'aria s'adda cagna'
+ma po quanno chiove, l'acqua te 'nfonne e va   tanto l'aria s'adda cagnà
  
-C                    Cmaj7                    C7     F           Em7         Dm7
-Se fa scuro e parla 'a luna, e te vieste pe senti'   pe te ogni cosa po' parla',
-C                    Cmaj7                    C7     F            Em7                Dm7
-ma te restano 'e parole e 'o scuorno 'e te 'ncuntra', ma passanno quaccheduno votta l'uocchie e se ne va.
+C                    Cmaj7                    C7     F           Em7        Dm7
+Se fa scuro e parla 'a luna, e te vieste pe sentì   pe te ogni cosa pò parlà,
+C                    Cmaj7                    C7     F            Em7      
+ma te restano 'e parole e 'o scuorno 'e te 'ncuntrà, ma passanno quaccheduno
+          Dm7
+ votta l'uocchie e se ne va.
  
-Ritornello.
+Rit.
