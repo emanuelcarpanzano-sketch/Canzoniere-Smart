@@ -289,7 +289,7 @@ window.catalogoChiesa = [
 
     { titolo: "Nasce l'amor", autore: "Gen Rosso" },
     { titolo: "Nel tuo silenzio", autore: "Gen" },
-    { titolo: "Noi canteremo gloria a Te", autore: "ouis Bourgeois Salterio Ginevrino 1510-1560" },
+    { titolo: "Noi canteremo gloria a Te", autore: "Louis Bourgeois Salterio Ginevrino 1510-1560" },
     { titolo: "Noi con Te", autore: "F. Buttazzo A. Beltrami" },
     { titolo: "Noi Ti lodiam", autore: "(T.) Antonio Gazzera, (M.) Piero Damilano" },
     { titolo: "Noi veglieremo", autore: "Domenico Marchetta" },
