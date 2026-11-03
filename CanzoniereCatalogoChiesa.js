@@ -98,7 +98,7 @@ window.catalogoChiesa = [
     { titolo: "Come un Fiume", autore: "Gen Rosso" },
     { titolo: "Come un prodigio", autore: "Debora Vezzani" },
     { titolo: "Come un rabdomante", autore: "Fra' Giuseppe Di Fatta" },
-    { titolo: "Con gioia veniamo a te", autore: "P. Ferrante  F.G. Pesare (RnS)" },
+    { titolo: "Con gioia veniamo a Te", autore: "P. Ferrante  F.G. Pesare (RnS)" },
     { titolo: "Con Te, camminerò", autore: "Gen Verde" },
     { titolo: "Cosa offrirti", autore: "Daniele Branca e Lucia Ciancio (RnS) 2005" },
     { titolo: "Credo in Te, o Padre", autore: "Anonimo" },
