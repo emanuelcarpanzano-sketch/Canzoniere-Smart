@@ -1,7 +1,5 @@
 // Il Catalogo centralizzato delle canzoni con gli autori
 window.catalogoChiesa = [
-    { titolo: "4 Marzo 43", autore: "Lucio Dalla - Sanremo 1971" },
-
     { titolo: "A braccia aperte", autore: "Emanuele Fossi" },
     { titolo: "A Natale puoi", autore: "Francesco Vitaloni 2005" },
     { titolo: "Abbà", autore: "De Luca, Aguila" },
