@@ -1,44 +1,48 @@
-Tonalità originale in D# - Eb (cioè Capotasto nel 3° tasto)
-
 Intro:      (I -  V - I -  V)
              Am   E7  Am  E7
 
-Am           E7           Am            E7
-1. Le mie ma-ni, con le Tu-e, possono fare meraviglie-e.
-Am                 E7           Am             E7
-Possono stri-nge-re, pe-rdo-na-re e costruire cattedrali-i.
-C      G           F  E7   Am     G           E7
-Possono dare da mangia-re e far fiorire una preghiera-a.
+   Am           E7           Am            E7
+1. Le mie mani, con le Tue, possono fare meraviglie.
+   Am           E7           Am            E7
+   Possono stringere e perdonare e costruire cattedrali.
+   C      G           F  E7   Am         G    E
+   Posson dare da mangiare e far fiorire una preghiera.
 
-RIT.:
-	       C      Cmaj7      C7                       F           Fm                         C
-	Perché Tu, [solo Tu, solo Tu Sei il mio Maestro e insegnami, ad amare come Hai fatto Tu con me,
-            Cmaj7        C7                          F       Fm                   C
-	se Lo vuoi, io lo grido a tutto il mondo che (Tu Sei, l'unico Maestro Sei per me.)] (Fin. 2V.)
+Rit.:
+	       C      Cmaj7      C7                       F           Fm          
+  Perché Tu, solo Tu, solo Tu Sei il mio Maestro e insegnami ad amare come 
+           C
+  hai fatto Tu con me,
+         C      Cmaj7       C7                      F     Fm               
+  se lo vuoi, io lo grido a tutto il mondo che Tu Sei, l'unico Maestro Sei 
+         C
+  per me.
 
-Am            E7           Am                  E7
-2. I miei pie-di, con i Tuo-i, possono fare strade nuove-e.
-Am             E7           Am                       E7
-Possono co-rre-re, ri-po-sa-re, sentirsi a casa in questo mo-ndo-o.
-C      G           F  E7   Am       G         E7
-Possono me-tte-re ra-di-ci-i e passo passo ca-mmi-nare-e.
+   Am           E7           Am            E7
+2. Questi occhi, con i Tuoi, potran vedere meraviglie,
+   Am           E7           Am            E7
+   Potranno piangere e luccicare, guardare oltre ogni frontiera.
+   C      G           F  E7   Am         G        E
+   Potranno amare più di ieri se sanno insieme a Te sognare.
 
-RIT.
+Rit.
 
-Am             E7           Am                      E7
-3. Questi o-cchi, con i Tuo-i, potran vedere me-ra-viglie-e.
-Am               E7              Am                        E7
-Potranno pia-nge-re, lu-cci-ca-re, guardare oltre ogni frontiera-a.
-C         G          F  E7   Am         G              E7
-Potranno amare più di ie-ri, se sanno insieme a Te sognare-e.
+   Am           E7           Am            E7
+3. Questi piedi, con i Tuoi, possono fare strade nuove,
+   Am           E7           Am            E7
+   Possono correre e riposare, sentirsi a casa in questo mondo.
+   C      G           F  E7   Am         G     E
+   Possono mettere radici e passo passo camminare.
 
-RIT.
+Rit.
 
-Am               E7               Am                         E7
-4. Tu Sei il co-rpo, noi le me-mbra, noi siamo un'unica preghiera-a.
-Am                 E7             Am                      E7
-Tu Sei il Maestro noi, i te-stimo-ni, della parola del Vangelo-o.
-C       G           F  E7  Am          G          E7
-Possiamo vi-ve-re fe-li-ci, in questa Chiesa che rinasce-e.
+   Am           E7           Am            E7
+4. Tu Sei il capo, noi le membra, diciamo un'unica preghiera,
+   Am           E7           Am            E7
+   Tu Sei il Maestro, noi, testimoni della parola del Vangelo.
+   C      G           F  E7   Am         G       E
+   Possiamo vivere felici in questa chiesa che rinasce.
 
-RIT. x2 
+Rit.   x2 
+                 Fm                     C
+         + 2v. L'unico Maestro Sei per me.
