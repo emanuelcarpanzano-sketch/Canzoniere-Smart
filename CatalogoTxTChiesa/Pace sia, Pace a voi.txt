@@ -1,36 +1,38 @@
 Intoduzione: 
-E A   E7  A B
+              E A   E7  A B
 
+Rit. 1:
            E                        A                C#m                  B
-Rit.1: "Pace sia, pace a voi": la tua pace sara'  sulla te-e-erra com'e' nei cie-li.
-           E                        A                 G              D             A    B
-      "Pace sia, pace a voi": la tua pace sara'  gioia ne-e-i no-stri o-cchi, nei cuo-o-ori.
-           E                        A                C#m                   B
-      "Pace sia, pace a voi": la tua pace sara'  luce lim-pi-da nei pen-sie-ri.
-           E                        A                E         B  E      A  E
-      "Pace sia, pace a voi": la tua pace sara'  una ca-sa per tu-tti.
+    "Pace sia, pace a voi": la tua pace sarà sulla terra com'è nei cieli.
+           E                        A          G              D          A   B
+    "Pace sia, pace a voi": la tua pace sarà gioia nei nostri occhi, nei cuori.
+           E                        A                C#m            B       
+    "Pace sia, pace a voi": la tua pace sarà luce limpida nei pensieri.
+           E                        A                E         B  E    A E
+    "Pace sia, pace a voi": la tua pace sarà una casa per tutti.
 
-  A      E                B       C#m         A      E             B  C#m 
-"Pace a voi": sia il tuo do-no vi-si-ibile; "Pace a voi": la tua e-re-dita'
-  A      E                B      C#m              D                       B
-"Pace a voi": come un canto all'u-ni-i-sono; che sa-le da-lle no-stre ci-tta-a-a-a'.
+     A      E                B       C#m         A      E             B  C#m 
+1. "Pace a voi": sia il tuo dono visiibile; "Pace a voi": la tua eredità
+     A      E                B      C#m              D                  B
+   "Pace a voi": come un canto all'unisono; che sale dalle nostre città.
 
 Rit. 
 
-  A      E               B        C#m       A      E            B   C#m
-"Pace a voi": sia un'impronta nei se-coli; "Pace a voi": se-gno d'u-nita'
-  A      E               B        C#m         D                          B          C#
-"Pace a voi": sia l'abbraccio tra i po-poli, la tua promessa all'u-ma-ni-ta-a-a-a'.
+     A      E               B        C#m       A      E            B   C#m
+2. "Pace a voi": sia un'impronta nei secoli; "Pace a voi": segno d'unità
+     A      E               B        C#m         D                 B   C#
+   "Pace a voi": sia l'abbraccio tra i popoli, la tua promessa all'umanità
+
 
 + 2 semitoni
-            F#                      B                D#m                   C#
-Rit.2:  "Pace sia, pace a voi": la tua pace sara'  sulla te-e-erra com'e' nei cie-li.
-            F#                      B                  A            E             B    C#
-      "Pace sia, pace a voi": la tua pace sara'  gioia ne-e-i no-stri o-cchi, nei cuo-o-ori.
+            F#                      B                D#m              C#       
+Rit.2: "Pace sia, pace a voi": la tua pace sarà  sulla terra com'è nei cieli.
+         F#                      B                  A           E    B  C#
+    "Pace sia, pace a voi": la tua pace sarà  gioia nei nostri occhi, nei cuori.
             F#                      B                D#m               C#
-      "Pace sia, pace a voi": la tua pace sara'  luce lim-pi-da nei pen-sie-ri.
-            F#                      B                F#       C#  B
-      "Pace sia, pace a voi": la tua pace sara'  una ca-sa per tu-tti.
+    "Pace sia, pace a voi": la tua pace sarà  luce limpida nei pensieri.
+            F#                      B             F#      C#  B
+    "Pace sia, pace a voi": la tua pace sarà  una casa per tutti.
        B  F#    C#  F#
       "PA-CE-E-E-E-E!
       R a l l e n t a n d o.
