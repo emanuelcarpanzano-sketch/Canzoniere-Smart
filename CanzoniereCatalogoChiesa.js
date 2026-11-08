@@ -1,5 +1,7 @@
 // Il Catalogo centralizzato delle canzoni con gli autori
 window.catalogoChiesa = [
+    { titolo: "4 Marzo 43", autore: "Lucio Dalla - Sanremo 1971" },
+
     { titolo: "A braccia aperte", autore: "Emanuele Fossi" },
     { titolo: "A Natale puoi", autore: "Francesco Vitaloni 2005" },
     { titolo: "Abbà", autore: "De Luca, Aguila" },
@@ -153,7 +155,6 @@ window.catalogoChiesa = [
     { titolo: "Figliol Prodigo - Abbracciami Gesù", autore: "Figli del Divino Amore" },
     { titolo: "Fissa gli occhi", autore: "Franco Costantini" },
     { titolo: "Fratello sole sorella luna (Dolce Sentire )", autore: "Ritz Ortolani" },
-    { titolo: "Fratello Sole", autore: "Ritz Ortolani" },
     { titolo: "FruttoDellaNostraTerra", autore: "Francesco Buttazzo 2000" },
     
     { titolo: "Gesù è la pace", autore: "RnS Kandela Groves" },
@@ -289,7 +290,7 @@ window.catalogoChiesa = [
 
     { titolo: "Nasce l'amor", autore: "Gen Rosso" },
     { titolo: "Nel tuo silenzio", autore: "Gen" },
-    { titolo: "Noi canteremo gloria a Te", autore: "Louis Bourgeois Salterio Ginevrino 1510-1560" },
+    { titolo: "Noi canteremo gloria a Te", autore: "ouis Bourgeois Salterio Ginevrino 1510-1560" },
     { titolo: "Noi con Te", autore: "F. Buttazzo A. Beltrami" },
     { titolo: "Noi Ti lodiam", autore: "(T.) Antonio Gazzera, (M.) Piero Damilano" },
     { titolo: "Noi veglieremo", autore: "Domenico Marchetta" },
@@ -396,7 +397,6 @@ window.catalogoChiesa = [
     { titolo: "Signore ci nutri alla Tua mensa", autore: "Francesco Buttazzo" },
     { titolo: "Signore Ti ringrazio perché (In Comunione)", autore: "Stefano Pianori" },
     { titolo: "Signore Ti ringrazio perché Foglio", autore: "Foglio" },
-    { titolo: "Signore Ti ringrazio perché Mamma Carmela", autore: "Mamma Carmela" },
     { titolo: "Signore, abbi pietà di noi", autore: "GianLuigi Serapiglia" },
     { titolo: "Signore, com'è bello", autore: "(Le Tende)- Claudio Chieffo" },
     { titolo: "Signore, Sei Tu il mio pastor", autore: "R. Jef (Stefani?)" },
