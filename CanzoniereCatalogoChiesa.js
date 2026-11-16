@@ -390,7 +390,7 @@ window.catalogoChiesa = [
     { titolo: "Servire è regnare", autore: "Gen Verde" },
     { titolo: "Servo per Amore", autore: "Gen Rosso" },
     { titolo: "Si accende una luce", autore: "Novena di Natale" },
-    { titolo: "Signor, fra le tende schierati (Canto del tramonto)", autore: "Canto Scout - padre Jacques Sevin},
+    { titolo: "Signor, fra le tende schierati (Canto del tramonto)", autore: "Canto Scout - padre Jacques Sevin" },
     { titolo: "Signor, Tu Sei la luce", autore: "Salmo 25?" },
     { titolo: "Signora dolce, Ave", autore: "Don Gaetano Tantalo" },
     { titolo: "Signore ascolta, Padre perdona", autore: "G. Stefani" },
