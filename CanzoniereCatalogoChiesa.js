@@ -469,7 +469,5 @@ window.catalogoChiesa = [
     { titolo: "Voglio tornar da mio Padre", autore: "Anonimo" },
 
     { titolo: "We shall overcome", autore: "Peter Seeger/Joan Baets, Reverend Charles Tindley of Philadelphia 1903" },
-
-    { titolo: "Yesterday", autore: "The Beatles da 'Help!' 1965" }
         
 ];
