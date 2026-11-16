@@ -20,7 +20,6 @@ window.catalogoChiesa = [
     { titolo: "Alla fredda Tua capanna", autore: "S. Zimarino" },
     { titolo: "Alla Tua mensa", autore: "RnS" },
     { titolo: "Alla tua presenza", autore: "Fabio Tiddia" },
-    { titolo: "Alleluia lode cosmica", autore: "Stefano Puri 2004" },
     { titolo: "Alleluja (Chiama ed io)", autore: "Luca Diliberto (T.) e Giuliana Monti (T.) 2013" },
     { titolo: "Alleluja (Dall'amore di Dio)", autore: "Fabio Baggio, Francesco Buttazzo 2014" },
     { titolo: "Alleluja (Lodate il Signore)", autore: "Don Marco Frisina" },
